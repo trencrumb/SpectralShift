@@ -29,6 +29,7 @@ PluginTemplateAudioProcessor::PluginTemplateAudioProcessor()
 
 PluginTemplateAudioProcessor::~PluginTemplateAudioProcessor()
 {
+    stretch.presetDefault(getTotalNumInputChannels(), getSampleRate(), false);
 }
 
 //==============================================================================
@@ -94,13 +95,26 @@ void PluginTemplateAudioProcessor::changeProgramName (int index, const juce::Str
 }
 
 //==============================================================================
-void PluginTemplateAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void PluginTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     isActive = true;
+
+    const int channels = getTotalNumInputChannels();
+
+    // Configure Signalsmith Stretch
+    stretch.presetDefault(channels, (int) sampleRate);
+    stretch.reset();
+
+    // Optional but recommended: inform the host about latency
+    const int inputLatency  = stretch.inputLatency();
+    const int outputLatency = stretch.outputLatency();
+    setLatencySamples(inputLatency + outputLatency);
+
     prepare(sampleRate, samplesPerBlock);
     update();
     reset();
 }
+
 
 void PluginTemplateAudioProcessor::releaseResources()
 {
@@ -134,9 +148,12 @@ bool PluginTemplateAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 }
 #endif
 
-void PluginTemplateAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
+                                                 juce::MidiBuffer& midiMessages)
 {
-    if (!isActive)
+    juce::ignoreUnused(midiMessages);
+
+    if (! isActive)
         return;
 
     if (mustUpdateProcessing)
@@ -144,7 +161,62 @@ void PluginTemplateAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
 
     juce::ScopedNoDenormals noDenormals;
 
-    // ...rest of your processing (distortion, volume, mix, etc.)...
+    const int numChannels = buffer.getNumChannels();
+    const int numSamples  = buffer.getNumSamples();
+
+    if (numChannels == 0 || numSamples == 0)
+        return;
+
+    // --- 1. Set pitch + formant (tonality limit) ---
+
+    // Example: use cached parameter values, or replace with constants
+    const float pitchSemitones     = currentPitchSemitones; // e.g. -12..+12
+    const float formantSemitones = currentFormantSemitones;  // 0..1
+    const bool formantCompensation = currentFormantPreservation;
+    const float tonalityLimit = static_cast<float>(currentTonalityHz / getSampleRate());
+    const float formantBaseHz = currentFormantBaseHz;
+
+    const double sampleRate   = getSampleRate();
+
+    stretch.setTransposeSemitones(pitchSemitones, tonalityLimit);
+    stretch.setFormantSemitones(12, true);
+    stretch.setFormantBase(formantBaseHz);
+    // JS implementation
+    //wasmModule._setTransposeSemitones(currentMapSegment.semitones, currentMapSegment.tonalityHz/sampleRate);
+    //wasmModule._setFormantSemitones(currentMapSegment.formantSemitones, currentMapSegment.formantCompensation);
+    //wasmModule._setFormantBase(currentMapSegment.formantBaseHz/sampleRate);
+
+    // --- 2. Prepare input/output pointer arrays ---
+
+    // Input pointers from JUCE buffer
+    std::vector<float*> inPtrs(numChannels);
+    for (int ch = 0; ch < numChannels; ++ch)
+        inPtrs[ch] = buffer.getWritePointer(ch); // or getReadPointer if you don't need in‑place mods after
+
+    // Temporary output buffer for processed audio
+    juce::AudioBuffer<float> outBuffer(numChannels, numSamples);
+    std::vector<float*> outPtrs(numChannels);
+    for (int ch = 0; ch < numChannels; ++ch)
+        outPtrs[ch] = outBuffer.getWritePointer(ch);
+
+    int inputSamples  = numSamples;
+    int outputSamples = numSamples; // ask for same length: we only want pitch shift
+
+    // --- 3. Process with Signalsmith Stretch ---
+
+    stretch.process(inPtrs.data(), inputSamples,
+                    outPtrs.data(), outputSamples);
+
+    // outputSamples may differ slightly; be safe when copying back
+    const int copySamples = std::min(numSamples, outputSamples);
+
+    // --- 4. Copy processed audio back into JUCE buffer ---
+
+    for (int ch = 0; ch < numChannels; ++ch)
+    {
+        buffer.clear(ch, 0, numSamples);
+        buffer.copyFrom(ch, 0, outBuffer, ch, 0, copySamples);
+    }
 }
 
 
@@ -156,8 +228,8 @@ bool PluginTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* PluginTemplateAudioProcessor::createEditor()
 {
-    return new PluginTemplateAudioProcessorEditor (*this);
-    //return new juce::GenericAudioProcessorEditor(*this);
+    //return new PluginTemplateAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -205,16 +277,28 @@ void PluginTemplateAudioProcessor::update()
     mustUpdateProcessing = false;
 
     //Load variables from APVTS
-    auto drive = apvts.getRawParameterValue("DRIVE");
-    auto volume = apvts.getRawParameterValue("VOL");
-    auto mix = apvts.getRawParameterValue("MIX");
+    //auto drive = apvts.getRawParameterValue("DRIVE");
+    //auto volume = apvts.getRawParameterValue("VOL");
+    //auto mix = apvts.getRawParameterValue("MIX");
+    auto* pitchParam   = apvts.getRawParameterValue("PITCH");
+    auto* formantParam = apvts.getRawParameterValue("FORMANT");
+    auto* formantCompensation = apvts.getRawParameterValue("FORMANT_COMPENSATION");
+    auto* tonalityHz = apvts.getRawParameterValue("TONALITY_HZ");
+    auto* formantBaseHz = apvts.getRawParameterValue("FORMANT_BASE_HZ");
 
-    driveNormal = drive->load();
+
+    //driveNormal = drive->load();
+    currentPitchSemitones = pitchParam->load();
+    currentFormantSemitones  = formantParam->load();
+    currentFormantPreservation = static_cast<bool>(formantCompensation->load());
+    currentTonalityHz = tonalityHz->load();
+    currentFormantBaseHz = formantBaseHz->load();
+
 
     for (int channel = 0; channel < 2; ++channel)
     {
-        outputVolume[channel].setTargetValue(juce::Decibels::decibelsToGain(volume->load()));
-        outputMix[channel].setTargetValue(mix->load());
+        //outputVolume[channel].setTargetValue(juce::Decibels::decibelsToGain(volume->load()));
+        //outputMix[channel].setTargetValue(mix->load());
     }
 
 }
@@ -229,6 +313,7 @@ void PluginTemplateAudioProcessor::reset()
         outputVolume[channel].reset(getSampleRate(), 0.001);
         outputMix[channel].reset(getSampleRate(), 0.001);
     }
+    stretch.reset();
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor::createParameters()
@@ -242,15 +327,39 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor
     std::function<float(const juce::String&)> textToValueFunction = [](const juce::String& str) { return str.getFloatValue(); };
 
     // Add a Drive Parameter to our vector of parameters
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>("DRIVE", "Drive", juce::NormalisableRange<float>(0.0f, 100.0f, 0.1f), 20.0f, "%", juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("DRIVE", "Drive", juce::NormalisableRange<float>(0.0f, 100.0f, 0.1f), 20.0f, "%", juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Add a Volume Parameter to our vector of parameters
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>("VOL", "Volume", juce::NormalisableRange<float>(-40.0f, 40.0f), 0.0f, "db", 
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("VOL", "Volume", juce::NormalisableRange<float>(-40.0f, 40.0f), 0.0f, "db",
+    //    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Add a Wet/Dry Parameter to our vector of parameters
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>("MIX", "Mix", juce::NormalisableRange<float>(0.0f, 100.0f, 0.5f), 0.0f, "%",
+    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("MIX", "Mix", juce::NormalisableRange<float>(0.0f, 100.0f, 0.5f), 0.0f, "%",
+    //    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "PITCH", "Pitch",
+        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "semitones",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "FORMANT", "Formant",
+        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "semitones",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterBool>(
+        "FORMANT_COMPENSATION", "Formant Compensation", true));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "TONALITY_HZ", "Tonality Hz",
+        juce::NormalisableRange<float>(200.0f, 20000.0f, 1.0f), 8000.0f, "Hz",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "FORMANT_BASE_HZ", "Formant Base Hz",
+        juce::NormalisableRange<float>(0.0f, 500.0f, 1.0f), 200.0f, "Hz",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
 
 
 

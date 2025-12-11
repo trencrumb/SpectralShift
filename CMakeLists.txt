@@ -27,6 +27,13 @@ CPMAddPackage(
     GIT_TAG origin/master
 )
 
+CPMAddPackage(
+        NAME stretch
+        GIT_REPOSITORY https://github.com/Signalsmith-Audio/signalsmith-stretch.git
+        GIT_TAG origin/main
+)
+
+
 # Make sure you include any new source files here
 set(SourceFiles
         Source/PluginEditor.cpp
@@ -57,6 +64,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
 # Make the SourceFiles buildable
 target_sources(${PROJECT_NAME} PRIVATE ${SourceFiles})
 
+
 # These are some toggleable options from the JUCE CMake API
 target_compile_definitions(${PROJECT_NAME}
     PUBLIC
@@ -68,6 +76,7 @@ target_compile_definitions(${PROJECT_NAME}
 # JUCE libraries to bring into our project
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
+        signalsmith-stretch
         juce::juce_analytics
         juce::juce_audio_basics
         juce::juce_audio_devices

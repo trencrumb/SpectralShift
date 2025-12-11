@@ -10,6 +10,7 @@
 
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <signalsmith-stretch/signalsmith-stretch.h>
 
 //==============================================================================
 /**
@@ -88,6 +89,15 @@ private:
     juce::LinearSmoothedValue<float> driveNormal{ 0.0 };
     juce::LinearSmoothedValue<float> outputVolume[2]{ 0.0 };
     juce::LinearSmoothedValue<float> outputMix[2]{ 0.0 };
+
+    signalsmith::stretch::SignalsmithStretch<float> stretch;
+
+    float currentPitchSemitones { 0.0f };
+    float currentFormantSemitones  { 0.0f };
+    bool currentFormantPreservation { true };
+    float currentTonalityHz { 0.0f };
+    float currentFormantBaseHz { 0.0f };
+
 
     // Called when user changes a parameter
     void valueTreePropertyChanged(juce::ValueTree& tree, const juce::Identifier& property) override

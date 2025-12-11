@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+  <dict>
+    <key>CFBundleExecutable</key>
+    <string>PluginTemplate</string>
+    <key>CFBundleIconFile</key>
+    <string></string>
+    <key>CFBundleIdentifier</key>
+    <string>com.trencrumb.PluginTemplate</string>
+    <key>CFBundleName</key>
+    <string>PluginTemplate</string>
+    <key>CFBundleDisplayName</key>
+    <string>PluginTemplate</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.1</string>
+    <key>CFBundleVersion</key>
+    <string>0.0.1</string>
+    <key>NSHumanReadableCopyright</key>
+    <string></string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>AudioComponents</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>trencrumb: PluginTemplate</string>
+        <key>description</key>
+        <string>PluginTemplate</string>
+        <key>factoryFunction</key>
+        <string>PluginTemplateAUFactory</string>
+        <key>manufacturer</key>
+        <string>TreC</string>
+        <key>type</key>
+        <string>aufx</string>
+        <key>subtype</key>
+        <string>Reg0</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>resourceUsage</key>
+        <dict>
+          <key>network.client</key>
+          <true/>
+          <key>temporary-exception.files.all.read-write</key>
+          <true/>
+        </dict>
+      </dict>
+    </array>
+  </dict>
+</plist>

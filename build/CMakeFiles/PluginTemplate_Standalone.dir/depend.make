@@ -1,0 +1,2 @@
+# Empty dependencies file for PluginTemplate_Standalone.
+# This may be replaced when dependencies are built.
