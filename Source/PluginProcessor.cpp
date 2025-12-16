@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-PluginTemplateAudioProcessor::PluginTemplateAudioProcessor()
+SpectralShiftAudioProcessor::SpectralShiftAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -23,22 +23,22 @@ PluginTemplateAudioProcessor::PluginTemplateAudioProcessor()
                        ), apvts(*this, nullptr, "Parameters", createParameters())
 #endif
 {
-    apvts.state.addListener(this); // [2] Add this too!
+    apvts.state.addListener(this);
     init();
 }
 
-PluginTemplateAudioProcessor::~PluginTemplateAudioProcessor()
+SpectralShiftAudioProcessor::~SpectralShiftAudioProcessor()
 {
     stretch.presetDefault(getTotalNumInputChannels(), getSampleRate(), false);
 }
 
 //==============================================================================
-const juce::String PluginTemplateAudioProcessor::getName() const
+const juce::String SpectralShiftAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool PluginTemplateAudioProcessor::acceptsMidi() const
+bool SpectralShiftAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -47,7 +47,7 @@ bool PluginTemplateAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool PluginTemplateAudioProcessor::producesMidi() const
+bool SpectralShiftAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -56,7 +56,7 @@ bool PluginTemplateAudioProcessor::producesMidi() const
    #endif
 }
 
-bool PluginTemplateAudioProcessor::isMidiEffect() const
+bool SpectralShiftAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -65,50 +65,71 @@ bool PluginTemplateAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double PluginTemplateAudioProcessor::getTailLengthSeconds() const
+double SpectralShiftAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int PluginTemplateAudioProcessor::getNumPrograms()
+int SpectralShiftAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
+        return (int) presets.size();
+   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int PluginTemplateAudioProcessor::getCurrentProgram()
+int SpectralShiftAudioProcessor::getCurrentProgram()
 {
-    return 0;
+    return currentPresetIndex < 0 ? 0 : currentPresetIndex;
 }
 
-void PluginTemplateAudioProcessor::setCurrentProgram (int index)
+void SpectralShiftAudioProcessor::setCurrentProgram (int index)
 {
+    setPreset (index);
+
 }
 
-const juce::String PluginTemplateAudioProcessor::getProgramName (int index)
+const juce::String SpectralShiftAudioProcessor::getProgramName (int index)
 {
-    return {};
+    if (index < 0 || index >= (int) presets.size())
+        return {};
+
+    return presets[(size_t) index].name;
 }
 
-void PluginTemplateAudioProcessor::changeProgramName (int index, const juce::String& newName)
+
+void SpectralShiftAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
+    if (index < 0 || index >= (int) presets.size())
+        return;
+
+    presets[(size_t) index].name = newName;
 }
+
 
 //==============================================================================
-void PluginTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void SpectralShiftAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     isActive = true;
 
     const int channels = getTotalNumInputChannels();
 
-    // Configure Signalsmith Stretch
-    stretch.presetDefault(channels, (int) sampleRate);
+    stretch.presetDefault(channels, static_cast<int>(sampleRate), true);
     stretch.reset();
 
-    // Optional but recommended: inform the host about latency
+    stretchBuffer.setSize(channels, samplesPerBlock);
+    inPtrs.resize(channels);
+    outPtrs.resize(channels);
+
     const int inputLatency  = stretch.inputLatency();
     const int outputLatency = stretch.outputLatency();
     setLatencySamples(inputLatency + outputLatency);
+
+    juce::dsp::ProcessSpec spec{};
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = channels;
+    tiltEQ.prepare(spec);
+    transientShaper.prepare(spec.sampleRate);
 
     prepare(sampleRate, samplesPerBlock);
     update();
@@ -116,14 +137,14 @@ void PluginTemplateAudioProcessor::prepareToPlay (double sampleRate, int samples
 }
 
 
-void PluginTemplateAudioProcessor::releaseResources()
+void SpectralShiftAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool PluginTemplateAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool SpectralShiftAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -148,7 +169,7 @@ bool PluginTemplateAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 }
 #endif
 
-void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
+void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                                  juce::MidiBuffer& midiMessages)
 {
     juce::ignoreUnused(midiMessages);
@@ -164,43 +185,52 @@ void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     const int numChannels = buffer.getNumChannels();
     const int numSamples  = buffer.getNumSamples();
 
+    stretchBuffer.setSize (numChannels, numSamples, false, false, true);
+
+
     if (numChannels == 0 || numSamples == 0)
         return;
 
-    // --- 1. Set pitch + formant (tonality limit) ---
+    //const double sr = getSampleRate();
 
-    // Example: use cached parameter values, or replace with constants
-    const float pitchSemitones     = currentPitchSemitones; // e.g. -12..+12
-    const float formantSemitones = currentFormantSemitones;  // 0..1
+    //float tonalityLimitNorm = 0.0f;
+    //float formantBaseNorm   = 0.0f;
+
+    //if (sr > 0.0)
+    //{
+    //    tonalityLimitNorm = juce::jlimit (0.0f, 0.5f, currentTonalityHz   / (float) sr);
+    //    formantBaseNorm   = juce::jlimit (0.0f, 0.5f, currentFormantBaseHz / (float) sr);
+    //}
+
+    const float pitchSemitones     = currentPitchSemitones;
+    const float formantSemitones = currentFormantSemitones;
     const bool formantCompensation = currentFormantPreservation;
-    const float tonalityLimit = static_cast<float>(currentTonalityHz / getSampleRate());
+    const float tonalityLimit = currentTonalityHz;
     const float formantBaseHz = currentFormantBaseHz;
 
-    const double sampleRate   = getSampleRate();
+    const float tiltCentreHz = currentTiltCentreHz;
+    const float tiltGainDB = currentTiltGainDB;
 
     stretch.setTransposeSemitones(pitchSemitones, tonalityLimit);
-    stretch.setFormantSemitones(12, true);
+    stretch.setFormantSemitones(formantSemitones, formantCompensation);
     stretch.setFormantBase(formantBaseHz);
-    // JS implementation
-    //wasmModule._setTransposeSemitones(currentMapSegment.semitones, currentMapSegment.tonalityHz/sampleRate);
-    //wasmModule._setFormantSemitones(currentMapSegment.formantSemitones, currentMapSegment.formantCompensation);
-    //wasmModule._setFormantBase(currentMapSegment.formantBaseHz/sampleRate);
+
+
+    tiltEQ.setCentreFrequency(tiltCentreHz);
+    tiltEQ.setGainDb(tiltGainDB);
+
 
     // --- 2. Prepare input/output pointer arrays ---
 
-    // Input pointers from JUCE buffer
-    std::vector<float*> inPtrs(numChannels);
     for (int ch = 0; ch < numChannels; ++ch)
-        inPtrs[ch] = buffer.getWritePointer(ch); // or getReadPointer if you don't need in‑place mods after
+    {
+        inPtrs[ch]  = const_cast<std::vector<float *>::value_type>(buffer.getReadPointer(ch));
+        outPtrs[ch] = stretchBuffer.getWritePointer (ch);
+    }
 
-    // Temporary output buffer for processed audio
-    juce::AudioBuffer<float> outBuffer(numChannels, numSamples);
-    std::vector<float*> outPtrs(numChannels);
-    for (int ch = 0; ch < numChannels; ++ch)
-        outPtrs[ch] = outBuffer.getWritePointer(ch);
 
     int inputSamples  = numSamples;
-    int outputSamples = numSamples; // ask for same length: we only want pitch shift
+    int outputSamples = numSamples;
 
     // --- 3. Process with Signalsmith Stretch ---
 
@@ -215,25 +245,37 @@ void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     for (int ch = 0; ch < numChannels; ++ch)
     {
         buffer.clear(ch, 0, numSamples);
-        buffer.copyFrom(ch, 0, outBuffer, ch, 0, copySamples);
+        buffer.copyFrom(ch, 0, stretchBuffer, ch, 0, copySamples);
+
     }
+    tiltEQ.process (buffer);
+
+    //for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    //{
+   //     auto* data = buffer.getWritePointer(ch);
+//
+//        for (int i = 0; i < buffer.getNumSamples(); ++i)
+//            data[i] = i;
+//            //data[i] = transientShaper.processSample(data[i]);
+//    }
+
 }
 
 
 //==============================================================================
-bool PluginTemplateAudioProcessor::hasEditor() const
+bool SpectralShiftAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* PluginTemplateAudioProcessor::createEditor()
+juce::AudioProcessorEditor* SpectralShiftAudioProcessor::createEditor()
 {
-    //return new PluginTemplateAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor(*this);
+    return new SpectralShiftAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void PluginTemplateAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void SpectralShiftAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -249,7 +291,7 @@ void PluginTemplateAudioProcessor::getStateInformation (juce::MemoryBlock& destD
     copyXmlToBinary(*xml.get(), destData);
 }
 
-void PluginTemplateAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void SpectralShiftAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -264,59 +306,110 @@ void PluginTemplateAudioProcessor::setStateInformation (const void* data, int si
     apvts.replaceState(copyState);
 }
 
-void PluginTemplateAudioProcessor::init()
+void SpectralShiftAudioProcessor::init()
+{
+    presets = {
+        {
+            "Subtle Brighten",
+            {
+                    { "PITCH_SEMITONES",   2.0f },
+                    { "PITCH_CENTS",       0.0f },
+                    { "FORMANT_SEMITONES", 1.0f },
+                    { "FORMANT_CENTS",     0.0f },
+                    { "FORMANT_COMPENSATION", 1.0f },
+                    { "TONALITY_HZ",       6000.0f },
+                    { "FORMANT_BASE_HZ",   200.0f },
+                    { "TILT_CENTRE_HZ",    4000.0f },
+                    { "TILT_GAIN_DB",      1.5f },
+                }
+        },
+        {
+            "Thick Low",
+            {
+                    { "PITCH_SEMITONES",   7.0f },
+                    { "PITCH_CENTS",       0.0f },
+                    { "FORMANT_SEMITONES", -5.0f },
+                    { "FORMANT_CENTS",     0.0f },
+                    { "FORMANT_COMPENSATION", 1.0f },
+                    { "TONALITY_HZ",       3000.0f },
+                    { "FORMANT_BASE_HZ",   150.0f },
+                    { "TILT_CENTRE_HZ",    1000.0f },
+                    { "TILT_GAIN_DB",     -2.0f },
+                }
+        }
+    };
+}
+
+void SpectralShiftAudioProcessor::prepare(double sampleRate, int samplesPerBlock)
 {
 }
 
-void PluginTemplateAudioProcessor::prepare(double sampleRate, int samplesPerBlock)
+void SpectralShiftAudioProcessor::setPreset (int index)
 {
+    if (index < 0 || index >= (int) presets.size())
+        return;
+
+    const auto& preset = presets[(size_t) index];
+
+    juce::ScopedValueSetter<bool> svs (mustUpdateProcessing, true, false);
+
+    for (const auto& [paramID, value] : preset.values)
+    {
+        if (auto* param = apvts.getParameter (paramID))
+            param->setValueNotifyingHost (param->getNormalisableRange().convertTo0to1 (value));
+    }
+
+    currentPresetIndex = index;
 }
 
-void PluginTemplateAudioProcessor::update()
+
+void SpectralShiftAudioProcessor::update()
 {
     mustUpdateProcessing = false;
+    auto* pitchSemiParam   = apvts.getRawParameterValue("PITCH_SEMITONES");
+    auto* pitchCentsParam  = apvts.getRawParameterValue("PITCH_CENTS");
+    auto* formSemiParam    = apvts.getRawParameterValue("FORMANT_SEMITONES");
+    auto* formCentsParam   = apvts.getRawParameterValue("FORMANT_CENTS");
+    auto* formCompParam    = apvts.getRawParameterValue("FORMANT_COMPENSATION");
+    auto* tonalityHzParam  = apvts.getRawParameterValue("TONALITY_HZ");
+    auto* formantBaseParam = apvts.getRawParameterValue("FORMANT_BASE_HZ");
 
-    //Load variables from APVTS
-    //auto drive = apvts.getRawParameterValue("DRIVE");
-    //auto volume = apvts.getRawParameterValue("VOL");
-    //auto mix = apvts.getRawParameterValue("MIX");
-    auto* pitchParam   = apvts.getRawParameterValue("PITCH");
-    auto* formantParam = apvts.getRawParameterValue("FORMANT");
-    auto* formantCompensation = apvts.getRawParameterValue("FORMANT_COMPENSATION");
-    auto* tonalityHz = apvts.getRawParameterValue("TONALITY_HZ");
-    auto* formantBaseHz = apvts.getRawParameterValue("FORMANT_BASE_HZ");
+    auto* transAttackParam  = apvts.getRawParameterValue("TRANS_ATTACK_DB");
+    auto* transSustainParam = apvts.getRawParameterValue("TRANS_SUSTAIN_DB");
 
-
-    //driveNormal = drive->load();
-    currentPitchSemitones = pitchParam->load();
-    currentFormantSemitones  = formantParam->load();
-    currentFormantPreservation = static_cast<bool>(formantCompensation->load());
-    currentTonalityHz = tonalityHz->load();
-    currentFormantBaseHz = formantBaseHz->load();
+    auto* tiltCentreHzParam = apvts.getRawParameterValue("TILT_CENTRE_HZ");
+    auto* tiltGainDBParam = apvts.getRawParameterValue("TILT_GAIN_DB");
 
 
-    for (int channel = 0; channel < 2; ++channel)
+    const float pitchSemi  = pitchSemiParam->load();
+    const float pitchCents = pitchCentsParam->load();
+    const float formSemi   = formSemiParam->load();
+    const float formCents  = formCentsParam->load();
+
+    currentPitchSemitones   = pitchSemi + pitchCents / 100.0f;
+    currentFormantSemitones = formSemi  + formCents  / 100.0f;
+
+    currentFormantPreservation = (formCompParam->load() >= 0.5f);
+    currentTonalityHz          = tonalityHzParam->load();
+    currentFormantBaseHz       = formantBaseParam->load();
+
+    if (transAttackParam && transSustainParam)
     {
-        //outputVolume[channel].setTargetValue(juce::Decibels::decibelsToGain(volume->load()));
-        //outputMix[channel].setTargetValue(mix->load());
+        currentAttackDB  = transAttackParam->load();
+        currentSustainDB = transSustainParam->load();
+        transientShaper.setParameters(juce::Decibels::decibelsToGain(currentAttackDB), juce::Decibels::decibelsToGain(currentSustainDB));
     }
 
+    currentTiltCentreHz        = tiltCentreHzParam->load();
+    currentTiltGainDB          = tiltGainDBParam->load();
 }
 
-void PluginTemplateAudioProcessor::reset()
+void SpectralShiftAudioProcessor::reset()
 {
-    driveNormal.reset(getSampleRate(), 0.050);
-
-    for (int channel = 0; channel < 2; ++channel)
-    {
-        // reset(sampleRate, rampLength in seconds)
-        outputVolume[channel].reset(getSampleRate(), 0.001);
-        outputMix[channel].reset(getSampleRate(), 0.001);
-    }
     stretch.reset();
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor::createParameters()
+juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor::createParameters()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
 
@@ -337,14 +430,28 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor
     //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("MIX", "Mix", juce::NormalisableRange<float>(0.0f, 100.0f, 0.5f), 0.0f, "%",
     //    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
+    // Pitch in semitones
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "PITCH", "Pitch",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "semitones",
+        "PITCH_SEMITONES", "Pitch (semitones)",
+        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "st",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
+    // Pitch in cents
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "FORMANT", "Formant",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "semitones",
+        "PITCH_CENTS", "Pitch (cents)",
+        juce::NormalisableRange<float>(-200.0f, 200.0f, 1.0f), 0.0f, "c",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    // Formant in semitones
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "FORMANT_SEMITONES", "Formant (semitones)",
+        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "st",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    // Formant in cents
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "FORMANT_CENTS", "Formant (cents)",
+        juce::NormalisableRange<float>(-200.0f, 200.0f, 1.0f), 0.0f, "c",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     parameters.push_back(std::make_unique<juce::AudioParameterBool>(
@@ -357,11 +464,25 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor
 
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
         "FORMANT_BASE_HZ", "Formant Base Hz",
-        juce::NormalisableRange<float>(0.0f, 500.0f, 1.0f), 200.0f, "Hz",
+        juce::NormalisableRange<float>(0.0f, 500.0f, 1.0f), 0.0f, "Hz",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+    "TRANS_ATTACK_DB", "Transient Attack dB",
+    juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
+    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "TRANS_SUSTAIN_DB", "Transient Sustain dB",
+        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
+    parameters.push_back(std::make_unique<juce::AudioParameterInt>(
+        "TILT_CENTRE_HZ", "Tilt Centre Hz", 20, 20000, 2000, "Hz", valueToTextFunction, textToValueFunction));
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "TILT_GAIN_DB", "Tilt Gain db",
+        juce::NormalisableRange<float>(-6.0f, 6.0f, 0.001f), 0.0f, "dB",
+        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     return { parameters.begin(), parameters.end() };
 }
@@ -370,5 +491,5 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new PluginTemplateAudioProcessor();
+    return new SpectralShiftAudioProcessor();
 }

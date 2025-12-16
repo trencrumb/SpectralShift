@@ -10,15 +10,16 @@
 
 #include <juce_audio_basics/juce_audio_basics.h>
 #include "PluginProcessor.h"
+#include "Component/XYPad.h"
 
 //==============================================================================
 /**
 */
-class PluginTemplateAudioProcessorEditor  : public juce::AudioProcessorEditor
+class SpectralShiftAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    PluginTemplateAudioProcessorEditor (PluginTemplateAudioProcessor&);
-    ~PluginTemplateAudioProcessorEditor() override;
+    explicit SpectralShiftAudioProcessorEditor (SpectralShiftAudioProcessor&);
+    ~SpectralShiftAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -29,19 +30,33 @@ public:
 
 private:
 
-    // Slider Objects
-    std::unique_ptr<juce::Slider> driveSlider, volSlider, mixSlider;
+    SpectralShiftAudioProcessor& audioProcessor;
 
-    // Slider Label Objects
-    std::unique_ptr<juce::Label> driveLabel, volLabel, mixLabel;
+    std::unique_ptr<juce::Slider> pitchSemitonesSlider, pitchCentsSlider,
+        formantSemitonesSlider, formantCentsSlider,
+        formantBaseHzSlider, tonalityHzSlider,
+        transientAttackDBSlider, transientSustainDBSlider,
+        tiltCentreHzSlider, tiltGainDbSlider;
 
+    std::unique_ptr<juce::ToggleButton> formantCompensationToggle;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> formantCompensationAttachment;
 
-    // Attachments
-    std::unique_ptr<Attachment> driveAttachment, volAttachment, mixAttachment;
+    std::unique_ptr<juce::Label> pitchSemitonesLabel, pitchCentsLabel,
+        formantSemitonesLabel, formantCentsLabel,
+        formantBaseHzLabel, tonalityHzLabel,
+        transientAttackDBLabel, transientSustainDBLabel,
+        tiltCentreHzLabel, tiltGainDbLabel;
 
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    PluginTemplateAudioProcessor& audioProcessor;
+    std::unique_ptr<Attachment> pitchSemitonesAttachment, pitchCentsAttachment,
+        formantSemitonesAttachment, formantCentsAttachment,
+        formantBaseHzAttachment, tonalityHzAttachment,
+        transientAttackDBAttachment, transientSustainDBAttachment,
+        tiltCentreHzAttachment, tiltGainDbAttachment;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginTemplateAudioProcessorEditor)
+    XYPad xyPad;
+
+    // control whether all slider text boxes are editable (single central flag)
+    static constexpr bool editableTextLabels = false;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectralShiftAudioProcessorEditor)
 };

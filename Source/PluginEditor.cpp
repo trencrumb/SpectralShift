@@ -1,121 +1,309 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 //==============================================================================
-PluginTemplateAudioProcessorEditor::PluginTemplateAudioProcessorEditor (PluginTemplateAudioProcessor& p)
+SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralShiftAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Volume Slider
-    driveSlider = std::make_unique<juce::Slider>(juce::Slider::SliderStyle::RotaryVerticalDrag, juce::Slider::TextBoxBelow);
-    addAndMakeVisible(driveSlider.get());
+    const bool editableTextLabels = true;
 
-    // Volume Label
-    driveLabel = std::make_unique<juce::Label>("", "Drive");
-    addAndMakeVisible(driveLabel.get());
-    driveLabel->attachToComponent(driveSlider.get(), false);
-    driveLabel->setJustificationType(juce::Justification::centred);
+    addAndMakeVisible(xyPad);
 
-    // Volume Slider
-    volSlider = std::make_unique<juce::Slider>(juce::Slider::SliderStyle::RotaryVerticalDrag, juce::Slider::TextBoxBelow);
-    addAndMakeVisible(volSlider.get());
+    // ================== Pitch (semitones) ==================
+    pitchSemitonesSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+    );
+    pitchSemitonesSlider->setRange(-12.0, 12.0, 0.01);
+    pitchSemitonesSlider->setTextValueSuffix(" st");
+    pitchSemitonesSlider->setNumDecimalPlacesToDisplay(2);
+    pitchSemitonesSlider->setTextBoxIsEditable(editableTextLabels);
+    pitchSemitonesSlider->setTooltip("Pitch shift in semitones (coarse)");
+    pitchSemitonesSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*pitchSemitonesSlider);
 
-    // Volume Label
-    volLabel = std::make_unique<juce::Label>("", "Volume");
-    addAndMakeVisible(volLabel.get());
-    volLabel->attachToComponent(volSlider.get(), false);
-    volLabel->setJustificationType(juce::Justification::centred);
 
-    // mix Slider
-    mixSlider = std::make_unique<juce::Slider>(juce::Slider::SliderStyle::RotaryVerticalDrag, juce::Slider::TextBoxBelow);
-    addAndMakeVisible(mixSlider.get());
+    // ================== Pitch (cents) ==================
+    pitchCentsSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+    );
+    pitchCentsSlider->setRange(-200.0, 200.0, 1.0);
+    pitchCentsSlider->setTextValueSuffix(" c");
+    pitchCentsSlider->setNumDecimalPlacesToDisplay(0);
+    pitchCentsSlider->setTextBoxIsEditable(editableTextLabels);
+    pitchCentsSlider->setTooltip("Pitch fine-tuning in cents (±100 per semitone)");
+    pitchCentsSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*pitchCentsSlider);
 
-    // mix Label
-    mixLabel = std::make_unique<juce::Label>("", "Wet/Dry");
-    addAndMakeVisible(mixLabel.get());
-    mixLabel->attachToComponent(mixSlider.get(), false);
-    mixLabel->setJustificationType(juce::Justification::centred);
+    // ================== Formant (semitones) ==================
+    formantSemitonesSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+    );
+    formantSemitonesSlider->setRange(-12.0, 12.0, 0.01);
+    formantSemitonesSlider->setTextValueSuffix(" st");
+    formantSemitonesSlider->setNumDecimalPlacesToDisplay(2);
+    formantSemitonesSlider->setTextBoxIsEditable(editableTextLabels);
+    formantSemitonesSlider->setTooltip("Formant shift in semitones (coarse)");
+    formantSemitonesSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*formantSemitonesSlider);
 
-    // Attachments
-    //using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
 
-    driveAttachment = std::make_unique<Attachment>(audioProcessor.apvts, "DRIVE", *driveSlider);
-    volAttachment = std::make_unique<Attachment>(audioProcessor.apvts, "VOL", *volSlider);
-    mixAttachment = std::make_unique<Attachment>(audioProcessor.apvts, "MIX", *mixSlider);
+    // ================== Formant (cents) ==================
+    formantCentsSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+    );
+    formantCentsSlider->setRange(-200.0, 200.0, 1.0);
+    formantCentsSlider->setTextValueSuffix(" c");
+    formantCentsSlider->setNumDecimalPlacesToDisplay(0);
+    formantCentsSlider->setTextBoxIsEditable(editableTextLabels);
+    formantCentsSlider->setTooltip("Formant fine-tuning in cents");
+    formantCentsSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*formantCentsSlider);
 
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (600, 400);
+    // ================== Formant Settings ==================
+
+    formantCompensationToggle = std::make_unique<juce::ToggleButton>(
+        "Formant Compensation"
+    );
+    addAndMakeVisible(*formantCompensationToggle);
+
+    // ================== Transient Settings ==============
+
+    transientAttackDBSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+        );
+    transientAttackDBSlider->setTextValueSuffix(" dB");
+    transientAttackDBSlider->setNumDecimalPlacesToDisplay(2);
+    transientAttackDBSlider->setTextBoxIsEditable(editableTextLabels);
+    transientAttackDBSlider->setTooltip("Transient attack amount (dB)");
+    transientAttackDBSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*transientAttackDBSlider);
+
+
+    transientSustainDBSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+        );
+    transientSustainDBSlider->setTextValueSuffix(" dB");
+    transientSustainDBSlider->setNumDecimalPlacesToDisplay(2);
+    transientSustainDBSlider->setTextBoxIsEditable(editableTextLabels);
+    transientSustainDBSlider->setTooltip("Transient sustain amount (dB)");
+    transientSustainDBSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*transientSustainDBSlider);
+
+
+    // ================== XY Pad bindings ==================
+    xyPad.registerSlider(pitchSemitonesSlider.get(), XYPad::Axis::X);
+    xyPad.registerSlider(formantSemitonesSlider.get(), XYPad::Axis::Y);
+
+    // ================== Stretch Settings =================
+    formantBaseHzSlider = std::make_unique<juce::Slider>(
+        juce::Slider::LinearHorizontal,
+        juce::Slider::TextBoxBelow
+    );
+    formantBaseHzSlider->setRange(0.0, 500.0, 1.0);
+    formantBaseHzSlider->setTextValueSuffix(" Hz");
+    formantBaseHzSlider->setNumDecimalPlacesToDisplay(2);
+    formantBaseHzSlider->setTextBoxIsEditable(editableTextLabels);
+    formantBaseHzSlider->setTooltip("Formant base frequency for stretching");
+    addAndMakeVisible(*formantBaseHzSlider);
+
+    tonalityHzSlider = std::make_unique<juce::Slider>(
+        juce::Slider::LinearHorizontal,
+        juce::Slider::TextBoxBelow
+        );
+    tonalityHzSlider->setRange(0.0, 500.0, 1.0);
+    tonalityHzSlider->setTextValueSuffix(" Hz");
+    tonalityHzSlider->setNumDecimalPlacesToDisplay(2);
+    tonalityHzSlider->setTextBoxIsEditable(editableTextLabels);
+    tonalityHzSlider->setTooltip("Tonality analysis limit (Hz)");
+    addAndMakeVisible(*tonalityHzSlider);
+
+    // ================ Tilt Controls ==================
+    tiltCentreHzSlider = std::make_unique<juce::Slider>(
+        juce::Slider::LinearHorizontal,
+        juce::Slider::TextBoxBelow
+    );
+    // match processor parameter: 20..20000 (int)
+    tiltCentreHzSlider->setRange(20.0, 20000.0, 1.0);
+    tiltCentreHzSlider->setTextValueSuffix(" Hz");
+    tiltCentreHzSlider->setNumDecimalPlacesToDisplay(0);
+    tiltCentreHzSlider->setTextBoxIsEditable(editableTextLabels);
+    tiltCentreHzSlider->setTooltip("Tilt centre frequency (Hz)");
+    addAndMakeVisible(*tiltCentreHzSlider);
+
+
+    tiltGainDbSlider = std::make_unique<juce::Slider>(
+        juce::Slider::RotaryVerticalDrag,
+        juce::Slider::TextBoxBelow
+    );
+    tiltGainDbSlider->setRange(-6.0, 6.0, 0.01);
+    tiltGainDbSlider->setTextValueSuffix(" dB");
+    tiltGainDbSlider->setNumDecimalPlacesToDisplay(2);
+    tiltGainDbSlider->setTextBoxIsEditable(editableTextLabels);
+    tiltGainDbSlider->setTextBoxIsEditable(editableTextLabels);
+    tiltGainDbSlider->setTooltip("Tilt gain in dB (slope around centre)");
+    tiltGainDbSlider->setColour(juce::Slider::thumbColourId, juce::Colours::lightgrey);
+    addAndMakeVisible(*tiltGainDbSlider);
+
+    // Create labels for tilt controls
+    tiltCentreHzLabel = std::make_unique<juce::Label>("", "Tilt Centre");
+    addAndMakeVisible(*tiltCentreHzLabel);
+    tiltCentreHzLabel->attachToComponent(tiltCentreHzSlider.get(), false);
+    tiltCentreHzLabel->setJustificationType(juce::Justification::centred);
+
+    tiltGainDbLabel = std::make_unique<juce::Label>("", "Tilt Gain");
+    addAndMakeVisible(*tiltGainDbLabel);
+    tiltGainDbLabel->attachToComponent(tiltGainDbSlider.get(), false);
+    tiltGainDbLabel->setJustificationType(juce::Justification::centred);
+
+    // ...attachments
+    pitchSemitonesAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "PITCH_SEMITONES",
+                                     *pitchSemitonesSlider);
+    pitchCentsAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "PITCH_CENTS",
+                                     *pitchCentsSlider);
+    formantSemitonesAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "FORMANT_SEMITONES",
+                                     *formantSemitonesSlider);
+    formantCentsAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "FORMANT_CENTS",
+                                     *formantCentsSlider);
+    formantBaseHzAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "FORMANT_BASE_HZ",
+                                     *formantBaseHzSlider);
+
+    formantCompensationAttachment =
+        std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(
+            audioProcessor.apvts,
+            "FORMANT_COMPENSATION",
+            *formantCompensationToggle);
+
+    tonalityHzAttachment =
+        std::make_unique<Attachment>(audioProcessor.apvts,
+                                     "TONALITY_HZ",
+                                     *tonalityHzSlider);
+
+    // Attach transient params
+    transientAttackDBAttachment = std::make_unique<Attachment>(
+        audioProcessor.apvts,
+        "TRANS_ATTACK_DB",
+        *transientAttackDBSlider);
+
+    transientSustainDBAttachment = std::make_unique<Attachment>(
+        audioProcessor.apvts,
+        "TRANS_SUSTAIN_DB",
+        *transientSustainDBSlider);
+
+    // Attach tilt params
+    tiltCentreHzAttachment = std::make_unique<Attachment>(
+        audioProcessor.apvts,
+        "TILT_CENTRE_HZ",
+        *tiltCentreHzSlider);
+
+    tiltGainDbAttachment = std::make_unique<Attachment>(
+        audioProcessor.apvts,
+        "TILT_GAIN_DB",
+        *tiltGainDbSlider);
+
+    setSize (700, 650);
 }
 
-PluginTemplateAudioProcessorEditor::~PluginTemplateAudioProcessorEditor()
+SpectralShiftAudioProcessorEditor::~SpectralShiftAudioProcessorEditor()
 {
+    xyPad.deregisterSlider(pitchSemitonesSlider.get());
+    xyPad.deregisterSlider(formantSemitonesSlider.get());
 }
 
 //==============================================================================
-void PluginTemplateAudioProcessorEditor::paint (juce::Graphics& g)
+void SpectralShiftAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    auto bounds = getLocalBounds();
-    auto textBounds = bounds.removeFromTop(40);
-
-    g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
-    g.setColour(juce::Colours::darkgrey);
-    g.fillRect(bounds);
-
-    g.setColour(juce::Colours::black);
-    g.fillRect(textBounds);
-
-    g.setColour(juce::Colours::white);
-    g.setFont(20.0f);
-    g.drawFittedText("PluginTemplate", textBounds, juce::Justification::centred, 1);
+    g.fillAll (getLookAndFeel()
+                   .findColour (juce::ResizableWindow::backgroundColourId));
 }
 
-void PluginTemplateAudioProcessorEditor::resized()
+void SpectralShiftAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    auto area = getLocalBounds().reduced(20);
 
-        // bounds is the "background" of our plug-in
-    auto bounds = getLocalBounds();
+    // Reserve a fixed bottom strip for secondary controls
+    const int bottomHeight = juce::jmax(60, area.getHeight() / 5);
+    auto bottomArea = area.removeFromBottom(bottomHeight);
 
-    // Give 40 pixels of space for the title
-    auto textBounds = bounds.removeFromTop(40);
+    // Columns for left (pitch), center (XY pad), right (formant)
+    const auto leftWidth  = area.proportionOfWidth(0.20f);
+    const auto padWidth   = area.proportionOfWidth(0.60f);
+    auto leftArea  = area.removeFromLeft(leftWidth);
+    auto padArea   = area.removeFromLeft(padWidth);
+    auto rightArea = area; // remaining area is right column
 
-    // Reserve some room for the gain meter
-    //bounds.removeFromRight(40);
+    // Make the pad a centred square inside padArea so X/Y map consistently
+    int padSize = juce::jmin(padArea.getWidth(), padArea.getHeight());
+    juce::Rectangle<int> squarePad = padArea.withSizeKeepingCentre(padSize, padSize);
+    xyPad.setBounds(squarePad.reduced(10));
 
-    // Give 40 pixels of margin on all sides so we don't paint to the edges of the background
-    bounds.reduce(40, 40);
+    // --- Use juce::Grid for left column (semitones above cents) ---
+    if (pitchSemitonesSlider && pitchCentsSlider)
+    {
+        juce::Grid leftGrid;
+        leftGrid.templateColumns = { juce::Grid::TrackInfo(juce::Grid::Fr(1)) };
+        leftGrid.templateRows    = { juce::Grid::TrackInfo(juce::Grid::Fr(1)),
+                                     juce::Grid::TrackInfo(juce::Grid::Fr(1)) };
+        leftGrid.items.add(juce::GridItem(*pitchSemitonesSlider));
+        leftGrid.items.add(juce::GridItem(*pitchCentsSlider));
+        leftGrid.performLayout(leftArea.reduced(6));
+    }
+    else if (pitchSemitonesSlider) // fallback single
+    {
+        pitchSemitonesSlider->setBounds(leftArea.reduced(6));
+    }
 
-    juce::Grid grid;
+    // --- Use juce::Grid for right column (semitones above cents) ---
+    if (formantSemitonesSlider && formantCentsSlider)
+    {
+        juce::Grid rightGrid;
+        rightGrid.templateColumns = { juce::Grid::TrackInfo(juce::Grid::Fr(1)) };
+        rightGrid.templateRows    = { juce::Grid::TrackInfo(juce::Grid::Fr(1)),
+                                      juce::Grid::TrackInfo(juce::Grid::Fr(1)) };
+        rightGrid.items.add(juce::GridItem(*formantSemitonesSlider));
+        rightGrid.items.add(juce::GridItem(*formantCentsSlider));
+        rightGrid.performLayout(rightArea.reduced(6));
+    }
+    else if (formantSemitonesSlider)
+    {
+        formantSemitonesSlider->setBounds(rightArea.reduced(6));
+    }
 
-    // TrackInfo is a "space"
-    using Track = juce::Grid::TrackInfo;
+    // Bottom column: place available sliders stacked vertically (full width)
+    std::vector<juce::Slider*> bottomSliders = {
+        formantBaseHzSlider.get(),
+        tonalityHzSlider.get(),
+        tiltCentreHzSlider.get(),
+        tiltGainDbSlider.get()
+    };
 
-    // Fr is how big the space is relative to other spaces
-    using Fr = juce::Grid::Fr;
+    int available = 0;
+    for (auto s : bottomSliders) if (s) ++available;
+    if (available == 0)
+        return;
 
-    // 4 columns x 2 rows
-    grid.templateColumns = { Track(Fr(1)), Track(Fr(1)), Track(Fr(1)), Track(Fr(1)) };
-    grid.templateRows = { Track(Fr(1)), Track(Fr(1)) };
+    const int rowHeight = bottomArea.getHeight() / available;
+    auto rowArea = bottomArea;
 
-    // Margin between each space
-    grid.rowGap = juce::Grid::Px(20);
-    grid.columnGap = juce::Grid::Px(20);
-
-    // Add components to the grid
-    grid.items.add(driveSlider.get());
-    grid.items.add(volSlider.get());
-    grid.items.add(mixSlider.get());
-
-
-    // Perform the layout on the bounds
-    grid.performLayout(bounds);
+    for (auto s : bottomSliders)
+    {
+        if (!s) continue;
+        s->setBounds(rowArea.removeFromTop(rowHeight).reduced(6));
+    }
 }
+

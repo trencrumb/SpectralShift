@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/build/_deps/juce-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/build/_deps/signalsmith-linear-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/build/_deps/stretch-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/build/_deps/stretch-src/cmd/util" vcs="Git" />
   </component>
 </project>

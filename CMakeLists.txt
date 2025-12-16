@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 # Change to your project name
-project(PluginTemplate VERSION 0.0.1)
+project(SpectralShift VERSION 0.0.0)
 
 
 set(CMAKE_CXX_STANDARD 20)
@@ -40,6 +40,11 @@ set(SourceFiles
         Source/PluginEditor.h
         Source/PluginProcessor.cpp
         Source/PluginProcessor.h
+        Source/DSP/TiltEQ.h
+        Source/DSP/EnvelopeFollower.h
+        Source/DSP/TransientShaper.h
+        Source/Component/XYPad.h
+        Source/Component/XYPad.cpp
 )
 
 # Change these to your own preferences
@@ -53,9 +58,9 @@ juce_add_plugin(${PROJECT_NAME}
         JUCE_VST3_CAN_REPLACE_VST2 FALSE
         COPY_PLUGIN_AFTER_BUILD TRUE
         PLUGIN_MANUFACTURER_CODE TreC
-        PLUGIN_CODE Reg0
+        PLUGIN_CODE Sps0
         FORMATS VST3 AU Standalone
-        PRODUCT_NAME "PluginTemplate"
+        PRODUCT_NAME "SpectralShift"
 )
 
 # How we want our SourceFiles to appear in our IDE
@@ -87,6 +92,7 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_gui_extra
         juce::juce_audio_utils
         juce::juce_dsp
+        juce::juce_opengl
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags

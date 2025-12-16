@@ -11,11 +11,13 @@
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <signalsmith-stretch/signalsmith-stretch.h>
+#include "DSP/TiltEQ.h"
+#include "DSP/TransientShaper.h"
 
 //==============================================================================
 /**
 */
-class PluginTemplateAudioProcessor  : public juce::AudioProcessor,
+class SpectralShiftAudioProcessor  : public juce::AudioProcessor,
                                       public juce::ValueTree::Listener
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
@@ -23,8 +25,8 @@ class PluginTemplateAudioProcessor  : public juce::AudioProcessor,
 {
 public:
     //==============================================================================
-    PluginTemplateAudioProcessor();
-    ~PluginTemplateAudioProcessor() override;
+    SpectralShiftAudioProcessor();
+    ~SpectralShiftAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -67,6 +69,8 @@ public:
     // Pass sample rate and buffer size to DSP 
     void prepare(double sampleRate, int samplesPerBlock);
 
+    void setPreset(int index);
+
     // Called when user changes parameters
     void update();
 
@@ -86,17 +90,40 @@ private:
     bool isActive{ false };
     bool mustUpdateProcessing{ false };
 
-    juce::LinearSmoothedValue<float> driveNormal{ 0.0 };
-    juce::LinearSmoothedValue<float> outputVolume[2]{ 0.0 };
-    juce::LinearSmoothedValue<float> outputMix[2]{ 0.0 };
+    //juce::LinearSmoothedValue<float> driveNormal{ 0.0 };
+    //juce::LinearSmoothedValue<float> outputVolume[2]{ 0.0 };
+    //juce::LinearSmoothedValue<float> outputMix[2]{ 0.0 };
 
     signalsmith::stretch::SignalsmithStretch<float> stretch;
-
     float currentPitchSemitones { 0.0f };
     float currentFormantSemitones  { 0.0f };
     bool currentFormantPreservation { true };
     float currentTonalityHz { 0.0f };
     float currentFormantBaseHz { 0.0f };
+
+    TiltEQ tiltEQ;
+    float currentTiltCentreHz { 0.0f };
+    float currentTiltGainDB { 0.0f };
+
+    TransientShaper transientShaper;
+    float currentAttackDB { 0.0f };
+    float currentSustainDB { 0.0f };
+
+    juce::AudioBuffer<float> stretchBuffer;
+    std::vector<float*> inPtrs, outPtrs;
+
+    struct Preset
+    {
+        juce::String name;
+        std::map<juce::String, float> values; // paramID -> value
+    };
+
+    std::vector<Preset> presets;
+    int currentPresetIndex = -1;
+
+
+
+
 
 
     // Called when user changes a parameter
@@ -105,5 +132,5 @@ private:
         mustUpdateProcessing = true;
     }
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginTemplateAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectralShiftAudioProcessor)
 };
