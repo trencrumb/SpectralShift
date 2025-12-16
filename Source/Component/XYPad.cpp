@@ -27,6 +27,12 @@ void XYPad::Thumb::paint(juce::Graphics& g)
 			moveCallback(getPosition().toDouble());
 	}
 
+	void XYPad::Thumb::mouseDoubleClick(const juce::MouseEvent& event)
+	{
+		if (resetCallback)
+			resetCallback();
+	}
+
 	/*
 	 * XY Pad section
 	 */
@@ -48,6 +54,45 @@ void XYPad::Thumb::paint(juce::Graphics& g)
 			{
 				slider->setValue(juce::jmap(position.getY(), bounds.getHeight() - w, 0.0, slider->getMinimum(), slider->getMaximum()));
 			}
+		};
+
+		thumb.resetCallback = [&]()
+		{
+			// Reset all X sliders to their double-click return value
+			for (auto* slider : xSliders)
+			{
+				slider->setValue(slider->getDoubleClickReturnValue());
+			}
+
+			// Reset all Y sliders to their double-click return value
+			for (auto* slider : ySliders)
+			{
+				slider->setValue(slider->getDoubleClickReturnValue());
+			}
+
+			// Update thumb position to match reset values
+			const auto bounds = getLocalBounds().toDouble();
+			const auto w = static_cast<double>(thumbSize);
+
+			double thumbX = thumb.getX();
+			double thumbY = thumb.getY();
+
+			// Calculate X position from first X slider
+			if (!xSliders.empty())
+			{
+				auto* slider = xSliders[0];
+				thumbX = juce::jmap(slider->getValue(), slider->getMinimum(), slider->getMaximum(), 0.0, bounds.getWidth() - w);
+			}
+
+			// Calculate Y position from first Y slider
+			if (!ySliders.empty())
+			{
+				auto* slider = ySliders[0];
+				thumbY = juce::jmap(slider->getValue(), slider->getMinimum(), slider->getMaximum(), bounds.getHeight() - w, 0.0);
+			}
+
+			thumb.setTopLeftPosition(static_cast<int>(thumbX), static_cast<int>(thumbY));
+			repaint();
 		};
 	}
 

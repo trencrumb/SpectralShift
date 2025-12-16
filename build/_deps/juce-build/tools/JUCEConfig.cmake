@@ -54,7 +54,7 @@ endif()
 
 check_required_components("JUCE")
 
-set(JUCE_MODULES_DIR "${PACKAGE_PREFIX_DIR}/include/JUCE-8.0.11/modules" CACHE INTERNAL
+set(JUCE_MODULES_DIR "${PACKAGE_PREFIX_DIR}/include/JUCE-8.0.12/modules" CACHE INTERNAL
     "The path to JUCE modules")
 
 include("${PACKAGE_PREFIX_DIR}/lib/cmake/JUCE-8.0.11/JUCEModuleSupport.cmake")
@@ -114,7 +114,7 @@ unset(_targets_defined)
 unset(_targets_expected)
 
 foreach(_juce_module IN LISTS _juce_modules)
-    juce_add_module("${PACKAGE_PREFIX_DIR}/include/JUCE-8.0.11/modules/${_juce_module}" ALIAS_NAMESPACE juce)
+    juce_add_module("${PACKAGE_PREFIX_DIR}/include/JUCE-8.0.12/modules/${_juce_module}" ALIAS_NAMESPACE juce)
 endforeach()
 
 unset(_juce_modules)

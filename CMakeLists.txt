@@ -43,8 +43,10 @@ set(SourceFiles
         Source/DSP/TiltEQ.h
         Source/DSP/EnvelopeFollower.h
         Source/DSP/TransientShaper.h
+        Source/DSP/MultibandTransientShaper.h
         Source/Component/XYPad.h
         Source/Component/XYPad.cpp
+        Source/Component/CustomLookAndFeel.h
 )
 
 # Change these to your own preferences

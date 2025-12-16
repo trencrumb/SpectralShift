@@ -146,10 +146,10 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=PluginTemplate
+CMAKE_PROJECT_NAME:STATIC=SpectralShift
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=0.0.1
+CMAKE_PROJECT_VERSION:STATIC=0.0.0
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_MAJOR:STATIC=0
@@ -158,7 +158,7 @@ CMAKE_PROJECT_VERSION_MAJOR:STATIC=0
 CMAKE_PROJECT_VERSION_MINOR:STATIC=0
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=1
+CMAKE_PROJECT_VERSION_PATCH:STATIC=0
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_TWEAK:STATIC=
@@ -347,6 +347,15 @@ SIGNALSMITH_USE_PFFFT:BOOL=OFF
 
 //use PFFFT with double
 SIGNALSMITH_USE_PFFFT_DOUBLE:BOOL=OFF
+
+//Value Computed by CMake
+SpectralShift_BINARY_DIR:STATIC=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build
+
+//Value Computed by CMake
+SpectralShift_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+SpectralShift_SOURCE_DIR:STATIC=/Users/kyle.ramsey/CLionProjects/SpectralShifter
 
 //Path to a library.
 juce_found_AVFoundation:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AVFoundation.framework

@@ -1,9 +1,9 @@
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate.dir
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate_All.dir
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate_Standalone.dir
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate_AU.dir
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate_VST3.dir
-/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/PluginTemplate_vst3_helper.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift_All.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift_Standalone.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift_AU.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift_VST3.dir
+/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/SpectralShift_vst3_helper.dir
 /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/edit_cache.dir
 /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/rebuild_cache.dir
 /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles/list_install_components.dir

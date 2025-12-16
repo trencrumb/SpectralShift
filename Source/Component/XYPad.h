@@ -17,7 +17,9 @@ public:
         void paint(juce::Graphics& g) override;
         void mouseDown(const juce::MouseEvent& event) override;
         void mouseDrag(const juce::MouseEvent& event) override;
+        void mouseDoubleClick(const juce::MouseEvent& event) override;
         std::function<void(juce::Point<double>)> moveCallback;
+        std::function<void()> resetCallback;
     private:
         juce::ComponentDragger dragger;
         juce::ComponentBoundsConstrainer constrainer;

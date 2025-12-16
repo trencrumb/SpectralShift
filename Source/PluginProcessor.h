@@ -12,7 +12,9 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <signalsmith-stretch/signalsmith-stretch.h>
 #include "DSP/TiltEQ.h"
-#include "DSP/TransientShaper.h"
+#include "DSP/MultibandTransientShaper.h"
+#include "DSP/PitchDetection.h"
+
 
 //==============================================================================
 /**
@@ -105,9 +107,21 @@ private:
     float currentTiltCentreHz { 0.0f };
     float currentTiltGainDB { 0.0f };
 
-    TransientShaper transientShaper;
-    float currentAttackDB { 0.0f };
-    float currentSustainDB { 0.0f };
+    std::array<MultibandTransientShaper, 2> multibandTransientShaper;
+    float currentLowMidXoverHz { 250.0f };
+    float currentMidHighXoverHz { 4000.0f };
+    float currentLowAttackDB { 0.0f };
+    float currentLowSustainDB { 0.0f };
+    float currentMidAttackDB { 0.0f };
+    float currentMidSustainDB { 0.0f };
+    float currentHighAttackDB { 0.0f };
+    float currentHighSustainDB { 0.0f };
+
+    TransientShaper::SmoothingMode transientSmoothingMode = TransientShaper::SmoothingMode::Medium;
+
+    // debug: last seen attack value so we only log changes
+    float lastLoggedAttackDB = std::numeric_limits<float>::quiet_NaN();
+
 
     juce::AudioBuffer<float> stretchBuffer;
     std::vector<float*> inPtrs, outPtrs;
@@ -134,3 +148,4 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectralShiftAudioProcessor)
 };
+

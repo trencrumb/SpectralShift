@@ -163,89 +163,113 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PluginTemplate
+# Target rules for targets named SpectralShift
 
 # Build rule for target.
-PluginTemplate: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate
-.PHONY : PluginTemplate
+SpectralShift: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift
+.PHONY : SpectralShift
 
 # fast build rule for target.
-PluginTemplate/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/build
-.PHONY : PluginTemplate/fast
+SpectralShift/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/build
+.PHONY : SpectralShift/fast
 
 #=============================================================================
-# Target rules for targets named PluginTemplate_All
+# Target rules for targets named SpectralShift_All
 
 # Build rule for target.
-PluginTemplate_All: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate_All
-.PHONY : PluginTemplate_All
+SpectralShift_All: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift_All
+.PHONY : SpectralShift_All
 
 # fast build rule for target.
-PluginTemplate_All/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_All.dir/build.make CMakeFiles/PluginTemplate_All.dir/build
-.PHONY : PluginTemplate_All/fast
+SpectralShift_All/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_All.dir/build.make CMakeFiles/SpectralShift_All.dir/build
+.PHONY : SpectralShift_All/fast
 
 #=============================================================================
-# Target rules for targets named PluginTemplate_Standalone
+# Target rules for targets named SpectralShift_Standalone
 
 # Build rule for target.
-PluginTemplate_Standalone: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate_Standalone
-.PHONY : PluginTemplate_Standalone
+SpectralShift_Standalone: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift_Standalone
+.PHONY : SpectralShift_Standalone
 
 # fast build rule for target.
-PluginTemplate_Standalone/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/build
-.PHONY : PluginTemplate_Standalone/fast
+SpectralShift_Standalone/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/build
+.PHONY : SpectralShift_Standalone/fast
 
 #=============================================================================
-# Target rules for targets named PluginTemplate_AU
+# Target rules for targets named SpectralShift_AU
 
 # Build rule for target.
-PluginTemplate_AU: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate_AU
-.PHONY : PluginTemplate_AU
+SpectralShift_AU: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift_AU
+.PHONY : SpectralShift_AU
 
 # fast build rule for target.
-PluginTemplate_AU/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/build
-.PHONY : PluginTemplate_AU/fast
+SpectralShift_AU/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/build
+.PHONY : SpectralShift_AU/fast
 
 #=============================================================================
-# Target rules for targets named PluginTemplate_VST3
+# Target rules for targets named SpectralShift_VST3
 
 # Build rule for target.
-PluginTemplate_VST3: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate_VST3
-.PHONY : PluginTemplate_VST3
+SpectralShift_VST3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift_VST3
+.PHONY : SpectralShift_VST3
 
 # fast build rule for target.
-PluginTemplate_VST3/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/build
-.PHONY : PluginTemplate_VST3/fast
+SpectralShift_VST3/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/build
+.PHONY : SpectralShift_VST3/fast
 
 #=============================================================================
-# Target rules for targets named PluginTemplate_vst3_helper
+# Target rules for targets named SpectralShift_vst3_helper
 
 # Build rule for target.
-PluginTemplate_vst3_helper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginTemplate_vst3_helper
-.PHONY : PluginTemplate_vst3_helper
+SpectralShift_vst3_helper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpectralShift_vst3_helper
+.PHONY : SpectralShift_vst3_helper
 
 # fast build rule for target.
-PluginTemplate_vst3_helper/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/build
-.PHONY : PluginTemplate_vst3_helper/fast
+SpectralShift_vst3_helper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/build
+.PHONY : SpectralShift_vst3_helper/fast
+
+Source/Component/XYPad.o: Source/Component/XYPad.cpp.o
+.PHONY : Source/Component/XYPad.o
+
+# target to build an object file
+Source/Component/XYPad.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/Component/XYPad.cpp.o
+.PHONY : Source/Component/XYPad.cpp.o
+
+Source/Component/XYPad.i: Source/Component/XYPad.cpp.i
+.PHONY : Source/Component/XYPad.i
+
+# target to preprocess a source file
+Source/Component/XYPad.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/Component/XYPad.cpp.i
+.PHONY : Source/Component/XYPad.cpp.i
+
+Source/Component/XYPad.s: Source/Component/XYPad.cpp.s
+.PHONY : Source/Component/XYPad.s
+
+# target to generate assembly for a file
+Source/Component/XYPad.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/Component/XYPad.cpp.s
+.PHONY : Source/Component/XYPad.cpp.s
 
 Source/PluginEditor.o: Source/PluginEditor.cpp.o
 .PHONY : Source/PluginEditor.o
 
 # target to build an object file
 Source/PluginEditor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginEditor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginEditor.cpp.o
 .PHONY : Source/PluginEditor.cpp.o
 
 Source/PluginEditor.i: Source/PluginEditor.cpp.i
@@ -253,7 +277,7 @@ Source/PluginEditor.i: Source/PluginEditor.cpp.i
 
 # target to preprocess a source file
 Source/PluginEditor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginEditor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginEditor.cpp.i
 .PHONY : Source/PluginEditor.cpp.i
 
 Source/PluginEditor.s: Source/PluginEditor.cpp.s
@@ -261,7 +285,7 @@ Source/PluginEditor.s: Source/PluginEditor.cpp.s
 
 # target to generate assembly for a file
 Source/PluginEditor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginEditor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginEditor.cpp.s
 .PHONY : Source/PluginEditor.cpp.s
 
 Source/PluginProcessor.o: Source/PluginProcessor.cpp.o
@@ -269,7 +293,7 @@ Source/PluginProcessor.o: Source/PluginProcessor.cpp.o
 
 # target to build an object file
 Source/PluginProcessor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginProcessor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginProcessor.cpp.o
 .PHONY : Source/PluginProcessor.cpp.o
 
 Source/PluginProcessor.i: Source/PluginProcessor.cpp.i
@@ -277,7 +301,7 @@ Source/PluginProcessor.i: Source/PluginProcessor.cpp.i
 
 # target to preprocess a source file
 Source/PluginProcessor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginProcessor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginProcessor.cpp.i
 .PHONY : Source/PluginProcessor.cpp.i
 
 Source/PluginProcessor.s: Source/PluginProcessor.cpp.s
@@ -285,7 +309,7 @@ Source/PluginProcessor.s: Source/PluginProcessor.cpp.s
 
 # target to generate assembly for a file
 Source/PluginProcessor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/Source/PluginProcessor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/Source/PluginProcessor.cpp.s
 .PHONY : Source/PluginProcessor.cpp.s
 
 _deps/juce-src/modules/juce_analytics/juce_analytics.o: _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
@@ -293,10 +317,10 @@ _deps/juce-src/modules/juce_analytics/juce_analytics.o: _deps/juce-src/modules/j
 
 # target to build an object file
 _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
 .PHONY : _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.o
 
 _deps/juce-src/modules/juce_analytics/juce_analytics.i: _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
@@ -304,10 +328,10 @@ _deps/juce-src/modules/juce_analytics/juce_analytics.i: _deps/juce-src/modules/j
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
 .PHONY : _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.i
 
 _deps/juce-src/modules/juce_analytics/juce_analytics.s: _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
@@ -315,10 +339,10 @@ _deps/juce-src/modules/juce_analytics/juce_analytics.s: _deps/juce-src/modules/j
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
 .PHONY : _deps/juce-src/modules/juce_analytics/juce_analytics.cpp.s
 
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.o: _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
@@ -326,10 +350,10 @@ _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.o: _deps/juce-src/mod
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.o
 
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.i: _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
@@ -337,10 +361,10 @@ _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.i: _deps/juce-src/mod
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.i
 
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.s: _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
@@ -348,10 +372,10 @@ _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.s: _deps/juce-src/mod
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_basics/juce_audio_basics.mm.s
 
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.o: _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
@@ -359,10 +383,10 @@ _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.o: _deps/juce-src/m
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.o
 
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.i: _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
@@ -370,10 +394,10 @@ _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.i: _deps/juce-src/m
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.i
 
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.s: _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
@@ -381,10 +405,10 @@ _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.s: _deps/juce-src/m
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_devices/juce_audio_devices.mm.s
 
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.o: _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
@@ -392,10 +416,10 @@ _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.o: _deps/juce-src/m
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.o
 
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.i: _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
@@ -403,10 +427,10 @@ _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.i: _deps/juce-src/m
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.i
 
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.s: _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
@@ -414,10 +438,10 @@ _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.s: _deps/juce-src/m
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_formats/juce_audio_formats.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.o: _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.o
@@ -425,7 +449,7 @@ _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.o: 
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.i: _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.i
@@ -433,7 +457,7 @@ _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.i: 
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.s: _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.s
@@ -441,7 +465,7 @@ _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.s: 
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
@@ -449,9 +473,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.o: 
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
@@ -459,9 +483,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.i: 
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
@@ -469,9 +493,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.s: 
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
@@ -479,9 +503,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_uti
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
@@ -489,9 +513,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_uti
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
@@ -499,9 +523,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_uti
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
@@ -509,9 +533,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.o: 
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
@@ -519,9 +543,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.i: 
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
@@ -529,9 +553,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.s: 
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
@@ -539,9 +563,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.o:
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
@@ -549,9 +573,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.i:
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
@@ -559,9 +583,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.s:
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_1.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
@@ -569,9 +593,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.o:
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
@@ -579,9 +603,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.i:
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
@@ -589,9 +613,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.s:
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AU_2.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
@@ -599,9 +623,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.o:
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
@@ -609,9 +633,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.i:
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
@@ -619,9 +643,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.s:
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AUv3.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
@@ -629,9 +653,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.o: 
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
@@ -639,9 +663,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.i: 
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
@@ -649,9 +673,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.s: 
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
@@ -659,9 +683,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standal
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
@@ -669,9 +693,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standal
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
@@ -679,9 +703,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standal
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
@@ -689,9 +713,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.o
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
@@ -699,9 +723,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.i
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
@@ -709,9 +733,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.s
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
@@ -719,9 +743,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.o:
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
@@ -729,9 +753,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.i:
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
@@ -739,9 +763,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.s:
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.mm.s
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.o: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
@@ -749,9 +773,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.o:
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.o
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.i: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
@@ -759,9 +783,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.i:
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.i
 
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.s: _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
@@ -769,9 +793,9 @@ _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.s:
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.mm.s
 
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.o: _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
@@ -779,10 +803,10 @@ _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.o: _deps/juce
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.o
 
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.i: _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
@@ -790,10 +814,10 @@ _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.i: _deps/juce
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.i
 
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.s: _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
@@ -801,10 +825,10 @@ _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.s: _deps/juce
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_processors/juce_audio_processors.mm.s
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.o: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
@@ -812,10 +836,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.i: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
@@ -823,10 +847,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.s: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
@@ -834,10 +858,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.s
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.o: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
@@ -845,10 +869,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.i: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
@@ -856,10 +880,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.s: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
@@ -867,10 +891,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.s
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.o: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
@@ -878,10 +902,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.i: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
@@ -889,10 +913,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i
 
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.s: _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
@@ -900,10 +924,10 @@ _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_head
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
 .PHONY : _deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.s
 
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.o: _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
@@ -911,10 +935,10 @@ _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.o: _deps/juce-src/modul
 
 # target to build an object file
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
 .PHONY : _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.o
 
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.i: _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
@@ -922,10 +946,10 @@ _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.i: _deps/juce-src/modul
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
 .PHONY : _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.i
 
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.s: _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
@@ -933,10 +957,10 @@ _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.s: _deps/juce-src/modul
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
 .PHONY : _deps/juce-src/modules/juce_audio_utils/juce_audio_utils.mm.s
 
 _deps/juce-src/modules/juce_core/juce_core.o: _deps/juce-src/modules/juce_core/juce_core.mm.o
@@ -944,10 +968,10 @@ _deps/juce-src/modules/juce_core/juce_core.o: _deps/juce-src/modules/juce_core/j
 
 # target to build an object file
 _deps/juce-src/modules/juce_core/juce_core.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.o
 .PHONY : _deps/juce-src/modules/juce_core/juce_core.mm.o
 
 _deps/juce-src/modules/juce_core/juce_core.i: _deps/juce-src/modules/juce_core/juce_core.mm.i
@@ -955,10 +979,10 @@ _deps/juce-src/modules/juce_core/juce_core.i: _deps/juce-src/modules/juce_core/j
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_core/juce_core.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.i
 .PHONY : _deps/juce-src/modules/juce_core/juce_core.mm.i
 
 _deps/juce-src/modules/juce_core/juce_core.s: _deps/juce-src/modules/juce_core/juce_core.mm.s
@@ -966,10 +990,10 @@ _deps/juce-src/modules/juce_core/juce_core.s: _deps/juce-src/modules/juce_core/j
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_core/juce_core.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core.mm.s
 .PHONY : _deps/juce-src/modules/juce_core/juce_core.mm.s
 
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.o: _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
@@ -977,10 +1001,10 @@ _deps/juce-src/modules/juce_core/juce_core_CompilationTime.o: _deps/juce-src/mod
 
 # target to build an object file
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
 .PHONY : _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
 
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.i: _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
@@ -988,10 +1012,10 @@ _deps/juce-src/modules/juce_core/juce_core_CompilationTime.i: _deps/juce-src/mod
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
 .PHONY : _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.i
 
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.s: _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
@@ -999,10 +1023,10 @@ _deps/juce-src/modules/juce_core/juce_core_CompilationTime.s: _deps/juce-src/mod
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
 .PHONY : _deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.s
 
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.o: _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
@@ -1010,10 +1034,10 @@ _deps/juce-src/modules/juce_data_structures/juce_data_structures.o: _deps/juce-s
 
 # target to build an object file
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
 .PHONY : _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.o
 
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.i: _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
@@ -1021,10 +1045,10 @@ _deps/juce-src/modules/juce_data_structures/juce_data_structures.i: _deps/juce-s
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
 .PHONY : _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.i
 
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.s: _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
@@ -1032,10 +1056,10 @@ _deps/juce-src/modules/juce_data_structures/juce_data_structures.s: _deps/juce-s
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
 .PHONY : _deps/juce-src/modules/juce_data_structures/juce_data_structures.mm.s
 
 _deps/juce-src/modules/juce_dsp/juce_dsp.o: _deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
@@ -1043,10 +1067,10 @@ _deps/juce-src/modules/juce_dsp/juce_dsp.o: _deps/juce-src/modules/juce_dsp/juce
 
 # target to build an object file
 _deps/juce-src/modules/juce_dsp/juce_dsp.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
 .PHONY : _deps/juce-src/modules/juce_dsp/juce_dsp.mm.o
 
 _deps/juce-src/modules/juce_dsp/juce_dsp.i: _deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
@@ -1054,10 +1078,10 @@ _deps/juce-src/modules/juce_dsp/juce_dsp.i: _deps/juce-src/modules/juce_dsp/juce
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_dsp/juce_dsp.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
 .PHONY : _deps/juce-src/modules/juce_dsp/juce_dsp.mm.i
 
 _deps/juce-src/modules/juce_dsp/juce_dsp.s: _deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
@@ -1065,10 +1089,10 @@ _deps/juce-src/modules/juce_dsp/juce_dsp.s: _deps/juce-src/modules/juce_dsp/juce
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_dsp/juce_dsp.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
 .PHONY : _deps/juce-src/modules/juce_dsp/juce_dsp.mm.s
 
 _deps/juce-src/modules/juce_events/juce_events.o: _deps/juce-src/modules/juce_events/juce_events.mm.o
@@ -1076,10 +1100,10 @@ _deps/juce-src/modules/juce_events/juce_events.o: _deps/juce-src/modules/juce_ev
 
 # target to build an object file
 _deps/juce-src/modules/juce_events/juce_events.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.o
 .PHONY : _deps/juce-src/modules/juce_events/juce_events.mm.o
 
 _deps/juce-src/modules/juce_events/juce_events.i: _deps/juce-src/modules/juce_events/juce_events.mm.i
@@ -1087,10 +1111,10 @@ _deps/juce-src/modules/juce_events/juce_events.i: _deps/juce-src/modules/juce_ev
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_events/juce_events.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.i
 .PHONY : _deps/juce-src/modules/juce_events/juce_events.mm.i
 
 _deps/juce-src/modules/juce_events/juce_events.s: _deps/juce-src/modules/juce_events/juce_events.mm.s
@@ -1098,10 +1122,10 @@ _deps/juce-src/modules/juce_events/juce_events.s: _deps/juce-src/modules/juce_ev
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_events/juce_events.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_events/juce_events.mm.s
 .PHONY : _deps/juce-src/modules/juce_events/juce_events.mm.s
 
 _deps/juce-src/modules/juce_graphics/juce_graphics.o: _deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
@@ -1109,10 +1133,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics.o: _deps/juce-src/modules/juc
 
 # target to build an object file
 _deps/juce-src/modules/juce_graphics/juce_graphics.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics.mm.o
 
 _deps/juce-src/modules/juce_graphics/juce_graphics.i: _deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
@@ -1120,10 +1144,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics.i: _deps/juce-src/modules/juc
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_graphics/juce_graphics.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics.mm.i
 
 _deps/juce-src/modules/juce_graphics/juce_graphics.s: _deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
@@ -1131,10 +1155,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics.s: _deps/juce-src/modules/juc
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_graphics/juce_graphics.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics.mm.s
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.o: _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
@@ -1142,10 +1166,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.o: _deps/juce-src/mo
 
 # target to build an object file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.i: _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
@@ -1153,10 +1177,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.i: _deps/juce-src/mo
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.s: _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
@@ -1164,10 +1188,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.s: _deps/juce-src/mo
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.o: _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
@@ -1175,10 +1199,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.o: _deps/juce-src/m
 
 # target to build an object file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.i: _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
@@ -1186,10 +1210,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.i: _deps/juce-src/m
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.i
 
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.s: _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
@@ -1197,10 +1221,10 @@ _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.s: _deps/juce-src/m
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
 .PHONY : _deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.s
 
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.o: _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
@@ -1208,10 +1232,10 @@ _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.o: _deps/juce-src/modules
 
 # target to build an object file
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
 .PHONY : _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.o
 
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.i: _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
@@ -1219,10 +1243,10 @@ _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.i: _deps/juce-src/modules
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
 .PHONY : _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.i
 
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.s: _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
@@ -1230,10 +1254,10 @@ _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.s: _deps/juce-src/modules
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
 .PHONY : _deps/juce-src/modules/juce_gui_basics/juce_gui_basics.mm.s
 
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.o: _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
@@ -1241,10 +1265,10 @@ _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.o: _deps/juce-src/modules/j
 
 # target to build an object file
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
 .PHONY : _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.o
 
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.i: _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
@@ -1252,10 +1276,10 @@ _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.i: _deps/juce-src/modules/j
 
 # target to preprocess a source file
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
 .PHONY : _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.i
 
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.s: _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
@@ -1263,11 +1287,44 @@ _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.s: _deps/juce-src/modules/j
 
 # target to generate assembly for a file
 _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
 .PHONY : _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.mm.s
+
+_deps/juce-src/modules/juce_opengl/juce_opengl.o: _deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.o
+
+# target to build an object file
+_deps/juce-src/modules/juce_opengl/juce_opengl.mm.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.mm.o
+
+_deps/juce-src/modules/juce_opengl/juce_opengl.i: _deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.i
+
+# target to preprocess a source file
+_deps/juce-src/modules/juce_opengl/juce_opengl.mm.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.mm.i
+
+_deps/juce-src/modules/juce_opengl/juce_opengl.s: _deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.s
+
+# target to generate assembly for a file
+_deps/juce-src/modules/juce_opengl/juce_opengl.mm.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/_deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
+.PHONY : _deps/juce-src/modules/juce_opengl/juce_opengl.mm.s
 
 # Help Target
 help:
@@ -1281,12 +1338,15 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... PluginTemplate_All"
-	@echo "... PluginTemplate"
-	@echo "... PluginTemplate_AU"
-	@echo "... PluginTemplate_Standalone"
-	@echo "... PluginTemplate_VST3"
-	@echo "... PluginTemplate_vst3_helper"
+	@echo "... SpectralShift_All"
+	@echo "... SpectralShift"
+	@echo "... SpectralShift_AU"
+	@echo "... SpectralShift_Standalone"
+	@echo "... SpectralShift_VST3"
+	@echo "... SpectralShift_vst3_helper"
+	@echo "... Source/Component/XYPad.o"
+	@echo "... Source/Component/XYPad.i"
+	@echo "... Source/Component/XYPad.s"
 	@echo "... Source/PluginEditor.o"
 	@echo "... Source/PluginEditor.i"
 	@echo "... Source/PluginEditor.s"
@@ -1386,6 +1446,9 @@ help:
 	@echo "... _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.o"
 	@echo "... _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.i"
 	@echo "... _deps/juce-src/modules/juce_gui_extra/juce_gui_extra.s"
+	@echo "... _deps/juce-src/modules/juce_opengl/juce_opengl.o"
+	@echo "... _deps/juce-src/modules/juce_opengl/juce_opengl.i"
+	@echo "... _deps/juce-src/modules/juce_opengl/juce_opengl.s"
 .PHONY : help
 
 

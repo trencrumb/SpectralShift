@@ -63,21 +63,21 @@ CMAKE_BINARY_DIR = /Users/kyle.ramsey/CLionProjects/SpectralShifter/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/PluginTemplate.dir/all
-all: CMakeFiles/PluginTemplate_Standalone.dir/all
-all: CMakeFiles/PluginTemplate_AU.dir/all
-all: CMakeFiles/PluginTemplate_VST3.dir/all
-all: CMakeFiles/PluginTemplate_vst3_helper.dir/all
+all: CMakeFiles/SpectralShift.dir/all
+all: CMakeFiles/SpectralShift_Standalone.dir/all
+all: CMakeFiles/SpectralShift_AU.dir/all
+all: CMakeFiles/SpectralShift_VST3.dir/all
+all: CMakeFiles/SpectralShift_vst3_helper.dir/all
 all: _deps/juce-build/all
 all: _deps/stretch-build/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/PluginTemplate.dir/codegen
-codegen: CMakeFiles/PluginTemplate_Standalone.dir/codegen
-codegen: CMakeFiles/PluginTemplate_AU.dir/codegen
-codegen: CMakeFiles/PluginTemplate_VST3.dir/codegen
-codegen: CMakeFiles/PluginTemplate_vst3_helper.dir/codegen
+codegen: CMakeFiles/SpectralShift.dir/codegen
+codegen: CMakeFiles/SpectralShift_Standalone.dir/codegen
+codegen: CMakeFiles/SpectralShift_AU.dir/codegen
+codegen: CMakeFiles/SpectralShift_VST3.dir/codegen
+codegen: CMakeFiles/SpectralShift_vst3_helper.dir/codegen
 codegen: _deps/juce-build/codegen
 codegen: _deps/stretch-build/codegen
 .PHONY : codegen
@@ -88,12 +88,12 @@ preinstall: _deps/stretch-build/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/PluginTemplate.dir/clean
-clean: CMakeFiles/PluginTemplate_All.dir/clean
-clean: CMakeFiles/PluginTemplate_Standalone.dir/clean
-clean: CMakeFiles/PluginTemplate_AU.dir/clean
-clean: CMakeFiles/PluginTemplate_VST3.dir/clean
-clean: CMakeFiles/PluginTemplate_vst3_helper.dir/clean
+clean: CMakeFiles/SpectralShift.dir/clean
+clean: CMakeFiles/SpectralShift_All.dir/clean
+clean: CMakeFiles/SpectralShift_Standalone.dir/clean
+clean: CMakeFiles/SpectralShift_AU.dir/clean
+clean: CMakeFiles/SpectralShift_VST3.dir/clean
+clean: CMakeFiles/SpectralShift_vst3_helper.dir/clean
 clean: _deps/juce-build/clean
 clean: _deps/stretch-build/clean
 .PHONY : clean
@@ -217,201 +217,201 @@ _deps/stretch-build/clean: _deps/signalsmith-linear-build/clean
 .PHONY : _deps/stretch-build/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate.dir
+# Target rules for target CMakeFiles/SpectralShift.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target PluginTemplate"
-.PHONY : CMakeFiles/PluginTemplate.dir/all
+CMakeFiles/SpectralShift.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Built target SpectralShift"
+.PHONY : CMakeFiles/SpectralShift.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 18
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate.dir/all
+CMakeFiles/SpectralShift.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 19
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate.dir/rule
+.PHONY : CMakeFiles/SpectralShift.dir/rule
 
 # Convenience name for target.
-PluginTemplate: CMakeFiles/PluginTemplate.dir/rule
-.PHONY : PluginTemplate
+SpectralShift: CMakeFiles/SpectralShift.dir/rule
+.PHONY : SpectralShift
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Finished codegen for target PluginTemplate"
-.PHONY : CMakeFiles/PluginTemplate.dir/codegen
+CMakeFiles/SpectralShift.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Finished codegen for target SpectralShift"
+.PHONY : CMakeFiles/SpectralShift.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate.dir/build.make CMakeFiles/PluginTemplate.dir/clean
-.PHONY : CMakeFiles/PluginTemplate.dir/clean
+CMakeFiles/SpectralShift.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift.dir/build.make CMakeFiles/SpectralShift.dir/clean
+.PHONY : CMakeFiles/SpectralShift.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate_All.dir
+# Target rules for target CMakeFiles/SpectralShift_All.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate_All.dir/all: CMakeFiles/PluginTemplate_Standalone.dir/all
-CMakeFiles/PluginTemplate_All.dir/all: CMakeFiles/PluginTemplate_AU.dir/all
-CMakeFiles/PluginTemplate_All.dir/all: CMakeFiles/PluginTemplate_VST3.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_All.dir/build.make CMakeFiles/PluginTemplate_All.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_All.dir/build.make CMakeFiles/PluginTemplate_All.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num= "Built target PluginTemplate_All"
-.PHONY : CMakeFiles/PluginTemplate_All.dir/all
+CMakeFiles/SpectralShift_All.dir/all: CMakeFiles/SpectralShift_Standalone.dir/all
+CMakeFiles/SpectralShift_All.dir/all: CMakeFiles/SpectralShift_AU.dir/all
+CMakeFiles/SpectralShift_All.dir/all: CMakeFiles/SpectralShift_VST3.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_All.dir/build.make CMakeFiles/SpectralShift_All.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_All.dir/build.make CMakeFiles/SpectralShift_All.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num= "Built target SpectralShift_All"
+.PHONY : CMakeFiles/SpectralShift_All.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate_All.dir/rule: cmake_check_build_system
+CMakeFiles/SpectralShift_All.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 100
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate_All.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift_All.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate_All.dir/rule
+.PHONY : CMakeFiles/SpectralShift_All.dir/rule
 
 # Convenience name for target.
-PluginTemplate_All: CMakeFiles/PluginTemplate_All.dir/rule
-.PHONY : PluginTemplate_All
+SpectralShift_All: CMakeFiles/SpectralShift_All.dir/rule
+.PHONY : SpectralShift_All
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate_All.dir/codegen: CMakeFiles/PluginTemplate_Standalone.dir/all
-CMakeFiles/PluginTemplate_All.dir/codegen: CMakeFiles/PluginTemplate_AU.dir/all
-CMakeFiles/PluginTemplate_All.dir/codegen: CMakeFiles/PluginTemplate_VST3.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_All.dir/build.make CMakeFiles/PluginTemplate_All.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num= "Finished codegen for target PluginTemplate_All"
-.PHONY : CMakeFiles/PluginTemplate_All.dir/codegen
+CMakeFiles/SpectralShift_All.dir/codegen: CMakeFiles/SpectralShift_Standalone.dir/all
+CMakeFiles/SpectralShift_All.dir/codegen: CMakeFiles/SpectralShift_AU.dir/all
+CMakeFiles/SpectralShift_All.dir/codegen: CMakeFiles/SpectralShift_VST3.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_All.dir/build.make CMakeFiles/SpectralShift_All.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num= "Finished codegen for target SpectralShift_All"
+.PHONY : CMakeFiles/SpectralShift_All.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate_All.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_All.dir/build.make CMakeFiles/PluginTemplate_All.dir/clean
-.PHONY : CMakeFiles/PluginTemplate_All.dir/clean
+CMakeFiles/SpectralShift_All.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_All.dir/build.make CMakeFiles/SpectralShift_All.dir/clean
+.PHONY : CMakeFiles/SpectralShift_All.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate_Standalone.dir
+# Target rules for target CMakeFiles/SpectralShift_Standalone.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate_Standalone.dir/all: CMakeFiles/PluginTemplate.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71 "Built target PluginTemplate_Standalone"
-.PHONY : CMakeFiles/PluginTemplate_Standalone.dir/all
+CMakeFiles/SpectralShift_Standalone.dir/all: CMakeFiles/SpectralShift.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72 "Built target SpectralShift_Standalone"
+.PHONY : CMakeFiles/SpectralShift_Standalone.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate_Standalone.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 44
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate_Standalone.dir/all
+CMakeFiles/SpectralShift_Standalone.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 46
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift_Standalone.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate_Standalone.dir/rule
+.PHONY : CMakeFiles/SpectralShift_Standalone.dir/rule
 
 # Convenience name for target.
-PluginTemplate_Standalone: CMakeFiles/PluginTemplate_Standalone.dir/rule
-.PHONY : PluginTemplate_Standalone
+SpectralShift_Standalone: CMakeFiles/SpectralShift_Standalone.dir/rule
+.PHONY : SpectralShift_Standalone
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate_Standalone.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71 "Finished codegen for target PluginTemplate_Standalone"
-.PHONY : CMakeFiles/PluginTemplate_Standalone.dir/codegen
+CMakeFiles/SpectralShift_Standalone.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72 "Finished codegen for target SpectralShift_Standalone"
+.PHONY : CMakeFiles/SpectralShift_Standalone.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate_Standalone.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_Standalone.dir/build.make CMakeFiles/PluginTemplate_Standalone.dir/clean
-.PHONY : CMakeFiles/PluginTemplate_Standalone.dir/clean
+CMakeFiles/SpectralShift_Standalone.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_Standalone.dir/build.make CMakeFiles/SpectralShift_Standalone.dir/clean
+.PHONY : CMakeFiles/SpectralShift_Standalone.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate_AU.dir
+# Target rules for target CMakeFiles/SpectralShift_AU.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate_AU.dir/all: CMakeFiles/PluginTemplate.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Built target PluginTemplate_AU"
-.PHONY : CMakeFiles/PluginTemplate_AU.dir/all
+CMakeFiles/SpectralShift_AU.dir/all: CMakeFiles/SpectralShift.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Built target SpectralShift_AU"
+.PHONY : CMakeFiles/SpectralShift_AU.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate_AU.dir/rule: cmake_check_build_system
+CMakeFiles/SpectralShift_AU.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 45
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate_AU.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift_AU.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate_AU.dir/rule
+.PHONY : CMakeFiles/SpectralShift_AU.dir/rule
 
 # Convenience name for target.
-PluginTemplate_AU: CMakeFiles/PluginTemplate_AU.dir/rule
-.PHONY : PluginTemplate_AU
+SpectralShift_AU: CMakeFiles/SpectralShift_AU.dir/rule
+.PHONY : SpectralShift_AU
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate_AU.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Finished codegen for target PluginTemplate_AU"
-.PHONY : CMakeFiles/PluginTemplate_AU.dir/codegen
+CMakeFiles/SpectralShift_AU.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Finished codegen for target SpectralShift_AU"
+.PHONY : CMakeFiles/SpectralShift_AU.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate_AU.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_AU.dir/build.make CMakeFiles/PluginTemplate_AU.dir/clean
-.PHONY : CMakeFiles/PluginTemplate_AU.dir/clean
+CMakeFiles/SpectralShift_AU.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_AU.dir/build.make CMakeFiles/SpectralShift_AU.dir/clean
+.PHONY : CMakeFiles/SpectralShift_AU.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate_VST3.dir
+# Target rules for target CMakeFiles/SpectralShift_VST3.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate_VST3.dir/all: CMakeFiles/PluginTemplate.dir/all
-CMakeFiles/PluginTemplate_VST3.dir/all: CMakeFiles/PluginTemplate_vst3_helper.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98 "Built target PluginTemplate_VST3"
-.PHONY : CMakeFiles/PluginTemplate_VST3.dir/all
+CMakeFiles/SpectralShift_VST3.dir/all: CMakeFiles/SpectralShift.dir/all
+CMakeFiles/SpectralShift_VST3.dir/all: CMakeFiles/SpectralShift_vst3_helper.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98 "Built target SpectralShift_VST3"
+.PHONY : CMakeFiles/SpectralShift_VST3.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate_VST3.dir/rule: cmake_check_build_system
+CMakeFiles/SpectralShift_VST3.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 47
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate_VST3.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift_VST3.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate_VST3.dir/rule
+.PHONY : CMakeFiles/SpectralShift_VST3.dir/rule
 
 # Convenience name for target.
-PluginTemplate_VST3: CMakeFiles/PluginTemplate_VST3.dir/rule
-.PHONY : PluginTemplate_VST3
+SpectralShift_VST3: CMakeFiles/SpectralShift_VST3.dir/rule
+.PHONY : SpectralShift_VST3
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate_VST3.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98 "Finished codegen for target PluginTemplate_VST3"
-.PHONY : CMakeFiles/PluginTemplate_VST3.dir/codegen
+CMakeFiles/SpectralShift_VST3.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98 "Finished codegen for target SpectralShift_VST3"
+.PHONY : CMakeFiles/SpectralShift_VST3.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate_VST3.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_VST3.dir/build.make CMakeFiles/PluginTemplate_VST3.dir/clean
-.PHONY : CMakeFiles/PluginTemplate_VST3.dir/clean
+CMakeFiles/SpectralShift_VST3.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_VST3.dir/build.make CMakeFiles/SpectralShift_VST3.dir/clean
+.PHONY : CMakeFiles/SpectralShift_VST3.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PluginTemplate_vst3_helper.dir
+# Target rules for target CMakeFiles/SpectralShift_vst3_helper.dir
 
 # All Build rule for target.
-CMakeFiles/PluginTemplate_vst3_helper.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=99,100 "Built target PluginTemplate_vst3_helper"
-.PHONY : CMakeFiles/PluginTemplate_vst3_helper.dir/all
+CMakeFiles/SpectralShift_vst3_helper.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=99,100 "Built target SpectralShift_vst3_helper"
+.PHONY : CMakeFiles/SpectralShift_vst3_helper.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PluginTemplate_vst3_helper.dir/rule: cmake_check_build_system
+CMakeFiles/SpectralShift_vst3_helper.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PluginTemplate_vst3_helper.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SpectralShift_vst3_helper.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles 0
-.PHONY : CMakeFiles/PluginTemplate_vst3_helper.dir/rule
+.PHONY : CMakeFiles/SpectralShift_vst3_helper.dir/rule
 
 # Convenience name for target.
-PluginTemplate_vst3_helper: CMakeFiles/PluginTemplate_vst3_helper.dir/rule
-.PHONY : PluginTemplate_vst3_helper
+SpectralShift_vst3_helper: CMakeFiles/SpectralShift_vst3_helper.dir/rule
+.PHONY : SpectralShift_vst3_helper
 
 # codegen rule for target.
-CMakeFiles/PluginTemplate_vst3_helper.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=99,100 "Finished codegen for target PluginTemplate_vst3_helper"
-.PHONY : CMakeFiles/PluginTemplate_vst3_helper.dir/codegen
+CMakeFiles/SpectralShift_vst3_helper.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kyle.ramsey/CLionProjects/SpectralShifter/build/CMakeFiles --progress-num=99,100 "Finished codegen for target SpectralShift_vst3_helper"
+.PHONY : CMakeFiles/SpectralShift_vst3_helper.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PluginTemplate_vst3_helper.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginTemplate_vst3_helper.dir/build.make CMakeFiles/PluginTemplate_vst3_helper.dir/clean
-.PHONY : CMakeFiles/PluginTemplate_vst3_helper.dir/clean
+CMakeFiles/SpectralShift_vst3_helper.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpectralShift_vst3_helper.dir/build.make CMakeFiles/SpectralShift_vst3_helper.dir/clean
+.PHONY : CMakeFiles/SpectralShift_vst3_helper.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
