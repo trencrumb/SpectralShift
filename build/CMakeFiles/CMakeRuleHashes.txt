@@ -1,4 +1,0 @@
-# Hashes of file build rules.
-d4a8ce735f19ac28e83927465ee398e1 SpectralShift_artefacts/JuceLibraryCode/SpectralShift_AU/PkgInfo
-bd2bd2257aa77ade11aaeb69514b5502 SpectralShift_artefacts/JuceLibraryCode/SpectralShift_Standalone/PkgInfo
-0b75446eb1501a9a175a3a80a580b1ac SpectralShift_artefacts/JuceLibraryCode/SpectralShift_VST3/PkgInfo

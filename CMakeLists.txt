@@ -41,13 +41,23 @@ set(SourceFiles
         Source/PluginProcessor.cpp
         Source/PluginProcessor.h
         Source/DSP/TiltEQ.h
-        Source/DSP/EnvelopeFollower.h
-        Source/DSP/TransientShaper.h
-        Source/DSP/MultibandTransientShaper.h
+        Source/DSP/SpectralCentroid.h
         Source/Component/XYPad.h
         Source/Component/XYPad.cpp
         Source/Component/CustomLookAndFeel.h
 )
+
+
+if(DEFINED JUCE_AAX_SDK_PATH)
+    juce_set_aax_sdk_path("${JUCE_AAX_SDK_PATH}")
+    set(PLUGIN_FORMATS VST3 AU AAX Standalone)
+    message(STATUS "AAX SDK path provided: ${JUCE_AAX_SDK_PATH}.")
+    message("Building ${PLUGIN_FORMATS}.")
+else()
+    set(PLUGIN_FORMATS VST3 AU Standalone)
+    message(STATUS "AAX SDK path not provided. To build AAX, pass -DJUCE_AAX_SDK_PATH=path/to/sdk")
+    message("Building ${PLUGIN_FORMATS}.")
+endif()
 
 # Change these to your own preferences
 juce_add_plugin(${PROJECT_NAME}
@@ -61,7 +71,7 @@ juce_add_plugin(${PROJECT_NAME}
         COPY_PLUGIN_AFTER_BUILD TRUE
         PLUGIN_MANUFACTURER_CODE TreC
         PLUGIN_CODE Sps0
-        FORMATS VST3 AU Standalone
+        FORMATS ${PLUGIN_FORMATS}
         PRODUCT_NAME "SpectralShift"
 )
 
@@ -94,7 +104,6 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_gui_extra
         juce::juce_audio_utils
         juce::juce_dsp
-        juce::juce_opengl
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags

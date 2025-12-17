@@ -39,3 +39,11 @@
 
 # debug information files
 *.dwo
+
+# JetBrains IDE
+.idea/
+
+# CMake build directories
+cmake-build-*/
+
+
