@@ -14,6 +14,11 @@ public:
         sampleRate = spec.sampleRate;
         filterChain.prepare (spec);
         filterChain.reset();
+
+        // Initialize smoothed value with 50ms ramp time
+        smoothedCentreFreq.reset(sampleRate, 0.05);
+        smoothedCentreFreq.setCurrentAndTargetValue(centreFreq);
+
         updateCoefficients();
     }
 
@@ -27,6 +32,7 @@ public:
         if (centreFreq != newFreq)
         {
             centreFreq = newFreq;
+            smoothedCentreFreq.setTargetValue(newFreq);
             needsUpdate = true;
         }
     }
@@ -42,8 +48,15 @@ public:
 
     void process (juce::AudioBuffer<float>& buffer)
     {
-        if (needsUpdate)
-            updateCoefficients();
+        // Update coefficients if needed (once per block is fine for tilt EQ)
+        if (needsUpdate || smoothedCentreFreq.isSmoothing())
+        {
+            float targetFreq = smoothedCentreFreq.getNextValue();
+            updateCoefficientsWithFreq(targetFreq);
+
+            if (!smoothedCentreFreq.isSmoothing())
+                needsUpdate = false;
+        }
 
         juce::dsp::AudioBlock<float> block (buffer);
         juce::dsp::ProcessContextReplacing<float> context (block);
@@ -63,7 +76,9 @@ private:
 
     bool needsUpdate = true;
 
-    void updateCoefficients()
+    juce::SmoothedValue<float> smoothedCentreFreq;
+
+    void updateCoefficientsWithFreq(float freq)
     {
         const float q = 0.4f;
 
@@ -71,11 +86,15 @@ private:
         auto highGain = juce::Decibels::decibelsToGain ( gainDb);
 
         *filterChain.get<0>().state =
-            *Coeffs::makeLowShelf (sampleRate, centreFreq, q, lowGain);
+            *Coeffs::makeLowShelf (sampleRate, freq, q, lowGain);
 
         *filterChain.get<1>().state =
-            *Coeffs::makeHighShelf (sampleRate, centreFreq, q, highGain);
+            *Coeffs::makeHighShelf (sampleRate, freq, q, highGain);
+    }
 
+    void updateCoefficients()
+    {
+        updateCoefficientsWithFreq(centreFreq);
         needsUpdate = false;
     }
 };
