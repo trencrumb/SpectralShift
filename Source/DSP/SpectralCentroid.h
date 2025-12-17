@@ -1,0 +1,186 @@
+//
+// Created by Kyle Ramsey on 12/16/2025.
+// Spectral Centroid Analyzer using FFT
+//
+
+#pragma once
+#include <juce_dsp/juce_dsp.h>
+#include <vector>
+#include <cmath>
+
+class SpectralCentroid
+{
+public:
+    SpectralCentroid() = default;
+
+    void prepare(double sampleRate, int maxBlockSize)
+    {
+        this->sampleRate = sampleRate;
+
+        // Initialize FFT buffers
+        fftBuffer.resize(fftSize * 2, 0.0f);  // Real + imaginary
+        inputBuffer.resize(fftSize, 0.0f);
+        magnitudes.resize(fftSize / 2 + 1, 0.0f);  // Only need positive frequencies
+
+        // Reset counters
+        writePosition = 0;
+        samplesUntilNextFFT = hopSize;
+
+        // Calculate smoothing coefficient for ~250ms time constant
+        // Update happens every hopSize samples
+        const float timeConstantMs = 250.0f;
+        const float timeConstantSeconds = timeConstantMs / 1000.0f;
+        const float updateRateHz = sampleRate / hopSize;
+        smoothingCoeff = std::exp(-1.0f / (timeConstantSeconds * updateRateHz));
+
+        // Initialize centroid values
+        rawCentroidHz = 1000.0f;
+        smoothedCentroidHz = 1000.0f;
+    }
+
+    void reset()
+    {
+        std::fill(fftBuffer.begin(), fftBuffer.end(), 0.0f);
+        std::fill(inputBuffer.begin(), inputBuffer.end(), 0.0f);
+        std::fill(magnitudes.begin(), magnitudes.end(), 0.0f);
+        writePosition = 0;
+        samplesUntilNextFFT = hopSize;
+        rawCentroidHz = 1000.0f;
+        smoothedCentroidHz = 1000.0f;
+    }
+
+    void processBlock(const float* monoBuffer, int numSamples)
+    {
+        for (int i = 0; i < numSamples; ++i)
+        {
+            // Write sample into circular buffer
+            inputBuffer[writePosition] = monoBuffer[i];
+            writePosition = (writePosition + 1) % fftSize;
+
+            // Decrement counter
+            samplesUntilNextFFT--;
+
+            // Perform FFT when we've accumulated enough samples
+            if (samplesUntilNextFFT <= 0)
+            {
+                performFFTAndCalculate();
+                samplesUntilNextFFT = hopSize;  // Reset for next hop
+            }
+        }
+    }
+
+    float getCentroidHz() const
+    {
+        return smoothedCentroidHz;
+    }
+
+    float getRawCentroidHz() const
+    {
+        return rawCentroidHz;
+    }
+
+private:
+    static constexpr int fftOrder = 11;        // 2^11 = 2048
+    static constexpr int fftSize = 1 << fftOrder;
+    static constexpr int hopSize = fftSize / 4; // 512 samples (75% overlap)
+    static constexpr float energyThreshold = 1e-6f; // Minimum energy to update centroid
+
+    juce::dsp::FFT fft { fftOrder };
+    juce::dsp::WindowingFunction<float> window {
+        fftSize,
+        juce::dsp::WindowingFunction<float>::hann,
+        false  // Don't normalize (we'll handle magnitude scaling)
+    };
+
+    std::vector<float> fftBuffer;
+    std::vector<float> inputBuffer;
+    std::vector<float> magnitudes;
+
+    int writePosition = 0;
+    int samplesUntilNextFFT = hopSize;
+
+    double sampleRate = 44100.0;
+    float rawCentroidHz = 1000.0f;
+    float smoothedCentroidHz = 1000.0f;
+    float smoothingCoeff = 0.0f;
+
+    void performFFTAndCalculate()
+    {
+        // Copy from circular buffer to FFT buffer in correct order
+        // Start from writePosition (oldest sample) and wrap around
+        for (int i = 0; i < fftSize; ++i)
+        {
+            int readPos = (writePosition + i) % fftSize;
+            fftBuffer[i] = inputBuffer[readPos];
+        }
+
+        // Apply window function
+        window.multiplyWithWindowingTable(fftBuffer.data(), fftSize);
+
+        // Perform FFT (real-to-complex)
+        fft.performRealOnlyForwardTransform(fftBuffer.data(), true);
+
+        // Calculate magnitudes from complex FFT output
+        // fftBuffer layout after transform: [real0, real1, ..., realN, imag1, ..., imagN]
+        // DC is purely real (no imag), Nyquist is purely real (no imag)
+        const int numBins = fftSize / 2 + 1;
+
+        // DC bin (bin 0)
+        magnitudes[0] = std::abs(fftBuffer[0]);
+
+        // Bins 1 to N-1
+        for (int bin = 1; bin < numBins - 1; ++bin)
+        {
+            float real = fftBuffer[bin];
+            float imag = fftBuffer[fftSize - bin];  // Imag values stored in reverse
+            magnitudes[bin] = std::sqrt(real * real + imag * imag);
+        }
+
+        // Nyquist bin
+        if (numBins > 1)
+        {
+            magnitudes[numBins - 1] = std::abs(fftBuffer[fftSize / 2]);
+        }
+
+        // Calculate centroid from magnitudes
+        rawCentroidHz = calculateCentroidFromMagnitudes();
+
+        // Apply temporal smoothing
+        smoothedCentroidHz = smoothingCoeff * smoothedCentroidHz +
+                             (1.0f - smoothingCoeff) * rawCentroidHz;
+    }
+
+    float calculateCentroidFromMagnitudes()
+    {
+        const int numBins = fftSize / 2 + 1;
+        const float binWidthHz = static_cast<float>(sampleRate / fftSize);
+
+        float weightedSum = 0.0f;
+        float magnitudeSum = 0.0f;
+
+        // Start from bin 1 (skip DC)
+        for (int bin = 1; bin < numBins; ++bin)
+        {
+            float magnitude = magnitudes[bin];
+            float frequencyHz = bin * binWidthHz;
+
+            weightedSum += frequencyHz * magnitude;
+            magnitudeSum += magnitude;
+        }
+
+        // Check if we have enough energy to calculate centroid
+        if (magnitudeSum < energyThreshold)
+        {
+            // Not enough energy, maintain last valid centroid
+            return smoothedCentroidHz;
+        }
+
+        // Calculate centroid
+        float centroid = weightedSum / (magnitudeSum + 1e-12f);  // Add epsilon for safety
+
+        // Clamp to valid range
+        centroid = juce::jlimit(20.0f, 20000.0f, centroid);
+
+        return centroid;
+    }
+};
