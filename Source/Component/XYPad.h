@@ -16,6 +16,7 @@ public:
         Thumb();
         void paint(juce::Graphics& g) override;
         void mouseDown(const juce::MouseEvent& event) override;
+        void mouseUp(const juce::MouseEvent& event) override;
         void mouseDrag(const juce::MouseEvent& event) override;
         void mouseDoubleClick(const juce::MouseEvent& event) override;
         std::function<void(juce::Point<double>)> moveCallback;
@@ -23,6 +24,7 @@ public:
     private:
         juce::ComponentDragger dragger;
         juce::ComponentBoundsConstrainer constrainer;
+        bool isDragging = false;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Thumb)
     };

@@ -11,13 +11,26 @@ XYPad::Thumb::Thumb()
 
 void XYPad::Thumb::paint(juce::Graphics& g)
 	{
-		g.setColour(juce::Colours::white);
+		if (isDragging)
+			g.setColour(juce::Colour(0xFFB0B3CC));  // Darker white when dragging
+		else
+			g.setColour(juce::Colour(0xFFE6E9FF));  // Normal color
+
+
 		g.fillEllipse(getLocalBounds().toFloat());
 	}
 
-	void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
+void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
 	{
+		isDragging = true;
+		repaint();
 		dragger.startDraggingComponent(this, event);
+	}
+
+	void XYPad::Thumb::mouseUp(const juce::MouseEvent& event)
+	{
+		isDragging = false;
+		repaint();
 	}
 
 	void XYPad::Thumb::mouseDrag(const juce::MouseEvent& event)
@@ -107,8 +120,8 @@ void XYPad::Thumb::paint(juce::Graphics& g)
 
 	void XYPad::paint(juce::Graphics& g)
 	{
-		g.setColour(juce::Colours::black);
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), 10.f);
+		g.setColour(juce::Colour(0x80121212));
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), 15.f);
 	}
 
 	void XYPad::registerSlider(juce::Slider* slider, Axis axis)
