@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 3.24)
 
 # Change to your project name
-project(SpectralShift VERSION 0.0.0)
+project(SpectralShift VERSION 1.0.0)
 
+# Universal binary support for macOS (Intel + Apple Silicon)
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "Build architectures for Mac OS X" FORCE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Minimum macOS deployment version" FORCE)
+endif()
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_XCODE_GENERATE_SCHEME OFF)
