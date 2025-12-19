@@ -25,8 +25,12 @@ public:
         inline static const juce::Colour text = juce::Colour(0xFFE6E9FF);
         inline static const juce::Colour textDim = juce::Colour(0xFF9AA1C4);
 
-        inline static const juce::Colour pitch = juce::Colour(0xFF3A7BFF);
-        inline static const juce::Colour formant = juce::Colour(0xFF9B6BFF);
+        inline static const juce::Colour pitchPositive = juce::Colour(0xFF3A7BFF);
+        inline static const juce::Colour pitchNegative = juce::Colour(0xFF0B1833);
+
+        inline static const juce::Colour formantPositive = juce::Colour(0xFF9B6BFF);
+        inline static const juce::Colour formantNegative = juce::Colour(0xFF25193D);
+
         inline static const juce::Colour formantCompensation = juce::Colour(0xFF5a7afa);
 
         inline static const juce::Colour tonality = juce::Colour(0xFF4576f5);
@@ -34,6 +38,11 @@ public:
 
         inline static const juce::Colour error = juce::Colour(0xFFE57373);
         inline static const juce::Colour transparent = juce::Colour(0x00121212);
+
+        inline static const juce::Colour xyPadBackground = juce::Colour(0xFF222329);
+        inline static const juce::Colour xyPadThumb = juce::Colour(0xFFE6E9FF);
+        inline static const juce::Colour xyPadThumbDragging = juce::Colour(0xFFB0B3CC);
+
 
     };
 
@@ -210,7 +219,7 @@ public:
         if (button.getToggleState())
         {
             if (button.getName() == "Formant") {
-                g.setColour(Colors::formant);
+                g.setColour(Colors::formantPositive);
             } else if (button.getName() == "Tilt") {
                 g.setColour(Colors::tilt);
             }
