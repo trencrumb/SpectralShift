@@ -67,13 +67,8 @@ jobs:
         env:
           CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "$CODESIGN_IDENTITY" \
-            --timestamp \
-            --options runtime \
-            --deep \
-            --strict \
-            --verbose \
-            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
+          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3" --deep --strict --options=runtime --timestamp
+
 
           # Verify signature
           codesign --verify --deep --strict --verbose=2 \
@@ -83,13 +78,7 @@ jobs:
         env:
           CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "$CODESIGN_IDENTITY" \
-            --timestamp \
-            --options runtime \
-            --deep \
-            --strict \
-            --verbose \
-            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/SpectralShift.component"
+          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/SpectralShift.component" --deep --strict --options=runtime --timestamp
 
           # Verify signature
           codesign --verify --deep --strict --verbose=2 \
@@ -99,13 +88,8 @@ jobs:
         env:
           CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "$CODESIGN_IDENTITY" \
-            --timestamp \
-            --options runtime \
-            --deep \
-            --strict \
-            --verbose \
-            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app"
+          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app" --deep --strict --options=runtime --timestamp
+
 
           # Verify signature
           codesign --verify --deep --strict --verbose=2 \
