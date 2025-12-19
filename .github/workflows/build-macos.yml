@@ -94,8 +94,8 @@ jobs:
         run: |
           # Set variables
           ARTIFACTS_PATH="${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}"
-          VERSION="1.0.0"  # TODO: Get this from your project
-          BUNDLE_ID="com.spectralshift"  # TODO: Update with your bundle ID
+          VERSION="1.0.0"
+          BUNDLE_ID="com.trencrumb.spectralshift"
           PRODUCT_NAME="SpectralShift"
 
           # Create packaging directory
@@ -129,34 +129,28 @@ jobs:
           <?xml version="1.0" encoding="utf-8"?>
           <installer-gui-script minSpecVersion="1">
               <title>SpectralShift</title>
-              <organization>com.spectralshift</organization>
+              <organization>com.trencrumb.spectralshift</organization>
               <domains enable_localSystem="true"/>
               <options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/>
 
-              <pkg-ref id="com.spectralshift.au.pkg">
-                  <bundle-version/>
-              </pkg-ref>
-              <pkg-ref id="com.spectralshift.vst3.pkg">
-                  <bundle-version/>
-              </pkg-ref>
-              <pkg-ref id="com.spectralshift.app.pkg">
-                  <bundle-version/>
-              </pkg-ref>
+              <pkg-ref id="com.trencrumb.spectralshift.au.pkg" version="1.0.0" onConclusion="none">SpectralShift.au.pkg</pkg-ref>
+              <pkg-ref id="com.trencrumb.spectralshift.vst3.pkg" version="1.0.0" onConclusion="none">SpectralShift.vst3.pkg</pkg-ref>
+              <pkg-ref id="com.trencrumb.spectralshift.app.pkg" version="1.0.0" onConclusion="none">SpectralShift.app.pkg</pkg-ref>
 
               <choices-outline>
-                  <line choice="com.spectralshift.au.pkg"/>
-                  <line choice="com.spectralshift.vst3.pkg"/>
-                  <line choice="com.spectralshift.app.pkg"/>
+                  <line choice="com.trencrumb.spectralshift.au.pkg"/>
+                  <line choice="com.trencrumb.spectralshift.vst3.pkg"/>
+                  <line choice="com.trencrumb.spectralshift.app.pkg"/>
               </choices-outline>
 
-              <choice id="com.spectralshift.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
-                  <pkg-ref id="com.spectralshift.au.pkg"/>
+              <choice id="com.trencrumb.spectralshift.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
+                  <pkg-ref id="com.trencrumb.spectralshift.au.pkg"/>
               </choice>
-              <choice id="com.spectralshift.vst3.pkg" visible="true" title="VST3" description="Install the VST3 plugin">
-                  <pkg-ref id="com.spectralshift.vst3.pkg"/>
+              <choice id="com.trencrumb.spectralshift.vst3.pkg" visible="true" title="VST3" description="Install the VST3 plugin">
+                  <pkg-ref id="com.trencrumb.spectralshift.vst3.pkg"/>
               </choice>
-              <choice id="com.spectralshift.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
-                  <pkg-ref id="com.spectralshift.app.pkg"/>
+              <choice id="com.trencrumb.spectralshift.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
+                  <pkg-ref id="com.trencrumb.spectralshift.app.pkg"/>
               </choice>
           </installer-gui-script>
           EOF
