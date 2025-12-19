@@ -102,54 +102,131 @@ void PresetManager::resetToFactoryPresets()
 
 void PresetManager::initializeFactoryPresets()
 {
-    // Factory Preset 1: Subtle Brighten
-    presets.push_back({
-        "Subtle Brighten",
-        {
-            { "PITCH_SEMITONES",        2.0f },
-            { "PITCH_CENTS",            0.0f },
-            { "FORMANT_SEMITONES",      1.0f },
-            { "FORMANT_CENTS",          0.0f },
-            { "FORMANT_COMPENSATION",   1.0f },
-            { "TONALITY_HZ",         6000.0f },
-            { "FORMANT_BASE_HZ",      200.0f },
-            { "TILT_GAIN_DB",           1.5f },
-            { "TILT_CENTRE_HZ",      1000.0f },
-            { "TILT_CENTRE_AUTO",       1.0f }
-        }
-    });
-
-    // Factory Preset 2: Thick Low
-    presets.push_back({
-        "Thick Low",
-        {
-            { "PITCH_SEMITONES",        7.0f },
-            { "PITCH_CENTS",            0.0f },
-            { "FORMANT_SEMITONES",     -5.0f },
-            { "FORMANT_CENTS",          0.0f },
-            { "FORMANT_COMPENSATION",   1.0f },
-            { "TONALITY_HZ",         3000.0f },
-            { "FORMANT_BASE_HZ",      150.0f },
-            { "TILT_GAIN_DB",          -2.0f },
-            { "TILT_CENTRE_HZ",      1000.0f },
-            { "TILT_CENTRE_AUTO",       1.0f }
-        }
-    });
-
-    // Factory Preset 3: Default/Init
     presets.push_back({
         "Default",
         {
-            { "PITCH_SEMITONES",        0.0f },
-            { "PITCH_CENTS",            0.0f },
-            { "FORMANT_SEMITONES",      0.0f },
-            { "FORMANT_CENTS",          0.0f },
-            { "FORMANT_COMPENSATION",   1.0f },
-            { "TONALITY_HZ",         5000.0f },
-            { "FORMANT_BASE_HZ",        0.0f },
-            { "TILT_GAIN_DB",           0.0f },
-            { "TILT_CENTRE_HZ",      1000.0f },
-            { "TILT_CENTRE_AUTO",       1.0f }
+            { "PITCH_SEMITONES", 0.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", 0.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 5000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", 0.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Subtle Brighten",
+        {
+            { "PITCH_SEMITONES", 2.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", 1.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 0.0f },
+            { "TONALITY_HZ", 6000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", 1.5f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Thick Low",
+        {
+            { "PITCH_SEMITONES", 7.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", -5.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 3000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", -2.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Chipmunk",
+        {
+            { "PITCH_SEMITONES", 12.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", 10.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 0.0f },
+            { "TONALITY_HZ", 8000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", 2.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Deep Monster",
+        {
+            { "PITCH_SEMITONES", -12.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", -7.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 2000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", -3.0f },
+            { "TILT_CENTRE_HZ", 200.0f },
+            { "TILT_CENTRE_AUTO", 0.0f }
+        }
+    });
+
+    presets.push_back({
+        "Shimmer",
+        {
+            { "PITCH_SEMITONES", 5.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", 3.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 10000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", 4.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Higher Voice",
+        {
+            { "PITCH_SEMITONES", 0.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", 4.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 6000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", 1.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
+        }
+    });
+
+    presets.push_back({
+        "Lower Voice",
+        {
+            { "PITCH_SEMITONES", 0.0f },
+            { "PITCH_CENTS", 0.0f },
+            { "FORMANT_SEMITONES", -4.0f },
+            { "FORMANT_CENTS", 0.0f },
+            { "FORMANT_COMPENSATION", 1.0f },
+            { "TONALITY_HZ", 4000.0f },
+            { "FORMANT_BASE_HZ", 0.0f },
+            { "TILT_GAIN_DB", -1.0f },
+            { "TILT_CENTRE_HZ", 1000.0f },
+            { "TILT_CENTRE_AUTO", 1.0f }
         }
     });
 }
