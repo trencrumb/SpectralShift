@@ -50,17 +50,65 @@ jobs:
       - name: Build
         run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
 
-      - name: Pluginval
+      - name: Pluginval (before signing)
         run: |
           curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_macOS.zip"
           7z x pluginval_macOS.zip
           ./pluginval.app/Contents/MacOS/pluginval --strictness-level 10 --verbose \
             --validate "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
 
-      - name: Upload artifacts
+      - name: Import Developer ID Application Certificate
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
+          p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
+
+      - name: Code Sign VST3
+        run: |
+          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+            --timestamp \
+            --options runtime \
+            --deep \
+            --strict \
+            --verbose \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
+
+          # Verify signature
+          codesign --verify --deep --strict --verbose=2 \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
+
+      - name: Code Sign AU
+        run: |
+          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+            --timestamp \
+            --options runtime \
+            --deep \
+            --strict \
+            --verbose \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/SpectralShift.component"
+
+          # Verify signature
+          codesign --verify --deep --strict --verbose=2 \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/SpectralShift.component"
+
+      - name: Code Sign Standalone
+        run: |
+          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+            --timestamp \
+            --options runtime \
+            --deep \
+            --strict \
+            --verbose \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app"
+
+          # Verify signature
+          codesign --verify --deep --strict --verbose=2 \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app"
+
+      - name: Upload signed artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: SpectralShift-unsigned-${{ github.sha }}
+          name: SpectralShift-signed-${{ github.sha }}
           path: |
             ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/*.vst3
             ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/*.component
