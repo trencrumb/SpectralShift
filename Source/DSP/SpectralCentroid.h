@@ -8,6 +8,23 @@
 #include <vector>
 #include <cmath>
 
+/**
+ * Real-time spectral centroid analyzer using overlapping FFT windows.
+ *
+ * Calculates the frequency-domain "center of mass" of an audio signal,
+ * providing a measure of spectral brightness. Higher values indicate
+ * brighter/more high-frequency content.
+ *
+ * Implementation details:
+ * - FFT size: 2048 samples (2^11)
+ * - Window: Hann window
+ * - Overlap: 75% (hop size = 512 samples)
+ * - Temporal smoothing: ~250ms time constant
+ * - Frequency range: 20 Hz to 20 kHz (clamped)
+ *
+ * The centroid is only updated when sufficient energy is present in the
+ * signal to avoid noise artifacts during silence.
+ */
 class SpectralCentroid
 {
 public:
