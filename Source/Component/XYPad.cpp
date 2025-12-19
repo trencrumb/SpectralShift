@@ -103,8 +103,15 @@ void XYPad::resized()
 
 void XYPad::paint(juce::Graphics& g)
 {
+	auto bounds = getLocalBounds().toFloat();
+
+	// Fill background
 	g.setColour(backgroundColour);
-	g.fillRoundedRectangle(getLocalBounds().toFloat(), cornerRadius);
+	g.fillRoundedRectangle(bounds, cornerRadius);
+
+	// Draw border
+	g.setColour(backgroundColour.brighter(0.3f));  // Lighter border
+	g.drawRoundedRectangle(bounds, cornerRadius, 1.0f);  // 2px border thickness
 }
 
 void XYPad::registerSlider(juce::Slider* slider, Axis axis)
