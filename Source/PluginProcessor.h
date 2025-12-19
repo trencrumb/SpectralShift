@@ -12,9 +12,11 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <signalsmith-stretch/signalsmith-stretch.h>
 #include "DSP/TiltEQ.h"
-#include "DSP/MultibandTransientShaper.h"
-#include "DSP/PitchDetection.h"
+#include "DSP/SpectralCentroid.h"
 
+#if PERFETTO
+    #include <melatonin_perfetto/melatonin_perfetto.h>
+#endif
 
 //==============================================================================
 /**
@@ -68,6 +70,9 @@ public:
     // Give DSP initial values
     void init();
 
+    // Get current CPU load (0.0 to 1.0, where 1.0 = 100%)
+    double getCpuLoad() const { return loadMeasurer.getLoadAsPercentage() / 100.0; }
+
     // Pass sample rate and buffer size to DSP 
     void prepare(double sampleRate, int samplesPerBlock);
 
@@ -104,26 +109,19 @@ private:
     float currentFormantBaseHz { 0.0f };
 
     TiltEQ tiltEQ;
-    float currentTiltCentreHz { 0.0f };
     float currentTiltGainDB { 0.0f };
 
-    std::array<MultibandTransientShaper, 2> multibandTransientShaper;
-    float currentLowMidXoverHz { 250.0f };
-    float currentMidHighXoverHz { 4000.0f };
-    float currentLowAttackDB { 0.0f };
-    float currentLowSustainDB { 0.0f };
-    float currentMidAttackDB { 0.0f };
-    float currentMidSustainDB { 0.0f };
-    float currentHighAttackDB { 0.0f };
-    float currentHighSustainDB { 0.0f };
+    SpectralCentroid spectralCentroid;
 
-    TransientShaper::SmoothingMode transientSmoothingMode = TransientShaper::SmoothingMode::Medium;
+    // CPU load measurement
+    juce::AudioProcessLoadMeasurer loadMeasurer;
 
-    // debug: last seen attack value so we only log changes
-    float lastLoggedAttackDB = std::numeric_limits<float>::quiet_NaN();
-
+#if PERFETTO
+    MelatoninPerfetto perfettoSession;
+#endif
 
     juce::AudioBuffer<float> stretchBuffer;
+    std::vector<float> monoBuffer;
     std::vector<float*> inPtrs, outPtrs;
 
     struct Preset

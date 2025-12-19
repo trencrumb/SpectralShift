@@ -129,8 +129,11 @@ void SpectralShiftAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = channels;
     tiltEQ.prepare(spec);
-    for (auto& mbShaper : multibandTransientShaper)
-        mbShaper.prepare(sampleRate, samplesPerBlock);
+    monoBuffer.resize(samplesPerBlock);
+    spectralCentroid.prepare(sampleRate, samplesPerBlock);
+
+    // Reset CPU load measurer with current sample rate
+    loadMeasurer.reset(sampleRate, samplesPerBlock);
 
     prepare(sampleRate, samplesPerBlock);
     update();
@@ -173,13 +176,26 @@ bool SpectralShiftAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                                  juce::MidiBuffer& midiMessages)
 {
+    #if PERFETTO
+        TRACE_DSP();  // Perfetto trace for entire processBlock
+    #endif
+
+
     juce::ignoreUnused(midiMessages);
 
     if (! isActive)
         return;
 
-    // Always refresh parameters each block so GUI/host changes (including generic editor) are applied immediately.
+    // Measure CPU load - this scoped timer automatically tracks the processing time
+    const juce::AudioProcessLoadMeasurer::ScopedTimer timer(loadMeasurer, buffer.getNumSamples());
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "parameter-update");
+    #endif
     update();
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
+
 
     juce::ScopedNoDenormals noDenormals;
 
@@ -210,7 +226,6 @@ void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     const float tonalityHz     = currentTonalityHz;
     const float formantBaseHz  = currentFormantBaseHz;
 
-    const float tiltCentreHz = currentTiltCentreHz;
     const float tiltGainDB   = currentTiltGainDB;
 
     const float sr = (float) getSampleRate();
@@ -233,8 +248,7 @@ void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     stretch.setFormantSemitones   (formantSemitones, formantCompensation);
     stretch.setFormantBase        (safeFormantBaseHz);
 
-
-    tiltEQ.setCentreFrequency(tiltCentreHz);
+    // Tilt EQ center frequency is now set automatically by spectral centroid (see below)
     tiltEQ.setGainDb(tiltGainDB);
 
 
@@ -252,65 +266,88 @@ void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     int outputSamples = numSamples;
 
     // --- 3. Process with Signalsmith Stretch ---
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "signalsmith-stretch");
+    #endif
 
     stretch.process(inPtrs.data(), inputSamples,
                     outPtrs.data(), outputSamples);
+#if PERFETTO
+    TRACE_EVENT_END("dsp");
+#endif
 
     // outputSamples may differ slightly; be safe when copying back
     const int copySamples = std::min(numSamples, outputSamples);
 
     // --- 4. Copy processed audio back into JUCE buffer ---
-
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "buffer-copy");
+    #endif
     for (int ch = 0; ch < numChannels; ++ch)
     {
         buffer.clear(ch, 0, numSamples);
         buffer.copyFrom(ch, 0, stretchBuffer, ch, 0, copySamples);
 
     }
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    TRACE_EVENT_BEGIN("dsp", "mono-sum");
+    #endif
+    monoBuffer.resize(numSamples);  // Only resizes if different
+    std::fill(monoBuffer.begin(), monoBuffer.end(), 0.0f);
 
-    std::vector<float> mono;
-
-    mono.resize((size_t) numSamples);
-    std::fill(mono.begin(), mono.end(), 0.0f);
 
     for (int ch = 0; ch < numChannels; ++ch)
     {
         const float* x = buffer.getReadPointer(ch);
         for (int i = 0; i < numSamples; ++i)
-            mono[(size_t) i] += x[i];
+            monoBuffer[(size_t) i] += x[i];
     }
 
     const float invCh = 1.0f / (float) numChannels;
     for (int i = 0; i < numSamples; ++i)
-        mono[(size_t) i] *= invCh;
+        monoBuffer[(size_t) i] *= invCh;
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
 
-    // 2) Estimate f0 (pick sensible min/max for your use-case)
-    const float f0 = estimatePitchHzAutocorr(mono.data(), numSamples, sr, 50.0f, 500.0f);
+    TRACE_EVENT_BEGIN("dsp", "tilt-centre-calculation");
+    #endif
+    auto* tiltCentreAutoParam = apvts.getRawParameterValue("TILT_CENTRE_AUTO");
+    bool isAuto = tiltCentreAutoParam->load() > 0.5f;
 
-    if (f0 > 0.0f)
-    {
-        float targetTiltCentreHz = juce::jlimit(20.0f, 20000.0f, f0 * 8.0f);
+    float tiltCentreHz;
+    if (isAuto) {
+#if PERFETTO
+        TRACE_EVENT_BEGIN("dsp", "spectral-centroid");
+        #endif
+        // Use spectral centroid
+        spectralCentroid.processBlock(monoBuffer.data(), numSamples);
+        tiltCentreHz = spectralCentroid.getCentroidHz();
+        #if PERFETTO
+        TRACE_EVENT_END("dsp");
+        #endif
 
-        // 4) Smooth it (recommended to avoid chatter)
-        // e.g. use juce::SmoothedValue<float> as a member and call setTargetValue()
-        // then in your sample loop: smoothed.getNextValue()
-        tiltEQ.setCentreFrequency(targetTiltCentreHz);
-        currentTiltCentreHz = targetTiltCentreHz;
+        // Clamp to parameter range (200-20000 Hz) before updating slider
+        tiltCentreHz = juce::jlimit(200.0f, 20000.0f, tiltCentreHz);
+
+        // Update the slider parameter value for visualization (without triggering listeners)
+        if (auto* param = apvts.getParameter("TILT_CENTRE_HZ"))
+            param->setValueNotifyingHost(param->getNormalisableRange().convertTo0to1(tiltCentreHz));
+    } else {
+        auto* manualParam = apvts.getRawParameterValue("TILT_CENTRE_HZ");
+        tiltCentreHz = manualParam->load();
     }
 
+    tiltEQ.setCentreFrequency(tiltCentreHz);
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
 
-
+    TRACE_EVENT_BEGIN("dsp", "tilt-eq");
+    #endif
     tiltEQ.process (buffer);
-
-    // Apply multiband transient shaper to the final buffer to shape attack/sustain
-
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-    {
-        auto* data = buffer.getWritePointer(ch);
-        for (int i = 0; i < buffer.getNumSamples(); ++i)
-            data[i] = multibandTransientShaper[ch].processSample(data[i]);
-    }
-
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
 }
 
 
@@ -372,7 +409,6 @@ void SpectralShiftAudioProcessor::init()
                     { "FORMANT_COMPENSATION", 1.0f },
                     { "TONALITY_HZ",       6000.0f },
                     { "FORMANT_BASE_HZ",   200.0f },
-                    { "TILT_CENTRE_HZ",    4000.0f },
                     { "TILT_GAIN_DB",      1.5f },
                 }
         },
@@ -386,7 +422,6 @@ void SpectralShiftAudioProcessor::init()
                     { "FORMANT_COMPENSATION", 1.0f },
                     { "TONALITY_HZ",       3000.0f },
                     { "FORMANT_BASE_HZ",   150.0f },
-                    { "TILT_CENTRE_HZ",    1000.0f },
                     { "TILT_GAIN_DB",     -2.0f },
                 }
         }
@@ -427,17 +462,6 @@ void SpectralShiftAudioProcessor::update()
     auto* tonalityHzParam  = apvts.getRawParameterValue("TONALITY_HZ");
     auto* formantBaseParam = apvts.getRawParameterValue("FORMANT_BASE_HZ");
 
-    // Multiband transient shaper parameters
-    auto* lowAttackParam = apvts.getRawParameterValue("LOW_TRANS_ATTACK_DB");
-    auto* lowSustainParam = apvts.getRawParameterValue("LOW_TRANS_SUSTAIN_DB");
-    auto* midAttackParam = apvts.getRawParameterValue("MID_TRANS_ATTACK_DB");
-    auto* midSustainParam = apvts.getRawParameterValue("MID_TRANS_SUSTAIN_DB");
-    auto* highAttackParam = apvts.getRawParameterValue("HIGH_TRANS_ATTACK_DB");
-    auto* highSustainParam = apvts.getRawParameterValue("HIGH_TRANS_SUSTAIN_DB");
-    auto* lowMidXoverParam = apvts.getRawParameterValue("TRANS_LOWMID_XOVER_HZ");
-    auto* midHighXoverParam = apvts.getRawParameterValue("TRANS_MIDHIGH_XOVER_HZ");
-
-    auto* tiltCentreHzParam = apvts.getRawParameterValue("TILT_CENTRE_HZ");
     auto* tiltGainDBParam = apvts.getRawParameterValue("TILT_GAIN_DB");
 
 
@@ -453,53 +477,6 @@ void SpectralShiftAudioProcessor::update()
     currentTonalityHz          = tonalityHzParam->load();
     currentFormantBaseHz       = formantBaseParam->load();
 
-    // Update multiband transient shaper
-    if (lowAttackParam && lowSustainParam &&
-        midAttackParam && midSustainParam &&
-        highAttackParam && highSustainParam &&
-        lowMidXoverParam && midHighXoverParam)
-    {
-        currentLowAttackDB = lowAttackParam->load();
-        currentLowSustainDB = lowSustainParam->load();
-        currentMidAttackDB = midAttackParam->load();
-        currentMidSustainDB = midSustainParam->load();
-        currentHighAttackDB = highAttackParam->load();
-        currentHighSustainDB = highSustainParam->load();
-        currentLowMidXoverHz = lowMidXoverParam->load();
-        currentMidHighXoverHz = midHighXoverParam->load();
-
-        for (auto& mbShaper : multibandTransientShaper)
-        {
-            mbShaper.setCrossovers(currentLowMidXoverHz, currentMidHighXoverHz);
-            mbShaper.setParameters(0, currentLowAttackDB, currentLowSustainDB);    // Low band
-            mbShaper.setParameters(1, currentMidAttackDB, currentMidSustainDB);    // Mid band
-            mbShaper.setParameters(2, currentHighAttackDB, currentHighSustainDB);  // High band
-        }
-    }
-
-    auto* transSmoothingParam = apvts.getRawParameterValue("TRANS_SMOOTHING");
-    if (transSmoothingParam)
-    {
-        int smoothingIndex = (int)transSmoothingParam->load();
-        TransientShaper::SmoothingMode newMode;
-
-        switch (smoothingIndex)
-        {
-            case 0: newMode = TransientShaper::SmoothingMode::Sharp; break;
-            case 1: newMode = TransientShaper::SmoothingMode::Medium; break;
-            case 2: newMode = TransientShaper::SmoothingMode::Smooth; break;
-            default: newMode = TransientShaper::SmoothingMode::Medium; break;
-        }
-
-        if (newMode != transientSmoothingMode)
-        {
-            transientSmoothingMode = newMode;
-            for (auto& mbShaper : multibandTransientShaper)
-                mbShaper.setSmoothingMode(newMode);
-        }
-    }
-
-    currentTiltCentreHz        = tiltCentreHzParam->load();
     currentTiltGainDB          = tiltGainDBParam->load();
 }
 
@@ -556,9 +533,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor:
     parameters.push_back(std::make_unique<juce::AudioParameterBool>(
         "FORMANT_COMPENSATION", "Formant Compensation", true));
 
+    // Tonality Hz - logarithmic range centered at 2kHz
+    auto tonalityRange = juce::NormalisableRange<float>(200.0f, 20000.0f, 10.0f);
+    tonalityRange.setSkewForCentre(2000.0f);
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
         "TONALITY_HZ", "Tonality Hz",
-        juce::NormalisableRange<float>(200.0f, 5000.0f, 1.0f), 5000.0f, "Hz",
+        tonalityRange, 5000.0f, "Hz",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
@@ -566,63 +546,27 @@ juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor:
         juce::NormalisableRange<float>(0.0f, 500.0f, 1.0f), 0.0f, "Hz",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
-    // Multiband Transient Shaper - Low Band
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "LOW_TRANS_ATTACK_DB", "Low Band Attack dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "LOW_TRANS_SUSTAIN_DB", "Low Band Sustain dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Multiband Transient Shaper - Mid Band
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "MID_TRANS_ATTACK_DB", "Mid Band Attack dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "MID_TRANS_SUSTAIN_DB", "Mid Band Sustain dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Multiband Transient Shaper - High Band
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "HIGH_TRANS_ATTACK_DB", "High Band Attack dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "HIGH_TRANS_SUSTAIN_DB", "High Band Sustain dB",
-        juce::NormalisableRange<float>(-15.0f, 15.0f, 0.01f), 0.0f, "dB",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Multiband Transient Shaper - Crossover Frequencies (using skew for logarithmic feel)
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "TRANS_LOWMID_XOVER_HZ", "Low/Mid Crossover Hz",
-        juce::NormalisableRange<float>(80.0f, 1000.0f, 1.0f, 0.3f), 250.0f, "Hz",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "TRANS_MIDHIGH_XOVER_HZ", "Mid/High Crossover Hz",
-        juce::NormalisableRange<float>(1000.0f, 10000.0f, 1.0f, 0.3f), 4000.0f, "Hz",
-        juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Multiband Transient Shaper - Global Smoothing Mode
-    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
-        "TRANS_SMOOTHING", "Transient Smoothing",
-        juce::StringArray{"Sharp", "Medium", "Smooth"},
-        2));
-
-
-    parameters.push_back(std::make_unique<juce::AudioParameterInt>(
-        "TILT_CENTRE_HZ", "Tilt Centre Hz", 20, 20000, 2000, "Hz", valueToTextFunction, textToValueFunction));
+    auto tiltGainRange = juce::NormalisableRange<float>(-6.0f, 6.0f, 0.001f);
+    tiltGainRange.setSkewForCentre(0.0f);
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
         "TILT_GAIN_DB", "Tilt Gain db",
-        juce::NormalisableRange<float>(-6.0f, 6.0f, 0.001f), 0.0f, "dB",
+        tiltGainRange, 0.0f, "dB",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
+
+    // Tilt Centre Hz - logarithmic range centered at 1kHz (extended to 20kHz for high sample rates)
+    auto tiltCentreRange = juce::NormalisableRange<float>(200.0f, 20000.0f, 5.0f);
+    tiltCentreRange.setSkewForCentre(1000.0f);
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "TILT_CENTRE_HZ",
+        "Tilt Centre Hz",
+        tiltCentreRange,
+        1000.0f));
+
+    // Auto tilt centre toggle (default ON)
+    parameters.push_back(std::make_unique<juce::AudioParameterBool>(
+        "TILT_CENTRE_AUTO",
+        "Tilt Centre Auto",
+        true));
 
     return { parameters.begin(), parameters.end() };
 }
