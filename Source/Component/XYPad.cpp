@@ -4,23 +4,38 @@
 
 #include "XYPad.h"
 
-XYPad::Thumb::Thumb()
+XYPad::Thumb::Thumb(XYPad& parent) : parentPad(parent)
 	{
 		constrainer.setMinimumOnscreenAmounts(thumbSize, thumbSize, thumbSize, thumbSize);
 	}
 
 void XYPad::Thumb::paint(juce::Graphics& g)
-	{
-		if (isDragging)
-			g.setColour(juce::Colour(0xFFB0B3CC));  // Darker white when dragging
-		else
-			g.setColour(juce::Colour(0xFFE6E9FF));  // Normal color
+{
+	// Get normalized position (0-1 range)
+	auto parentBounds = getParentComponent()->getLocalBounds().toFloat();
+	float normalizedX = getX() / (parentBounds.getWidth() - thumbSize);
+	float normalizedY = 1.0f - (getY() / (parentBounds.getHeight() - thumbSize)); // Invert Y
 
+	// Interpolate on X axis
+	auto xColour = parentPad.xNegativeColour.interpolatedWith(
+		parentPad.xPositiveColour, normalizedX);
 
-		g.fillEllipse(getLocalBounds().toFloat());
-	}
+	// Interpolate on Y axis
+	auto yColour = parentPad.yNegativeColour.interpolatedWith(
+		parentPad.yPositiveColour, normalizedY);
 
-void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
+	// Blend the two interpolated colors
+	auto finalColour = xColour.interpolatedWith(yColour, 0.5f);
+
+	// Darken when dragging
+	if (isDragging)
+		finalColour = finalColour.darker(0.3f);  // 30% darker
+
+	g.setColour(finalColour);
+	g.fillEllipse(getLocalBounds().toFloat());
+}
+
+	void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
 	{
 		isDragging = true;
 		repaint();
@@ -46,10 +61,15 @@ void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
 			resetCallback();
 	}
 
+void XYPad::Thumb::setThumbColour(juce::Colour normal, juce::Colour dragging) {
+	thumbColour = normal;
+	thumbDraggingColour = dragging;
+}
+
 	/*
 	 * XY Pad section
 	 */
-	XYPad::XYPad()
+	XYPad::XYPad() : thumb(*this)
 	{
 		addAndMakeVisible(thumb);
 		thumb.moveCallback = [&](juce::Point<double> position)
@@ -120,8 +140,8 @@ void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
 
 	void XYPad::paint(juce::Graphics& g)
 	{
-		g.setColour(juce::Colour(0x80121212));
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), 15.f);
+		g.setColour(backgroundColour);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), 20.f);
 	}
 
 	void XYPad::registerSlider(juce::Slider* slider, Axis axis)
@@ -164,5 +184,10 @@ void XYPad::Thumb::mouseDown(const juce::MouseEvent& event)
 				thumb.getX(),
 				juce::jmap(slider->getValue(), slider->getMinimum(), slider->getMaximum(), bounds.getHeight() - w, 0.0));
 		}
+		repaint();
+	}
+	void XYPad::setBackgroundColour(juce::Colour colour)
+	{
+		backgroundColour = colour;
 		repaint();
 	}
