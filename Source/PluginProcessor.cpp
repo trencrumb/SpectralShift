@@ -28,7 +28,7 @@ SpectralShiftAudioProcessor::SpectralShiftAudioProcessor()
 
 SpectralShiftAudioProcessor::~SpectralShiftAudioProcessor()
 {
-    stretch.presetDefault(getTotalNumInputChannels(), getSampleRate(), false);
+    stretch.presetDefault(getTotalNumInputChannels(), getSampleRate(), true);
 }
 
 //==============================================================================

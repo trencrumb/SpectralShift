@@ -52,9 +52,8 @@ public:
         writePosition = 0;
         samplesUntilNextFFT = hopSize;
 
-        // Calculate smoothing coefficient for ~250ms time constant
         // Update happens every hopSize samples
-        const float timeConstantMs = 250.0f;
+        const float timeConstantMs = 800.0f;
         const float timeConstantSeconds = timeConstantMs / 1000.0f;
         const float updateRateHz = static_cast<float>(sampleRate) / hopSize;
         smoothingCoeff = std::exp(-1.0f / (timeConstantSeconds * updateRateHz));
