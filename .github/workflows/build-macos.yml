@@ -1,0 +1,67 @@
+name: SpectralShift
+
+on:
+  workflow_dispatch: # run manually from GitHub UI
+  push:
+    branches: [ main ]
+  pull_request:
+
+# Cancel in-progress builds when new commits pushed
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: Builds
+  SCCACHE_GHA_ENABLED: true
+
+jobs:
+  build_and_test:
+    name: macOS
+    runs-on: macos-14
+
+    steps:
+      - name: Install macOS Deps
+        run: brew install ninja osxutils
+
+      - name: Use latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache the build (sccache)
+        uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Configure CMake
+        run: |
+          cmake -B ${{ env.BUILD_DIR }} \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
+            -DCMAKE_C_COMPILER_LAUNCHER=sccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
+            -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" \
+            -G Ninja
+
+      - name: Build
+        run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
+
+      - name: Pluginval
+        run: |
+          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_macOS.zip"
+          7z x pluginval_macOS.zip
+          ./pluginval.app/Contents/MacOS/pluginval --strictness-level 10 --verbose \
+            --validate "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpectralShift-unsigned-${{ github.sha }}
+          path: |
+            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/*.vst3
+            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/*.component
+            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/*.app
