@@ -33,6 +33,19 @@ CPMAddPackage(
         GIT_TAG origin/main
 )
 
+# Perfetto profiling (optional, enable with -DPERFETTO=ON)
+option(PERFETTO "Enable Perfetto profiling" OFF)
+
+if(PERFETTO)
+    message(STATUS "Perfetto profiling enabled")
+    CPMAddPackage(
+            NAME melatonin_perfetto
+            GIT_REPOSITORY https://github.com/sudara/melatonin_perfetto.git
+            GIT_TAG origin/main
+    )
+else()
+    message(STATUS "Perfetto profiling disabled")
+endif()
 
 # Make sure you include any new source files here
 set(SourceFiles
@@ -108,4 +121,9 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
 )
+
+# Link Perfetto only if enabled
+if(PERFETTO)
+    target_link_libraries(${PROJECT_NAME} PUBLIC Melatonin::Perfetto)
+endif()
 
