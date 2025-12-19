@@ -6,6 +6,23 @@
 #pragma once
 #include <juce_dsp/juce_dsp.h>
 
+/**
+ * Shelving tilt EQ filter with adjustable center frequency and gain.
+ *
+ * Implements a tilt filter by combining complementary low-shelf and high-shelf
+ * filters centered at the same frequency. Positive gain boosts highs and cuts
+ * lows; negative gain boosts lows and cuts highs.
+ *
+ * The tilt pivots around the center frequency, creating a linear slope in
+ * the frequency response (when viewed on a log scale).
+ *
+ * Features:
+ * - Smooth parameter changes with 50ms ramp time on center frequency
+ * - Q factor: 0.4 (fixed)
+ * - Gain range: typically -6 dB to +6 dB
+ *
+ * Adapted from https://github.com/jcurtis4207/Juce-Plugins
+ */
 class TiltEQ
 {
 public:
@@ -29,6 +46,9 @@ public:
 
     void setCentreFrequency (float newFreq)
     {
+        // Clamp to valid frequency range
+        newFreq = juce::jlimit(20.0f, 20000.0f, newFreq);
+
         if (centreFreq != newFreq)
         {
             centreFreq = newFreq;
