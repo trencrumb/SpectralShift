@@ -70,3 +70,4 @@ Builds/
 *.keychain
 *.keychain-db
 
+.idea/

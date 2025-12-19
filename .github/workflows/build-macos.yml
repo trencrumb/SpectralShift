@@ -64,8 +64,10 @@ jobs:
           p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
 
       - name: Code Sign VST3
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+          codesign --force --sign "$CODESIGN_IDENTITY" \
             --timestamp \
             --options runtime \
             --deep \
@@ -78,8 +80,10 @@ jobs:
             "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
 
       - name: Code Sign AU
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+          codesign --force --sign "$CODESIGN_IDENTITY" \
             --timestamp \
             --options runtime \
             --deep \
@@ -92,8 +96,10 @@ jobs:
             "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/SpectralShift.component"
 
       - name: Code Sign Standalone
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION }}
         run: |
-          codesign --force --sign "${{ secrets.DEVELOPER_ID_APPLICATION }}" \
+          codesign --force --sign "$CODESIGN_IDENTITY" \
             --timestamp \
             --options runtime \
             --deep \
