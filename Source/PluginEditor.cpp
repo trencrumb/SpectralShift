@@ -10,6 +10,14 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     // ========== XY Pad Setup ==========
     addAndMakeVisible(xyPad);
 
+    // Customize XYPad colors (optional - defaults are already set)
+    xyPad.setThumbColours(
+        CustomLookAndFeel::Colors::pitchPositive,
+        CustomLookAndFeel::Colors::pitchNegative,
+        CustomLookAndFeel::Colors::formantPositive,
+        CustomLookAndFeel::Colors::formantNegative
+    );
+    xyPad.setBackgroundColour(CustomLookAndFeel::Colors::backgroundDark);
 
     // Pitch semitones (X-axis) - hidden slider for XY pad
     pitchSemitonesSlider = std::make_unique<juce::Slider>(juce::Slider::RotaryVerticalDrag, juce::Slider::NoTextBox);
