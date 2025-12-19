@@ -57,11 +57,11 @@ jobs:
           ./pluginval.app/Contents/MacOS/pluginval --strictness-level 10 --verbose \
             --validate "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/SpectralShift.vst3"
 
-      - name: Import Developer ID Application Certificate
+      - name: Import Developer ID Certificates
         uses: apple-actions/import-codesign-certs@v2
         with:
-          p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
-          p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
+          p12-file-base64: ${{ secrets.DEV_ID_CERT }}
+          p12-password: ${{ secrets.DEV_ID_CERT_PASSWORD }}
 
       - name: Code Sign VST3
         run: |
@@ -89,11 +89,100 @@ jobs:
           codesign --verify --deep --strict --verbose=2 \
             "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app"
 
-      - name: Upload signed artifacts
+      - name: Create Packages and Notarize
+        timeout-minutes: 15
+        run: |
+          # Set variables
+          ARTIFACTS_PATH="${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}"
+          VERSION="1.0.0"  # TODO: Get this from your project
+          BUNDLE_ID="com.spectralshift"  # TODO: Update with your bundle ID
+          PRODUCT_NAME="SpectralShift"
+
+          # Create packaging directory
+          mkdir -p packaging
+
+          # Create individual PKG files for each plugin format
+          pkgbuild --identifier "${BUNDLE_ID}.au.pkg" \
+            --version ${VERSION} \
+            --component "${ARTIFACTS_PATH}/AU/SpectralShift.component" \
+            --install-location "/Library/Audio/Plug-Ins/Components" \
+            "packaging/${PRODUCT_NAME}.au.pkg"
+
+          pkgbuild --identifier "${BUNDLE_ID}.vst3.pkg" \
+            --version ${VERSION} \
+            --component "${ARTIFACTS_PATH}/VST3/SpectralShift.vst3" \
+            --install-location "/Library/Audio/Plug-Ins/VST3" \
+            "packaging/${PRODUCT_NAME}.vst3.pkg"
+
+          # Standalone needs special handling to install in /Applications
+          pkgbuild --analyze --root "$(dirname "${ARTIFACTS_PATH}/Standalone/SpectralShift.app")" standalone.plist
+          plutil -replace BundleIsRelocatable -bool NO standalone.plist
+          pkgbuild --identifier "${BUNDLE_ID}.app.pkg" \
+            --version ${VERSION} \
+            --root "$(dirname "${ARTIFACTS_PATH}/Standalone/SpectralShift.app")" \
+            --component-plist standalone.plist \
+            --install-location "/Applications" \
+            "packaging/${PRODUCT_NAME}.app.pkg"
+
+          # Create distribution.xml for productbuild
+          cat > packaging/distribution.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <installer-gui-script minSpecVersion="1">
+              <title>SpectralShift</title>
+              <organization>com.spectralshift</organization>
+              <domains enable_localSystem="true"/>
+              <options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/>
+
+              <pkg-ref id="com.spectralshift.au.pkg">
+                  <bundle-version/>
+              </pkg-ref>
+              <pkg-ref id="com.spectralshift.vst3.pkg">
+                  <bundle-version/>
+              </pkg-ref>
+              <pkg-ref id="com.spectralshift.app.pkg">
+                  <bundle-version/>
+              </pkg-ref>
+
+              <choices-outline>
+                  <line choice="com.spectralshift.au.pkg"/>
+                  <line choice="com.spectralshift.vst3.pkg"/>
+                  <line choice="com.spectralshift.app.pkg"/>
+              </choices-outline>
+
+              <choice id="com.spectralshift.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
+                  <pkg-ref id="com.spectralshift.au.pkg"/>
+              </choice>
+              <choice id="com.spectralshift.vst3.pkg" visible="true" title="VST3" description="Install the VST3 plugin">
+                  <pkg-ref id="com.spectralshift.vst3.pkg"/>
+              </choice>
+              <choice id="com.spectralshift.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
+                  <pkg-ref id="com.spectralshift.app.pkg"/>
+              </choice>
+          </installer-gui-script>
+          EOF
+
+          # Create the final signed PKG with productbuild
+          cd packaging
+          productbuild --distribution distribution.xml \
+            --sign "${{ secrets.DEVELOPER_ID_INSTALLER }}" \
+            --timestamp \
+            "SpectralShift-macOS.pkg"
+
+          # Notarize the PKG
+          xcrun notarytool submit "SpectralShift-macOS.pkg" \
+            --apple-id "${{ secrets.NOTARIZATION_USERNAME }}" \
+            --password "${{ secrets.NOTARIZATION_PASSWORD }}" \
+            --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+            --wait
+
+          # Staple the notarization ticket
+          xcrun stapler staple "SpectralShift-macOS.pkg"
+
+          # Verify the staple worked
+          xcrun stapler validate "SpectralShift-macOS.pkg"
+
+      - name: Upload notarized package
         uses: actions/upload-artifact@v4
         with:
-          name: SpectralShift-signed-${{ github.sha }}
-          path: |
-            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/VST3/*.vst3
-            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/AU/*.component
-            ${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/*.app
+          name: SpectralShift-macOS-${{ github.sha }}
+          path: packaging/SpectralShift-macOS.pkg
