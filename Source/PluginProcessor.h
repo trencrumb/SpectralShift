@@ -13,6 +13,7 @@
 #include <signalsmith-stretch/signalsmith-stretch.h>
 #include "DSP/TiltEQ.h"
 #include "DSP/SpectralCentroid.h"
+#include "PresetManager.h"
 
 #if PERFETTO
     #include <melatonin_perfetto/melatonin_perfetto.h>
@@ -67,16 +68,14 @@ public:
 
     //==============================================================================
 
-    // Give DSP initial values
-    void init();
-
     // Get current CPU load (0.0 to 1.0, where 1.0 = 100%)
     double getCpuLoad() const { return loadMeasurer.getLoadAsPercentage() / 100.0; }
 
-    // Pass sample rate and buffer size to DSP 
-    void prepare(double sampleRate, int samplesPerBlock);
+    // Get preset manager for UI access
+    PresetManager& getPresetManager() { return presetManager; }
 
-    void setPreset(int index);
+    // Pass sample rate and buffer size to DSP
+    void prepare(double sampleRate, int samplesPerBlock);
 
     // Called when user changes parameters
     void update();
@@ -97,10 +96,6 @@ private:
     bool isActive{ false };
     bool mustUpdateProcessing{ false };
 
-    //juce::LinearSmoothedValue<float> driveNormal{ 0.0 };
-    //juce::LinearSmoothedValue<float> outputVolume[2]{ 0.0 };
-    //juce::LinearSmoothedValue<float> outputMix[2]{ 0.0 };
-
     signalsmith::stretch::SignalsmithStretch<float> stretch;
     float currentPitchSemitones { 0.0f };
     float currentFormantSemitones  { 0.0f };
@@ -116,6 +111,12 @@ private:
     // CPU load measurement
     juce::AudioProcessLoadMeasurer loadMeasurer;
 
+    // ===== Constants =====
+    static constexpr float minTiltCentreHz = 200.0f;
+    static constexpr float maxTiltCentreHz = 20000.0f;
+    static constexpr float minFormantBaseHz = 20.0f;
+    static constexpr float maxFormantBaseHz = 2000.0f;
+
 #if PERFETTO
     MelatoninPerfetto perfettoSession;
 #endif
@@ -124,19 +125,23 @@ private:
     std::vector<float> monoBuffer;
     std::vector<float*> inPtrs, outPtrs;
 
-    struct Preset
-    {
-        juce::String name;
-        std::map<juce::String, float> values; // paramID -> value
-    };
-
-    std::vector<Preset> presets;
-    int currentPresetIndex = -1;
+    // ===== Preset Management =====
+    PresetManager presetManager;
 
 
 
 
 
+
+    // ===== ProcessBlock Helper Methods =====
+    /** Converts mono buffer from stereo input. */
+    void createMonoSum(const juce::AudioBuffer<float>& buffer, int numSamples, int numChannels);
+
+    /** Processes spectral shift using signalsmith stretch. */
+    void processSpectralShift(juce::AudioBuffer<float>& buffer, int numSamples, int numChannels);
+
+    /** Calculates tilt EQ center frequency and applies tilt filter. */
+    void calculateAndApplyTiltEQ(juce::AudioBuffer<float>& buffer, int numSamples, int numChannels);
 
     // Called when user changes a parameter
     void valueTreePropertyChanged(juce::ValueTree& tree, const juce::Identifier& property) override

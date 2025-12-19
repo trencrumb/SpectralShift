@@ -24,7 +24,6 @@ SpectralShiftAudioProcessor::SpectralShiftAudioProcessor()
 #endif
 {
     apvts.state.addListener(this);
-    init();
 }
 
 SpectralShiftAudioProcessor::~SpectralShiftAudioProcessor()
@@ -72,37 +71,28 @@ double SpectralShiftAudioProcessor::getTailLengthSeconds() const
 
 int SpectralShiftAudioProcessor::getNumPrograms()
 {
-        return (int) presets.size();
-   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return presetManager.getNumPresets();
 }
 
 int SpectralShiftAudioProcessor::getCurrentProgram()
 {
-    return currentPresetIndex < 0 ? 0 : currentPresetIndex;
+    int current = presetManager.getCurrentPresetIndex();
+    return current < 0 ? 0 : current;
 }
 
 void SpectralShiftAudioProcessor::setCurrentProgram (int index)
 {
-    setPreset (index);
-
+    presetManager.applyPreset(index, apvts);
 }
 
 const juce::String SpectralShiftAudioProcessor::getProgramName (int index)
 {
-    if (index < 0 || index >= (int) presets.size())
-        return {};
-
-    return presets[(size_t) index].name;
+    return presetManager.getPresetName(index);
 }
-
 
 void SpectralShiftAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
-    if (index < 0 || index >= (int) presets.size())
-        return;
-
-    presets[(size_t) index].name = newName;
+    presetManager.renamePreset(index, newName);
 }
 
 
@@ -177,17 +167,17 @@ void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
                                                  juce::MidiBuffer& midiMessages)
 {
     #if PERFETTO
-        TRACE_DSP();  // Perfetto trace for entire processBlock
+    TRACE_DSP();  // Perfetto trace for entire processBlock
     #endif
-
 
     juce::ignoreUnused(midiMessages);
 
-    if (! isActive)
+    if (!isActive)
         return;
 
     // Measure CPU load - this scoped timer automatically tracks the processing time
     const juce::AudioProcessLoadMeasurer::ScopedTimer timer(loadMeasurer, buffer.getNumSamples());
+
     #if PERFETTO
     TRACE_EVENT_BEGIN("dsp", "parameter-update");
     #endif
@@ -196,158 +186,24 @@ void SpectralShiftAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     TRACE_EVENT_END("dsp");
     #endif
 
-
     juce::ScopedNoDenormals noDenormals;
 
     const int numChannels = buffer.getNumChannels();
-    const int numSamples  = buffer.getNumSamples();
-
-    stretchBuffer.setSize (numChannels, numSamples, false, false, true);
-
+    const int numSamples = buffer.getNumSamples();
 
     if (numChannels == 0 || numSamples == 0)
         return;
 
-    //const double sr = getSampleRate();
+    stretchBuffer.setSize(numChannels, numSamples, false, false, true);
 
-    //float tonalityLimitNorm = 0.0f;
-    //float formantBaseNorm   = 0.0f;
+    // Process spectral shift
+    processSpectralShift(buffer, numSamples, numChannels);
 
-    //if (sr > 0.0)
-    //{
-    //    tonalityLimitNorm = juce::jlimit (0.0f, 0.5f, currentTonalityHz   / (float) sr);
-    //    formantBaseNorm   = juce::jlimit (0.0f, 0.5f, currentFormantBaseHz / (float) sr);
-    //}
+    // Create mono sum for spectral centroid analysis
+    createMonoSum(buffer, numSamples, numChannels);
 
-    const float pitchSemitones       = currentPitchSemitones;
-    const float formantSemitones     = currentFormantSemitones;
-    const bool  formantCompensation  = currentFormantPreservation;
-
-    const float tonalityHz     = currentTonalityHz;
-    const float formantBaseHz  = currentFormantBaseHz;
-
-    const float tiltGainDB   = currentTiltGainDB;
-
-    const float sr = (float) getSampleRate();
-
-    float tonalityLimitNorm = 0.0f;
-    float formantBaseNorm   = 0.0f;
-
-    if (sr > 0.0f)
-    {
-        // cycles/sample (0..0.5 is 0..Nyquist)
-        tonalityLimitNorm = juce::jlimit (0.0f, 0.5f, tonalityHz    / sr);
-    }
-
-    float safeFormantBaseHz = 0.0f;
-    if (formantBaseHz > 0.0f)
-        safeFormantBaseHz = juce::jlimit (20.0f, 2000.0f, formantBaseHz);
-
-
-    stretch.setTransposeSemitones (pitchSemitones, tonalityLimitNorm);
-    stretch.setFormantSemitones   (formantSemitones, formantCompensation);
-    stretch.setFormantBase        (safeFormantBaseHz);
-
-    // Tilt EQ center frequency is now set automatically by spectral centroid (see below)
-    tiltEQ.setGainDb(tiltGainDB);
-
-
-
-    // --- 2. Prepare input/output pointer arrays ---
-
-    for (int ch = 0; ch < numChannels; ++ch)
-    {
-        inPtrs[ch]  = const_cast<std::vector<float *>::value_type>(buffer.getReadPointer(ch));
-        outPtrs[ch] = stretchBuffer.getWritePointer (ch);
-    }
-
-
-    int inputSamples  = numSamples;
-    int outputSamples = numSamples;
-
-    // --- 3. Process with Signalsmith Stretch ---
-    #if PERFETTO
-    TRACE_EVENT_BEGIN("dsp", "signalsmith-stretch");
-    #endif
-
-    stretch.process(inPtrs.data(), inputSamples,
-                    outPtrs.data(), outputSamples);
-#if PERFETTO
-    TRACE_EVENT_END("dsp");
-#endif
-
-    // outputSamples may differ slightly; be safe when copying back
-    const int copySamples = std::min(numSamples, outputSamples);
-
-    // --- 4. Copy processed audio back into JUCE buffer ---
-    #if PERFETTO
-    TRACE_EVENT_BEGIN("dsp", "buffer-copy");
-    #endif
-    for (int ch = 0; ch < numChannels; ++ch)
-    {
-        buffer.clear(ch, 0, numSamples);
-        buffer.copyFrom(ch, 0, stretchBuffer, ch, 0, copySamples);
-
-    }
-    #if PERFETTO
-    TRACE_EVENT_END("dsp");
-    TRACE_EVENT_BEGIN("dsp", "mono-sum");
-    #endif
-    monoBuffer.resize(numSamples);  // Only resizes if different
-    std::fill(monoBuffer.begin(), monoBuffer.end(), 0.0f);
-
-
-    for (int ch = 0; ch < numChannels; ++ch)
-    {
-        const float* x = buffer.getReadPointer(ch);
-        for (int i = 0; i < numSamples; ++i)
-            monoBuffer[(size_t) i] += x[i];
-    }
-
-    const float invCh = 1.0f / (float) numChannels;
-    for (int i = 0; i < numSamples; ++i)
-        monoBuffer[(size_t) i] *= invCh;
-    #if PERFETTO
-    TRACE_EVENT_END("dsp");
-
-    TRACE_EVENT_BEGIN("dsp", "tilt-centre-calculation");
-    #endif
-    auto* tiltCentreAutoParam = apvts.getRawParameterValue("TILT_CENTRE_AUTO");
-    bool isAuto = tiltCentreAutoParam->load() > 0.5f;
-
-    float tiltCentreHz;
-    if (isAuto) {
-#if PERFETTO
-        TRACE_EVENT_BEGIN("dsp", "spectral-centroid");
-        #endif
-        // Use spectral centroid
-        spectralCentroid.processBlock(monoBuffer.data(), numSamples);
-        tiltCentreHz = spectralCentroid.getCentroidHz();
-        #if PERFETTO
-        TRACE_EVENT_END("dsp");
-        #endif
-
-        // Clamp to parameter range (200-20000 Hz) before updating slider
-        tiltCentreHz = juce::jlimit(200.0f, 20000.0f, tiltCentreHz);
-
-        // Update the slider parameter value for visualization (without triggering listeners)
-        if (auto* param = apvts.getParameter("TILT_CENTRE_HZ"))
-            param->setValueNotifyingHost(param->getNormalisableRange().convertTo0to1(tiltCentreHz));
-    } else {
-        auto* manualParam = apvts.getRawParameterValue("TILT_CENTRE_HZ");
-        tiltCentreHz = manualParam->load();
-    }
-
-    tiltEQ.setCentreFrequency(tiltCentreHz);
-    #if PERFETTO
-    TRACE_EVENT_END("dsp");
-
-    TRACE_EVENT_BEGIN("dsp", "tilt-eq");
-    #endif
-    tiltEQ.process (buffer);
-    #if PERFETTO
-    TRACE_EVENT_END("dsp");
-    #endif
+    // Calculate and apply tilt EQ
+    calculateAndApplyTiltEQ(buffer, numSamples, numChannels);
 }
 
 
@@ -360,8 +216,6 @@ bool SpectralShiftAudioProcessor::hasEditor() const
 juce::AudioProcessorEditor* SpectralShiftAudioProcessor::createEditor()
 {
     return new SpectralShiftAudioProcessorEditor (*this);
-    //return new juce::GenericAudioProcessorEditor(*this);
-
 }
 
 //==============================================================================
@@ -396,60 +250,9 @@ void SpectralShiftAudioProcessor::setStateInformation (const void* data, int siz
     apvts.replaceState(copyState);
 }
 
-void SpectralShiftAudioProcessor::init()
-{
-    presets = {
-        {
-            "Subtle Brighten",
-            {
-                    { "PITCH_SEMITONES",   2.0f },
-                    { "PITCH_CENTS",       0.0f },
-                    { "FORMANT_SEMITONES", 1.0f },
-                    { "FORMANT_CENTS",     0.0f },
-                    { "FORMANT_COMPENSATION", 1.0f },
-                    { "TONALITY_HZ",       6000.0f },
-                    { "FORMANT_BASE_HZ",   200.0f },
-                    { "TILT_GAIN_DB",      1.5f },
-                }
-        },
-        {
-            "Thick Low",
-            {
-                    { "PITCH_SEMITONES",   7.0f },
-                    { "PITCH_CENTS",       0.0f },
-                    { "FORMANT_SEMITONES", -5.0f },
-                    { "FORMANT_CENTS",     0.0f },
-                    { "FORMANT_COMPENSATION", 1.0f },
-                    { "TONALITY_HZ",       3000.0f },
-                    { "FORMANT_BASE_HZ",   150.0f },
-                    { "TILT_GAIN_DB",     -2.0f },
-                }
-        }
-    };
-}
-
 void SpectralShiftAudioProcessor::prepare(double sampleRate, int samplesPerBlock)
 {
 }
-
-void SpectralShiftAudioProcessor::setPreset (int index)
-{
-    if (index < 0 || index >= (int) presets.size())
-        return;
-
-    const auto& preset = presets[(size_t) index];
-
-    juce::ScopedValueSetter<bool> svs (mustUpdateProcessing, true, false);
-
-    for (const auto& [paramID, value] : preset.values)
-    {
-        if (auto* param = apvts.getParameter (paramID))
-            param->setValueNotifyingHost (param->getNormalisableRange().convertTo0to1 (value));
-    }
-
-    currentPresetIndex = index;
-}
-
 
 void SpectralShiftAudioProcessor::update()
 {
@@ -485,6 +288,147 @@ void SpectralShiftAudioProcessor::reset()
     stretch.reset();
 }
 
+void SpectralShiftAudioProcessor::createMonoSum(const juce::AudioBuffer<float>& buffer, int numSamples, int numChannels)
+{
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "mono-sum");
+    #endif
+
+    monoBuffer.resize(numSamples);
+    std::fill(monoBuffer.begin(), monoBuffer.end(), 0.0f);
+
+    for (int ch = 0; ch < numChannels; ++ch)
+    {
+        const float* channelData = buffer.getReadPointer(ch);
+        for (int i = 0; i < numSamples; ++i)
+            monoBuffer[static_cast<size_t>(i)] += channelData[i];
+    }
+
+    const float invChannels = 1.0f / static_cast<float>(numChannels);
+    for (int i = 0; i < numSamples; ++i)
+        monoBuffer[static_cast<size_t>(i)] *= invChannels;
+
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
+}
+
+void SpectralShiftAudioProcessor::processSpectralShift(juce::AudioBuffer<float>& buffer, int numSamples, int numChannels)
+{
+    const float pitchSemitones = currentPitchSemitones;
+    const float formantSemitones = currentFormantSemitones;
+    const bool formantCompensation = currentFormantPreservation;
+    const float tonalityHz = currentTonalityHz;
+    const float formantBaseHz = currentFormantBaseHz;
+
+    const float sr = static_cast<float>(getSampleRate());
+
+    float tonalityLimitNorm = 0.0f;
+    if (sr > 0.0f)
+    {
+        // cycles/sample (0..0.5 is 0..Nyquist)
+        tonalityLimitNorm = juce::jlimit(0.0f, 0.5f, tonalityHz / sr);
+    }
+
+    float safeFormantBaseHz = 0.0f;
+    if (formantBaseHz > 0.0f)
+        safeFormantBaseHz = juce::jlimit(minFormantBaseHz, maxFormantBaseHz, formantBaseHz);
+
+    stretch.setTransposeSemitones(pitchSemitones, tonalityLimitNorm);
+    stretch.setFormantSemitones(formantSemitones, formantCompensation);
+    stretch.setFormantBase(safeFormantBaseHz);
+
+    // Prepare input/output pointer arrays
+    for (int ch = 0; ch < numChannels; ++ch)
+    {
+        inPtrs[ch] = const_cast<float*>(buffer.getReadPointer(ch));
+        outPtrs[ch] = stretchBuffer.getWritePointer(ch);
+    }
+
+    int inputSamples = numSamples;
+    int outputSamples = numSamples;
+
+    // Process with Signalsmith Stretch
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "signalsmith-stretch");
+    #endif
+
+    stretch.process(inPtrs.data(), inputSamples, outPtrs.data(), outputSamples);
+
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
+
+    // Copy processed audio back into JUCE buffer
+    const int copySamples = std::min(numSamples, outputSamples);
+
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "buffer-copy");
+    #endif
+
+    for (int ch = 0; ch < numChannels; ++ch)
+    {
+        buffer.clear(ch, 0, numSamples);
+        buffer.copyFrom(ch, 0, stretchBuffer, ch, 0, copySamples);
+    }
+
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
+}
+
+void SpectralShiftAudioProcessor::calculateAndApplyTiltEQ(juce::AudioBuffer<float>& buffer, int numSamples, int numChannels)
+{
+    #if PERFETTO
+    TRACE_EVENT_BEGIN("dsp", "tilt-centre-calculation");
+    #endif
+
+    auto* tiltCentreAutoParam = apvts.getRawParameterValue("TILT_CENTRE_AUTO");
+    bool isAuto = tiltCentreAutoParam->load() > 0.5f;
+
+    float tiltCentreHz;
+    if (isAuto)
+    {
+        #if PERFETTO
+        TRACE_EVENT_BEGIN("dsp", "spectral-centroid");
+        #endif
+
+        // Use spectral centroid
+        spectralCentroid.processBlock(monoBuffer.data(), numSamples);
+        tiltCentreHz = spectralCentroid.getCentroidHz();
+
+        #if PERFETTO
+        TRACE_EVENT_END("dsp");
+        #endif
+
+        // Clamp to parameter range before updating slider
+        tiltCentreHz = juce::jlimit(minTiltCentreHz, maxTiltCentreHz, tiltCentreHz);
+
+        // Update the slider parameter value for visualization (without triggering listeners)
+        if (auto* param = apvts.getParameter("TILT_CENTRE_HZ"))
+            param->setValueNotifyingHost(param->getNormalisableRange().convertTo0to1(tiltCentreHz));
+    }
+    else
+    {
+        auto* manualParam = apvts.getRawParameterValue("TILT_CENTRE_HZ");
+        tiltCentreHz = manualParam->load();
+    }
+
+    tiltEQ.setCentreFrequency(tiltCentreHz);
+    tiltEQ.setGainDb(currentTiltGainDB);
+
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    TRACE_EVENT_BEGIN("dsp", "tilt-eq");
+    #endif
+
+    tiltEQ.process(buffer);
+
+    #if PERFETTO
+    TRACE_EVENT_END("dsp");
+    #endif
+}
+
 juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor::createParameters()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
@@ -494,17 +438,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor:
 
     // Creates a function that takes a String and returns a float
     std::function<float(const juce::String&)> textToValueFunction = [](const juce::String& str) { return str.getFloatValue(); };
-
-    // Add a Drive Parameter to our vector of parameters
-    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("DRIVE", "Drive", juce::NormalisableRange<float>(0.0f, 100.0f, 0.1f), 20.0f, "%", juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Add a Volume Parameter to our vector of parameters
-    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("VOL", "Volume", juce::NormalisableRange<float>(-40.0f, 40.0f), 0.0f, "db",
-    //    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
-
-    // Add a Wet/Dry Parameter to our vector of parameters
-    //parameters.push_back(std::make_unique<juce::AudioParameterFloat>("MIX", "Mix", juce::NormalisableRange<float>(0.0f, 100.0f, 0.5f), 0.0f, "%",
-    //    juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Pitch in semitones
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
