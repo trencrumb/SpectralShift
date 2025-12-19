@@ -53,6 +53,8 @@ set(SourceFiles
         Source/PluginEditor.h
         Source/PluginProcessor.cpp
         Source/PluginProcessor.h
+        Source/PresetManager.h
+        Source/PresetManager.cpp
         Source/DSP/TiltEQ.h
         Source/DSP/SpectralCentroid.h
         Source/Component/XYPad.h
