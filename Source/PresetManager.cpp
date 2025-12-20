@@ -26,7 +26,7 @@ const PresetManager::Preset* PresetManager::getPreset(int index) const
     return &presets[static_cast<size_t>(index)];
 }
 
-bool PresetManager::applyPreset(int index, juce::AudioProcessorValueTreeState& apvts)
+bool PresetManager::applyPreset(int index, const juce::AudioProcessorValueTreeState& apvts)
 {
     if (index < 0 || index >= static_cast<int>(presets.size()))
         return false;

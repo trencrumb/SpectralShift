@@ -51,7 +51,7 @@ public:
      * Applies a preset to the given APVTS.
      * Returns true if successful, false if index is invalid.
      */
-    bool applyPreset(int index, juce::AudioProcessorValueTreeState& apvts);
+    bool applyPreset(int index, const juce::AudioProcessorValueTreeState& apvts);
 
     /**
      * Saves current APVTS state as a new preset.

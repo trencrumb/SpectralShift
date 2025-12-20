@@ -88,7 +88,7 @@ public:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
 
     bool isSpectralReady { false };
-    void setCurrentEnvelope(const std::vector<float>& envelope);
+    // void setCurrentEnvelope(const std::vector<float>& envelope);
 
 
 private:

@@ -111,7 +111,7 @@ void XYPad::paint(juce::Graphics& g)
 
 	// Draw border
 	g.setColour(backgroundColour.brighter(0.3f));  // Lighter border
-	g.drawRoundedRectangle(bounds, cornerRadius, 1.0f);  // 2px border thickness
+	g.drawRoundedRectangle(bounds, cornerRadius, 1.0f);  // 2 px border thickness
 }
 
 void XYPad::registerSlider(juce::Slider* slider, Axis axis)
@@ -129,8 +129,8 @@ void XYPad::deregisterSlider(juce::Slider* slider)
 	slider->removeListener(this);
 	const std::lock_guard<std::mutex> lock(vectorMutex);
 	// remove/erase idiom
-	xSliders.erase(std::remove(xSliders.begin(), xSliders.end(), slider), xSliders.end());
-	ySliders.erase(std::remove(ySliders.begin(), ySliders.end(), slider), ySliders.end());
+	std::erase(xSliders, slider);
+	std::erase(ySliders, slider);
 }
 
 void XYPad::setThumbColours(juce::Colour pitchPos, juce::Colour pitchNeg,
@@ -156,9 +156,9 @@ void XYPad::sliderValueChanged(juce::Slider* slider)
 		return;
 
 	// Figure out if the slider belongs to xSliders or ySliders
-	const auto isXAxisSlider = std::find(xSliders.begin(), xSliders.end(), slider) != xSliders.end();
+	const auto isXAxisSlider = std::ranges::find(xSliders, slider) != xSliders.end();
 	const auto bounds = getLocalBounds().toDouble();
-	const auto w = static_cast<double>(thumbSize);
+	constexpr auto w = static_cast<double>(thumbSize);
 
 	if (isXAxisSlider)
 	{
@@ -175,10 +175,9 @@ void XYPad::sliderValueChanged(juce::Slider* slider)
 	repaint();
 }
 
-void XYPad::updateSlidersFromThumbPosition(juce::Point<double> thumbPos)
-{
+void XYPad::updateSlidersFromThumbPosition(juce::Point<double> thumbPos) const {
 	const auto bounds = getLocalBounds().toDouble();
-	const auto w = static_cast<double>(thumbSize);
+	constexpr auto w = static_cast<double>(thumbSize);
 
 	// Update X-axis sliders
 	for (auto* slider : xSliders)
@@ -218,7 +217,7 @@ void XYPad::resetThumbToDefaultPosition()
 juce::Point<int> XYPad::calculateThumbPositionFromSliders() const
 {
 	const auto bounds = getLocalBounds().toDouble();
-	const auto w = static_cast<double>(thumbSize);
+	constexpr auto w = static_cast<double>(thumbSize);
 
 	double thumbX = thumb.getX();
 	double thumbY = thumb.getY();

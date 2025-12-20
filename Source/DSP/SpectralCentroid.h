@@ -208,7 +208,7 @@ private:
         }
 
         // Nyquist bin - always scalar
-        if (numBins > 1)
+        if constexpr (numBins > 1)
         {
             magnitudes[numBins - 1] = std::abs(fftBuffer[fftSize / 2]);
         }

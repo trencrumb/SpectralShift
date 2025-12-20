@@ -29,7 +29,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     pitchStaticLabel = std::make_unique<juce::Label>("", "PITCH");
     pitchStaticLabel->setJustificationType(juce::Justification::centred);
     pitchStaticLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::pitchPositive);
-    pitchStaticLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    pitchStaticLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*pitchStaticLabel);
 
     pitchSemitonesLabel = std::make_unique<juce::Label>();
@@ -38,7 +38,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     pitchSemitonesLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
     pitchSemitonesLabel->setColour(juce::Label::backgroundColourId, CustomLookAndFeel::Colors::transparent);
     pitchSemitonesLabel->setColour(juce::Label::outlineColourId, CustomLookAndFeel::Colors::transparent);
-    pitchSemitonesLabel->setFont(juce::Font(14.0f, juce::Font::bold));
+    pitchSemitonesLabel->setFont(juce::FontOptions(14.0f, juce::Font::bold));
     pitchSemitonesLabel->setEditable(true);
     pitchSemitonesLabel->onTextChange = [this]() {
         float value = pitchSemitonesLabel->getText().retainCharacters("-0123456789.").getFloatValue();
@@ -62,7 +62,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     formantStaticLabel = std::make_unique<juce::Label>("", "FORMANT");
     formantStaticLabel->setJustificationType(juce::Justification::centred);
     formantStaticLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::formantPositive);
-    formantStaticLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    formantStaticLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*formantStaticLabel);
 
     formantSemitonesLabel = std::make_unique<juce::Label>();
@@ -71,7 +71,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     formantSemitonesLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
     formantSemitonesLabel->setColour(juce::Label::backgroundColourId, CustomLookAndFeel::Colors::transparent);
     formantSemitonesLabel->setColour(juce::Label::outlineColourId, CustomLookAndFeel::Colors::transparent);
-    formantSemitonesLabel->setFont(juce::Font(14.0f, juce::Font::bold));
+    formantSemitonesLabel->setFont(juce::FontOptions(14.0f, juce::Font::bold));
     formantSemitonesLabel->setEditable(true);
     formantSemitonesLabel->onTextChange = [this]() {
         float value = formantSemitonesLabel->getText().retainCharacters("-0123456789.").getFloatValue();
@@ -101,11 +101,11 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     pitchCentsLabel = std::make_unique<juce::Label>("", "0c");
     pitchCentsLabel->setJustificationType(juce::Justification::centred);
     pitchCentsLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    pitchCentsLabel->setFont(juce::Font(10.0f));
+    pitchCentsLabel->setFont(juce::FontOptions(10.0f));
     addAndMakeVisible(*pitchCentsLabel);
 
     pitchCentsSlider->onValueChange = [this]() {
-        pitchCentsLabel->setText(juce::String((int)pitchCentsSlider->getValue()) + "c", juce::dontSendNotification);
+        pitchCentsLabel->setText(juce::String(static_cast<int>(pitchCentsSlider->getValue())) + "c", juce::dontSendNotification);
     };
 
     // Formant cents (right side)
@@ -119,11 +119,11 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     formantCentsLabel = std::make_unique<juce::Label>("", "0c");
     formantCentsLabel->setJustificationType(juce::Justification::centred);
     formantCentsLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    formantCentsLabel->setFont(juce::Font(10.0f));
+    formantCentsLabel->setFont(juce::FontOptions(10.0f));
     addAndMakeVisible(*formantCentsLabel);
 
     formantCentsSlider->onValueChange = [this]() {
-        formantCentsLabel->setText(juce::String((int)formantCentsSlider->getValue()) + "c", juce::dontSendNotification);
+        formantCentsLabel->setText(juce::String(static_cast<int>(formantCentsSlider->getValue())) + "c", juce::dontSendNotification);
     };
 
     // ========== Tilt EQ Slider ==========
@@ -138,13 +138,13 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     tiltGainLabel = std::make_unique<juce::Label>("", "TILT");
     tiltGainLabel->setJustificationType(juce::Justification::centredLeft);
     tiltGainLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::tilt);
-    tiltGainLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    tiltGainLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*tiltGainLabel);
 
     tiltValueLabel = std::make_unique<juce::Label>("", "0.0 dB");
     tiltValueLabel->setJustificationType(juce::Justification::centredRight);
     tiltValueLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    tiltValueLabel->setFont(juce::Font(10.0f));
+    tiltValueLabel->setFont(juce::FontOptions(10.0f));
     addAndMakeVisible(*tiltValueLabel);
 
     tiltGainDbSlider->onValueChange = [this]() {
@@ -161,24 +161,24 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     tiltCentreLabel = std::make_unique<juce::Label>("", "TILT CENTRE");
     tiltCentreLabel->setJustificationType(juce::Justification::centredLeft);
     tiltCentreLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::tilt);
-    tiltCentreLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    tiltCentreLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*tiltCentreLabel);
 
     tiltCentreValueLabel = std::make_unique<juce::Label>("", "1000 Hz");
     tiltCentreValueLabel->setJustificationType(juce::Justification::centredRight);
     tiltCentreValueLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    tiltCentreValueLabel->setFont(juce::Font(10.0f));
+    tiltCentreValueLabel->setFont(juce::FontOptions(10.0f));
     addAndMakeVisible(*tiltCentreValueLabel);
 
     tiltCentreHzSlider->onValueChange = [this]() {
-        tiltCentreValueLabel->setText(juce::String((int)tiltCentreHzSlider->getValue()) + " Hz", juce::dontSendNotification);
+        tiltCentreValueLabel->setText(juce::String(static_cast<int>(tiltCentreHzSlider->getValue())) + " Hz", juce::dontSendNotification);
     };
 
     // Toggle for auto mode
     tiltCentreAutoLabel = std::make_unique<juce::Label>("", "AUTO TILT CENTRE");
     tiltCentreAutoLabel->setJustificationType(juce::Justification::centredLeft);
     tiltCentreAutoLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::tilt);
-    tiltCentreAutoLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    tiltCentreAutoLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*tiltCentreAutoLabel);
 
     tiltCentreAutoToggle = std::make_unique<juce::ToggleButton>("");
@@ -217,17 +217,17 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     tonalityHzLabel = std::make_unique<juce::Label>("", "TONALITY LIMIT");
     tonalityHzLabel->setJustificationType(juce::Justification::centredLeft);
     tonalityHzLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::tonality);
-    tonalityHzLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    tonalityHzLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*tonalityHzLabel);
 
-    tonalityValueLabel = std::make_unique<juce::Label>("", juce::String((int)tonalityHzSlider->getValue()) + " Hz");
+    tonalityValueLabel = std::make_unique<juce::Label>("", juce::String(static_cast<int>(tonalityHzSlider->getValue())) + " Hz");
     tonalityValueLabel->setJustificationType(juce::Justification::centredRight);
     tonalityValueLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    tonalityValueLabel->setFont(juce::Font(10.0f));
+    tonalityValueLabel->setFont(juce::FontOptions(10.0f));
     addAndMakeVisible(*tonalityValueLabel);
 
     tonalityHzSlider->onValueChange = [this]() {
-        tonalityValueLabel->setText(juce::String((int)tonalityHzSlider->getValue()) + " Hz", juce::dontSendNotification);
+        tonalityValueLabel->setText(juce::String(static_cast<int>(tonalityHzSlider->getValue())) + " Hz", juce::dontSendNotification);
     };
 
     // ========== Formant Compensation Toggle ==========
@@ -235,7 +235,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     formantCompLabel = std::make_unique<juce::Label>("", "FORMANT COMPENSATION");
     formantCompLabel->setJustificationType(juce::Justification::centredLeft);
     formantCompLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::formantCompensation);
-    formantCompLabel->setFont(juce::Font(11.0f, juce::Font::bold));
+    formantCompLabel->setFont(juce::FontOptions(11.0f, juce::Font::bold));
     addAndMakeVisible(*formantCompLabel);
 
     // Toggle button (no text, just the box)
@@ -248,7 +248,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     cpuLoadLabel = std::make_unique<juce::Label>("", "CPU: 0%");
     cpuLoadLabel->setJustificationType(juce::Justification::centredRight);
     cpuLoadLabel->setColour(juce::Label::textColourId, CustomLookAndFeel::Colors::textDim);
-    cpuLoadLabel->setFont(juce::Font(9.0f));
+    cpuLoadLabel->setFont(juce::FontOptions(9.0f));
     addAndMakeVisible(*cpuLoadLabel);
 
     // Start timer to update CPU display (30 Hz refresh rate)
@@ -272,8 +272,8 @@ void SpectralShiftAudioProcessorEditor::paint(juce::Graphics& g)
     // Add subtle vignette
     auto bounds = getLocalBounds();
     juce::ColourGradient vignette(
-        CustomLookAndFeel::Colors::background, bounds.getCentreX(), bounds.getCentreY(),
-        CustomLookAndFeel::Colors::backgroundDark, bounds.getX(), bounds.getY(),
+        CustomLookAndFeel::Colors::background, static_cast<float>(bounds.getCentreX()), static_cast<float>(bounds.getCentreY()),
+        CustomLookAndFeel::Colors::backgroundDark, static_cast<float>(bounds.getX()), static_cast<float>(bounds.getY()),
         true
     );
     g.setGradientFill(vignette);
@@ -284,13 +284,13 @@ void SpectralShiftAudioProcessorEditor::paint(juce::Graphics& g)
     // Line below XY pad section
     //g.drawLine(20, 400, getWidth() - 20, 400, 1.0f);
     // Line below tilt section
-    g.drawLine(20, 460, getWidth() - 20, 460, 1.0f);
+    g.drawLine(20, 460, static_cast<float>(getWidth() - 20), 460, 1.0f);
 }
 
 void SpectralShiftAudioProcessorEditor::resized()
 {
     auto area = getLocalBounds().reduced(20);
-    const int padding = 10;
+    constexpr int padding = 10;
 
     // ========== XY Pad Section (top) ==========
     auto xyPadArea = area.removeFromTop(340);
@@ -298,9 +298,9 @@ void SpectralShiftAudioProcessorEditor::resized()
     // Labels above XY pad - side by side
     auto labelsArea = xyPadArea.removeFromTop(40);
     int labelWidth = 100;
-    int labelHeight = 25;
+    // int labelHeight = 25;
 
-    int totalLabelsWidth = labelWidth * 2 + 20;  // Two labels with 20px gap
+    int totalLabelsWidth = labelWidth * 2 + 20;  // Two labels with 20 px gap
     labelsArea = labelsArea.withSizeKeepingCentre(totalLabelsWidth, 40);
 
     auto pitchLabelArea = labelsArea.removeFromLeft(labelWidth);

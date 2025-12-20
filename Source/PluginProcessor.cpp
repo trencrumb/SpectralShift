@@ -294,7 +294,7 @@ void SpectralShiftAudioProcessor::createMonoSum(const juce::AudioBuffer<float>& 
     #endif
 
     monoBuffer.resize(numSamples);
-    std::fill(monoBuffer.begin(), monoBuffer.end(), 0.0f);
+    std::ranges::fill(monoBuffer, 0.0f);
 
     for (int ch = 0; ch < numChannels; ++ch)
     {

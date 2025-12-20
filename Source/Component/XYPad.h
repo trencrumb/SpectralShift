@@ -79,7 +79,7 @@ private:
 
     // ===== Helper Methods =====
     /** Updates registered sliders based on thumb position. */
-    void updateSlidersFromThumbPosition(juce::Point<double> thumbPos);
+    void updateSlidersFromThumbPosition(juce::Point<double> thumbPos) const;
 
     /** Calculates thumb position from registered slider values. */
     juce::Point<int> calculateThumbPositionFromSliders() const;
