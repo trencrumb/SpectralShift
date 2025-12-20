@@ -86,7 +86,6 @@ else()
     message("Building ${PLUGIN_FORMATS}.")
 endif()
 
-# Change these to your own preferences
 juce_add_plugin(${PROJECT_NAME}
         COMPANY_NAME ${COMPANY_NAME}
         IS_SYNTH FALSE
@@ -102,7 +101,6 @@ juce_add_plugin(${PROJECT_NAME}
         PRODUCT_NAME ${PROJECT_NAME}
 )
 
-# Create .env file for GitHub Actions (if running in CI)
 if(DEFINED ENV{GITHUB_ACTIONS})
     include(cmake/GitHubENV.cmake)
 endif()
