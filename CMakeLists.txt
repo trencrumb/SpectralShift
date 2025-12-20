@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.24)
 # Change to your project name
 project(SpectralShift VERSION 1.0.0)
 set(COMPANY_NAME "trencrumb")
+set(PRODUCT_NAME "Spectral Shift")
 
 # Universal binary support for macOS (Intel + Apple Silicon)
 if(APPLE)
@@ -88,6 +89,7 @@ endif()
 
 juce_add_plugin(${PROJECT_NAME}
         COMPANY_NAME ${COMPANY_NAME}
+        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
         NEEDS_MIDI_OUTPUT FALSE
@@ -98,7 +100,7 @@ juce_add_plugin(${PROJECT_NAME}
         PLUGIN_MANUFACTURER_CODE TreC
         PLUGIN_CODE Sps0
         FORMATS ${PLUGIN_FORMATS}
-        PRODUCT_NAME ${PROJECT_NAME}
+        PRODUCT_NAME ${PRODUCT_NAME}
 )
 
 if(DEFINED ENV{GITHUB_ACTIONS})
