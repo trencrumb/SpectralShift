@@ -89,6 +89,34 @@ jobs:
           codesign --verify --deep --strict --verbose=2 \
             "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/Standalone/SpectralShift.app"
 
+      - name: Code Sign CLAP
+        run: |
+          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/CLAP/SpectralShift.clap" --deep        
+            --strict --options=runtime --timestamp
+  
+          # Verify signature                                                                                                                                                         
+          codesign --verify --deep --strict --verbose=2 \
+            "${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}/CLAP/SpectralShift.clap"
+
+      - name: Add Custom Icons (optional)
+        if: false  # Enable this by changing to 'true' and adding packaging/icon.icns
+        run: |
+          ARTIFACTS_PATH="${{ env.BUILD_DIR }}/SpectralShift_artefacts/${{ env.BUILD_TYPE }}"
+
+          # Add the icns as its own icon resource
+          sips -i packaging/icon.icns
+
+          # Extract the resource to a temp file
+          DeRez -only icns packaging/icon.icns > /tmp/icons
+
+          # Add the icon resource to each plugin
+          Rez -a /tmp/icons -o "$ARTIFACTS_PATH/VST3/SpectralShift.vst3/Icon"$'\r'
+          Rez -a /tmp/icons -o "$ARTIFACTS_PATH/AU/SpectralShift.component/Icon"$'\r'
+
+          # Set the custom icon attribute
+          SetFile -a C "$ARTIFACTS_PATH/VST3/SpectralShift.vst3"
+          SetFile -a C "$ARTIFACTS_PATH/AU/SpectralShift.component"
+
       - name: Create Packages and Notarize
         timeout-minutes: 15
         run: |
@@ -123,8 +151,14 @@ jobs:
             --component-plist standalone.plist \
             --install-location "/Applications" \
             "packaging/${PRODUCT_NAME}.app.pkg"
+          
+          pkgbuild --identifier "${BUNDLE_ID}.clap.pkg" \                                                                                                                                
+          --version ${VERSION} \
+          --component "${ARTIFACTS_PATH}/CLAP/SpectralShift.clap" \
+          --install-location "/Library/Audio/Plug-Ins/CLAP" \
+          "packaging/${PRODUCT_NAME}.clap.pkg"
 
-          # Create distribution.xml for productbuild
+    # Create distribution.xml for productbuild
           cat > packaging/distribution.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <installer-gui-script minSpecVersion="1">
@@ -136,12 +170,14 @@ jobs:
               <pkg-ref id="com.trencrumb.spectralshift.au.pkg" version="1.0.0" onConclusion="none">SpectralShift.au.pkg</pkg-ref>
               <pkg-ref id="com.trencrumb.spectralshift.vst3.pkg" version="1.0.0" onConclusion="none">SpectralShift.vst3.pkg</pkg-ref>
               <pkg-ref id="com.trencrumb.spectralshift.app.pkg" version="1.0.0" onConclusion="none">SpectralShift.app.pkg</pkg-ref>
-
-              <choices-outline>
+              <pkg-ref id="com.trencrumb.spectralshift.clap.pkg" version="1.0.0" onConclusion="none">SpectralShift.clap.pkg</pkg-ref>
+               
+               <choices-outline>
                   <line choice="com.trencrumb.spectralshift.au.pkg"/>
                   <line choice="com.trencrumb.spectralshift.vst3.pkg"/>
                   <line choice="com.trencrumb.spectralshift.app.pkg"/>
-              </choices-outline>
+                  <line choice="com.trencrumb.spectralshift.clap.pkg"/>
+               </choices-outline>
 
               <choice id="com.trencrumb.spectralshift.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
                   <pkg-ref id="com.trencrumb.spectralshift.au.pkg"/>
@@ -152,12 +188,16 @@ jobs:
               <choice id="com.trencrumb.spectralshift.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
                   <pkg-ref id="com.trencrumb.spectralshift.app.pkg"/>
               </choice>
-          </installer-gui-script>
+              <choice id="com.trencrumb.spectralshift.clap.pkg" visible="true" title="CLAP" description="Install the CLAP plugin">
+                   <pkg-ref id="com.trencrumb.spectralshift.clap.pkg"/>
+              </choice>
+              </installer-gui-script>
           EOF
 
           # Create the final signed PKG with productbuild
           cd packaging
           productbuild --distribution distribution.xml \
+            --resources ./resources \
             --sign "${{ secrets.DEVELOPER_ID_INSTALLER }}" \
             --timestamp \
             "SpectralShift-macOS.pkg"
