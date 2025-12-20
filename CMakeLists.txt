@@ -38,6 +38,12 @@ CPMAddPackage(
         GIT_TAG origin/main
 )
 
+CPMAddPackage(
+        NAME clap_juce_extensions
+        GIT_REPOSITORY https://github.com/free-audio/clap-juce-extensions.git
+        GIT_TAG origin/main
+)
+
 # Perfetto profiling (optional, enable with -DPERFETTO=ON)
 option(PERFETTO "Enable Perfetto profiling" OFF)
 
@@ -70,11 +76,11 @@ set(SourceFiles
 
 if(DEFINED JUCE_AAX_SDK_PATH)
     juce_set_aax_sdk_path("${JUCE_AAX_SDK_PATH}")
-    set(PLUGIN_FORMATS VST3 AU AAX Standalone)
+    set(PLUGIN_FORMATS VST3 AU AUv3 AAX Standalone)
     message(STATUS "AAX SDK path provided: ${JUCE_AAX_SDK_PATH}.")
     message("Building ${PLUGIN_FORMATS}.")
 else()
-    set(PLUGIN_FORMATS VST3 AU Standalone)
+    set(PLUGIN_FORMATS VST3 AU AUv3 Standalone)
     message(STATUS "AAX SDK path not provided. To build AAX, pass -DJUCE_AAX_SDK_PATH=path/to/sdk")
     message("Building ${PLUGIN_FORMATS}.")
 endif()
@@ -129,6 +135,10 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_warning_flags
 )
 
+clap_juce_extensions_plugin(TARGET ${PROJECT_NAME}
+        CLAP_ID "com.trencrumb.SpectralShift"
+        CLAP_FEATURES "audio-effect")
+add_dependencies(${PROJECT_NAME}_All ${PROJECT_NAME}_CLAP)
 # Link Perfetto only if enabled
 if(PERFETTO)
     target_link_libraries(${PROJECT_NAME} PUBLIC Melatonin::Perfetto)
