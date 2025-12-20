@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 
 # Change to your project name
 project(SpectralShift VERSION 1.0.0)
+set(COMPANY_NAME "trencrumb")
 
 # Universal binary support for macOS (Intel + Apple Silicon)
 if(APPLE)
@@ -87,7 +88,7 @@ endif()
 
 # Change these to your own preferences
 juce_add_plugin(${PROJECT_NAME}
-        COMPANY_NAME trencrumb
+        COMPANY_NAME ${COMPANY_NAME}
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
         NEEDS_MIDI_OUTPUT FALSE
@@ -98,8 +99,13 @@ juce_add_plugin(${PROJECT_NAME}
         PLUGIN_MANUFACTURER_CODE TreC
         PLUGIN_CODE Sps0
         FORMATS ${PLUGIN_FORMATS}
-        PRODUCT_NAME "SpectralShift"
+        PRODUCT_NAME ${PROJECT_NAME}
 )
+
+# Create .env file for GitHub Actions (if running in CI)
+if(DEFINED ENV{GITHUB_ACTIONS})
+    include(cmake/GitHubENV.cmake)
+endif()
 
 # How we want our SourceFiles to appear in our IDE
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
@@ -136,7 +142,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 clap_juce_extensions_plugin(TARGET ${PROJECT_NAME}
-        CLAP_ID "com.trencrumb.SpectralShift"
+        CLAP_ID "com.${COMPANY_NAME}.${PROJECT_NAME}"
         CLAP_FEATURES "audio-effect")
 add_dependencies(${PROJECT_NAME}_All ${PROJECT_NAME}_CLAP)
 # Link Perfetto only if enabled
