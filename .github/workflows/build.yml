@@ -135,8 +135,8 @@ jobs:
           # Verify signature
           codesign --verify --deep --strict --verbose=2 "${{ env.CLAP_PATH }}"
 
-      - name: Add Custom Icons (optional)
-        if: ${{ matrix.name == 'macOS' && false }}
+      - name: Add Custom Icons
+        if: ${{ matrix.name == 'macOS' }}
         run: |
           # Add the icns as its own icon resource
           sips -i packaging/icon.icns
@@ -192,10 +192,13 @@ jobs:
           cat > packaging/distribution.xml << EOF
           <?xml version="1.0" encoding="utf-8"?>
           <installer-gui-script minSpecVersion="1">
-              <title>${{ env.PRODUCT_NAME }}</title>
+              <title>${{ env.PRODUCT_NAME }} ${{ env.VERSION }}</title>
               <organization>${{ env.BUNDLE_ID }}</organization>
               <domains enable_localSystem="true"/>
               <options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/>
+              <welcome file="welcome.html" mime-type="text/html"/>
+              <license file="license.html" mime-type="text/html"/>
+              <conclusion file="conclusion.html" mime-type="text/html"/>
 
               <pkg-ref id="${{ env.BUNDLE_ID }}.au.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.au.pkg</pkg-ref>
               <pkg-ref id="${{ env.BUNDLE_ID }}.vst3.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.vst3.pkg</pkg-ref>
@@ -250,6 +253,7 @@ jobs:
         run: |
           # Copy packaging/linux contents to artifacts directory
           cp -r packaging/linux/* ${{ env.ARTIFACTS_PATH }}/
+          cp packaging/icon.png ${{ env.ARTIFACTS_PATH }}/
 
           # Create zip with build artifacts and packaging files, excluding the SharedCode library
           cd ${{ env.ARTIFACTS_PATH }}
