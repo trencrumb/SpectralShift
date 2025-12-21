@@ -81,7 +81,7 @@ jobs:
 
       - name: Set additional env vars for artifacts
         run: |
-          ARTIFACTS_PATH=${{ env.BUILD_DIR }}/${{ env.PRODUCT_NAME }}_artefacts/${{ env.BUILD_TYPE }}
+          ARTIFACTS_PATH="${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/${{ env.BUILD_TYPE }}"
           echo "ARTIFACTS_PATH=$ARTIFACTS_PATH" >> $GITHUB_ENV
           echo "VST3_PATH=$ARTIFACTS_PATH/VST3/${{ env.PRODUCT_NAME }}.vst3" >> $GITHUB_ENV
           echo "AU_PATH=$ARTIFACTS_PATH/AU/${{ env.PRODUCT_NAME }}.component" >> $GITHUB_ENV
