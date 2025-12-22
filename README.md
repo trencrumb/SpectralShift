@@ -25,10 +25,15 @@ Currently tested on macOS 15.6.1 (M2).
 3. It's a universal binary supporting both Intel and Apple Silicon Macs.
 
 ### Linux
+Tested on Ubuntu 24.04.
 1. Download the latest release from the [Releases](https://github.com/trencrumb/SpectralShift/releases).
 2. Extract the downloaded archive and check out the README (but for quick install just run the bash script ```./install.sh```).
 3. Can uninstall with ```./uninstall.sh```.
 
-### Windows (Coming Soon)
+### Windows (*Coming Soon*)
 
-Tested on macOS 15.6.1 and Ubuntu 24.04
+---
+
+## License
+
+Released under the [MIT License](LICENSE.txt) - get in touch if you need anything else.

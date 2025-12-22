@@ -138,6 +138,19 @@ if(TARGET signalsmith-stretch)
     endif()
 endif()
 
+# Suppress float-conversion warnings in signalsmith libraries (they're harmless)
+if(TARGET signalsmith-linear)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(signalsmith-linear INTERFACE -Wno-implicit-float-conversion -Wno-float-conversion)
+    endif()
+endif()
+
+if(TARGET signalsmith-stretch)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(signalsmith-stretch INTERFACE -Wno-implicit-float-conversion -Wno-float-conversion)
+    endif()
+endif()
+
 # Link PFFFT to signalsmith-linear if enabled
 if(USE_PFFFT AND TARGET pffft AND TARGET signalsmith-linear)
     target_link_libraries(signalsmith-linear INTERFACE pffft)

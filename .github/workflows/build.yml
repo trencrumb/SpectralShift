@@ -42,7 +42,7 @@ jobs:
           - name: Windows
             os: windows-latest
             pluginval-binary: ./pluginval.exe
-            extra-flags: -G Ninja -DUSE_IPP=ON
+            extra-flags: -G Ninja
 
     steps:
       - name: Setup MSVC toolchain (Windows)
