@@ -37,7 +37,6 @@ CPMAddPackage(
 # Performance optimization options
 option(USE_IPP "Use Intel Performance Primitives for optimized DSP" OFF)
 option(USE_PFFFT "Use PFFFT (Pretty Fast FFT) - lightweight alternative to IPP" OFF)
-option(USE_NATIVE_ARCH "Use -march=native for CPU-specific optimizations" ON)
 
 # IPP support (Windows/Linux)
 if(USE_IPP)
@@ -99,14 +98,6 @@ else()
     set(SIGNALSMITH_USE_PFFFT OFF CACHE BOOL "Use PFFFT in signalsmith-linear" FORCE)
 endif()
 
-# CPU-specific optimizations for Linux/macOS
-if(USE_NATIVE_ARCH AND NOT WIN32 AND NOT CMAKE_CROSSCOMPILING)
-    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        add_compile_options(-march=native)
-        message(STATUS "Enabling -march=native for CPU-specific optimizations")
-    endif()
-endif()
-
 # Enable fast math for performance (except Apple Clang 16.0.0 which has broken SIMD)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     if(APPLE AND CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "16.0.0")
@@ -118,6 +109,13 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 elseif(MSVC)
     add_compile_options(/fp:fast)
     message(STATUS "Enabling /fp:fast for performance")
+endif()
+
+if(UNIX AND NOT APPLE AND NOT WIN32)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        add_compile_options(-march=x86-64-v2)
+        message(STATUS "Linux portable CPU target: x86-64-v2")
+    endif()
 endif()
 
 CPMAddPackage(
