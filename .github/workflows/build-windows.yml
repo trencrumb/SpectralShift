@@ -1,0 +1,79 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches: [ main ]
+  #pull_request:
+
+concurrency:
+  group: ${{ github.ref }}-windows
+  cancel-in-progress: true
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: Builds
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build_windows:
+    name: Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup MSVC toolchain
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install Ninja
+        run: choco install ninja
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache the build (sccache)
+        uses: mozilla-actions/sccache-action@v0.0.9
+        env:
+          SCCACHE_GHA_ENABLED: true
+
+      - name: Configure
+        run: cmake -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -G Ninja
+
+      - name: Build
+        run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
+
+      - name: Read in .env from CMake
+        run: |
+          cat ${{ env.BUILD_DIR }}/.env
+          cat ${{ env.BUILD_DIR }}/.env >> $GITHUB_ENV
+
+      - name: Set additional env vars for artifacts
+        run: |
+          ARTIFACTS_PATH="${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/${{ env.BUILD_TYPE }}"
+          echo "ARTIFACTS_PATH=$ARTIFACTS_PATH" >> $GITHUB_ENV
+          echo "VST3_PATH=$ARTIFACTS_PATH/VST3/${{ env.PRODUCT_NAME }}.vst3" >> $GITHUB_ENV
+          echo "CLAP_PATH=$ARTIFACTS_PATH/CLAP/${{ env.PRODUCT_NAME }}.clap" >> $GITHUB_ENV
+          echo "LV2_PATH=$ARTIFACTS_PATH/LV2/${{ env.PRODUCT_NAME }}.lv2" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-Windows" >> $GITHUB_ENV
+
+      - name: Pluginval
+        run: |
+          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_Windows.zip"
+          7z x pluginval_Windows.zip
+          ./pluginval.exe --strictness-level 10 --verbose \
+            --validate "${{ env.VST3_PATH }}"
+
+      - name: Generate Installer
+        run: |
+          iscc "packaging/windows/installer.iss"
+          mv "packaging/windows/Output/${{ env.ARTIFACT_NAME }}.exe" "${{ env.ARTIFACTS_PATH }}/"
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.exe

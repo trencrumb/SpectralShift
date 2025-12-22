@@ -1,81 +1,34 @@
-name: SpectralShift
+name: Build macOS
 
 on:
-  workflow_dispatch: # run manually from GitHub UI
+  workflow_dispatch:
   #push:
   #  branches: [ main ]
   #pull_request:
 
-# Cancel in-progress builds when new commits pushed
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}-macos
   cancel-in-progress: true
 
 env:
   BUILD_TYPE: Release
   BUILD_DIR: Builds
-  DISPLAY: :0 # Linux pluginval needs this
   HOMEBREW_NO_INSTALL_CLEANUP: 1
-  SCCACHE_GHA_ENABLED: true
-  IPP_DIR: C:\Program Files (x86)\Intel\oneAPI\ipp\latest\lib\cmake\ipp
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  build_and_test:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Linux
-            os: ubuntu-22.04
-            pluginval-binary: ./pluginval
-            extra-flags: -G Ninja -DUSE_PFFFT=ON
-          - name: macOS
-            os: macos-14
-            pluginval-binary: pluginval.app/Contents/MacOS/pluginval
-            extra-flags: -G Ninja -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
-          - name: Windows
-            os: windows-latest
-            pluginval-binary: ./pluginval.exe
-            extra-flags: -G Ninja
+  build_macos:
+    name: macOS
+    runs-on: macos-14
 
     steps:
-      - name: Setup MSVC toolchain (Windows)
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Set up Clang
-        if: runner.os == 'Linux'
-        uses: egor-tensin/setup-clang@v1
-
-      - name: Install JUCE's Linux Deps
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update && sudo apt install libasound2-dev libx11-dev libxinerama-dev libxext-dev libfreetype6-dev libwebkit2gtk-4.0-dev libglu1-mesa-dev xvfb ninja-build
-          sudo /usr/bin/Xvfb $DISPLAY &
-
-      - name: Install IPP (Windows)
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          nuget install intelipp.static.win-x64 -Version 2022.2.0.575
-
-      - name: Install Ninja (Windows)
-        if: runner.os == 'Windows'
-        shell: bash
-        run: choco install ninja
-
       - name: Install macOS Deps
-        if: ${{ matrix.name == 'macOS' }}
         run: brew install ninja osxutils
 
       - name: Use latest Xcode
-        if: ${{ matrix.name == 'macOS' }}
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
@@ -87,9 +40,11 @@ jobs:
 
       - name: Cache the build (sccache)
         uses: mozilla-actions/sccache-action@v0.0.9
+        env:
+          SCCACHE_GHA_ENABLED: true
 
       - name: Configure
-        run: cmake -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache ${{ matrix.extra-flags }}
+        run: cmake -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -G Ninja -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
 
       - name: Build
         run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
@@ -108,24 +63,22 @@ jobs:
           echo "CLAP_PATH=$ARTIFACTS_PATH/CLAP/${{ env.PRODUCT_NAME }}.clap" >> $GITHUB_ENV
           echo "STANDALONE_PATH=$ARTIFACTS_PATH/Standalone/${{ env.PRODUCT_NAME }}.app" >> $GITHUB_ENV
           echo "LV2_PATH=$ARTIFACTS_PATH/LV2/${{ env.PRODUCT_NAME }}.lv2" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-${{ matrix.name }}" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-macOS" >> $GITHUB_ENV
 
       - name: Pluginval (before signing)
         run: |
-          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_${{ matrix.name }}.zip"
-          7z x pluginval_${{ matrix.name }}.zip
-          ${{ matrix.pluginval-binary }} --strictness-level 10 --verbose \
+          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_macOS.zip"
+          7z x pluginval_macOS.zip
+          pluginval.app/Contents/MacOS/pluginval --strictness-level 10 --verbose \
             --validate "${{ env.VST3_PATH }}"
 
       - name: Import Developer ID Certificates
-        if: ${{ matrix.name == 'macOS' }}
         uses: apple-actions/import-codesign-certs@v2
         with:
           p12-file-base64: ${{ secrets.DEV_ID_CERT }}
           p12-password: ${{ secrets.DEV_ID_CERT_PASSWORD }}
 
       - name: Code Sign VST3
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.VST3_PATH }}" --deep --strict --options=runtime --timestamp
 
@@ -133,7 +86,6 @@ jobs:
           codesign --verify --deep --strict --verbose=2 "${{ env.VST3_PATH }}"
 
       - name: Code Sign AU
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.AU_PATH }}" --deep --strict --options=runtime --timestamp
 
@@ -141,7 +93,6 @@ jobs:
           codesign --verify --deep --strict --verbose=2 "${{ env.AU_PATH }}"
 
       - name: Code Sign Standalone
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.STANDALONE_PATH }}" --deep --strict --options=runtime --timestamp
 
@@ -149,7 +100,6 @@ jobs:
           codesign --verify --deep --strict --verbose=2 "${{ env.STANDALONE_PATH }}"
 
       - name: Code Sign CLAP
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.CLAP_PATH }}" --deep --strict --options=runtime --timestamp
 
@@ -157,7 +107,6 @@ jobs:
           codesign --verify --deep --strict --verbose=2 "${{ env.CLAP_PATH }}"
 
       - name: Code Sign LV2
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           # LV2 is not a macOS bundle, sign the .so file inside
           find "${{ env.LV2_PATH }}" -name "*.so" -exec codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v {} --strict --options=runtime --timestamp \;
@@ -166,7 +115,6 @@ jobs:
           find "${{ env.LV2_PATH }}" -name "*.so" -exec codesign --verify --strict --verbose=2 {} \;
 
       - name: Add Custom Icons
-        if: ${{ matrix.name == 'macOS' }}
         run: |
           # Add the icns as its own icon resource
           sips -i packaging/resources/icon.icns
@@ -183,7 +131,6 @@ jobs:
           SetFile -a C "${{ env.AU_PATH }}"
 
       - name: Create Packages and Notarize
-        if: ${{ matrix.name == 'macOS' }}
         timeout-minutes: 15
         run: |
           # Create packaging directory
@@ -217,22 +164,36 @@ jobs:
             --component "${{ env.CLAP_PATH }}" \
             --install-location "/Library/Audio/Plug-Ins/CLAP" \
             "packaging/${{ env.PRODUCT_NAME }}.clap.pkg"
-          
+
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.lv2.pkg" \
             --version ${{ env.VERSION }} \
             --root "${{ env.LV2_PATH }}" \
             --install-location "/Library/Audio/Plug-Ins/LV2" \
             "packaging/${{ env.PRODUCT_NAME }}.lv2.pkg"
 
-          # Process distribution.xml to replace variables
+          # Process distribution.xml to replace variables using Python
           cd packaging
-          PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-          VERSION="${{ env.VERSION }}"
-          BUNDLE_ID="${{ env.BUNDLE_ID }}"
-          sed -e "s|\\\${{ env.PRODUCT_NAME }}|${PRODUCT_NAME}|g" \
-              -e "s|\\\${{ env.VERSION }}|${VERSION}|g" \
-              -e "s|\\\${{ env.BUNDLE_ID }}|${BUNDLE_ID}|g" \
-              macos/distribution.xml > distribution.xml
+          python3 << 'EOF'
+          import os
+
+          # Read variables from environment
+          product_name = os.environ['PRODUCT_NAME']
+          version = os.environ['VERSION']
+          bundle_id = os.environ['BUNDLE_ID']
+
+          # Read template
+          with open('macos/distribution.xml', 'r') as f:
+              content = f.read()
+
+          # Replace template variables
+          content = content.replace('${{ env.PRODUCT_NAME }}', product_name)
+          content = content.replace('${{ env.VERSION }}', version)
+          content = content.replace('${{ env.BUNDLE_ID }}', bundle_id)
+
+          # Write processed file
+          with open('distribution.xml', 'w') as f:
+              f.write(content)
+          EOF
 
           # Create the final signed PKG with productbuild
           productbuild --distribution distribution.xml \
@@ -254,42 +215,8 @@ jobs:
           # Verify the staple worked
           xcrun stapler validate "${{ env.ARTIFACT_NAME }}.pkg"
 
-      - name: Zip (Linux)
-        if: ${{ matrix.name == 'Linux' }}
-        run: |
-          # Copy packaging/linux contents to artifacts directory
-          cp -r packaging/linux/* ${{ env.ARTIFACTS_PATH }}/
-          cp packaging/resources/icon.png ${{ env.ARTIFACTS_PATH }}/
-          cp LICENSE.txt ${{ env.ARTIFACTS_PATH }}/
-
-          # Create zip with build artifacts and packaging files, excluding the SharedCode library
-          cd ${{ env.ARTIFACTS_PATH }}
-          7z a -tzip "${{ env.ARTIFACT_NAME }}.zip" "-xr!lib${{ env.PRODUCT_NAME }}_SharedCode.a" .
-
-      - name: Upload package (macOS)
-        if: ${{ matrix.name == 'macOS' }}
+      - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: packaging/${{ env.ARTIFACT_NAME }}.pkg
-
-      - name: Upload zip (Linux)
-        if: ${{ matrix.name == 'Linux' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.zip
-
-      - name: Generate Installer (Windows)
-        if: ${{ matrix.name == 'Windows' }}
-        shell: bash
-        run: |
-          iscc "packaging/windows/installer.iss"
-          mv "packaging/windows/Output/${{ env.ARTIFACT_NAME }}.exe" "${{ env.ARTIFACTS_PATH }}/"
-
-      - name: Upload Installer (Windows)
-        if: ${{ matrix.name == 'Windows' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.exe

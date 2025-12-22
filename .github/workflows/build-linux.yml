@@ -1,0 +1,88 @@
+name: Build Linux
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches: [ main ]
+  #pull_request:
+
+concurrency:
+  group: ${{ github.ref }}-linux
+  cancel-in-progress: true
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: Builds
+  DISPLAY: :0
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build_linux:
+    name: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Set up Clang
+        uses: egor-tensin/setup-clang@v1
+
+      - name: Install JUCE's Linux Deps
+        run: |
+          sudo apt-get update && sudo apt install libasound2-dev libx11-dev libxinerama-dev libxext-dev libfreetype6-dev libwebkit2gtk-4.0-dev libglu1-mesa-dev xvfb ninja-build
+          sudo /usr/bin/Xvfb $DISPLAY &
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache the build (sccache)
+        uses: mozilla-actions/sccache-action@v0.0.9
+        env:
+          SCCACHE_GHA_ENABLED: true
+
+      - name: Configure
+        run: cmake -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -G Ninja -DUSE_PFFFT=ON
+
+      - name: Build
+        run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
+
+      - name: Read in .env from CMake
+        run: |
+          cat ${{ env.BUILD_DIR }}/.env
+          cat ${{ env.BUILD_DIR }}/.env >> $GITHUB_ENV
+
+      - name: Set additional env vars for artifacts
+        run: |
+          ARTIFACTS_PATH="${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/${{ env.BUILD_TYPE }}"
+          echo "ARTIFACTS_PATH=$ARTIFACTS_PATH" >> $GITHUB_ENV
+          echo "VST3_PATH=$ARTIFACTS_PATH/VST3/${{ env.PRODUCT_NAME }}.vst3" >> $GITHUB_ENV
+          echo "CLAP_PATH=$ARTIFACTS_PATH/CLAP/${{ env.PRODUCT_NAME }}.clap" >> $GITHUB_ENV
+          echo "LV2_PATH=$ARTIFACTS_PATH/LV2/${{ env.PRODUCT_NAME }}.lv2" >> $GITHUB_ENV
+          echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-Linux" >> $GITHUB_ENV
+
+      - name: Pluginval
+        run: |
+          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_Linux.zip"
+          7z x pluginval_Linux.zip
+          ./pluginval --strictness-level 10 --verbose \
+            --validate "${{ env.VST3_PATH }}"
+
+      - name: Create Distribution Package
+        run: |
+          # Copy packaging/linux contents to artifacts directory
+          cp -r packaging/linux/* ${{ env.ARTIFACTS_PATH }}/
+          cp packaging/resources/icon.png ${{ env.ARTIFACTS_PATH }}/
+          cp LICENSE.txt ${{ env.ARTIFACTS_PATH }}/
+
+          # Create zip with build artifacts and packaging files, excluding the SharedCode library
+          cd ${{ env.ARTIFACTS_PATH }}
+          7z a -tzip "${{ env.ARTIFACT_NAME }}.zip" "-xr!lib${{ env.PRODUCT_NAME }}_SharedCode.a" .
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.zip
