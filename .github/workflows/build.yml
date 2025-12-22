@@ -139,10 +139,11 @@ jobs:
       - name: Code Sign LV2
         if: ${{ matrix.name == 'macOS' }}
         run: |
-          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.LV2_PATH }}" --deep --strict --options=runtime --timestamp
+          # LV2 is not a macOS bundle, sign the .so file inside
+          find "${{ env.LV2_PATH }}" -name "*.so" -exec codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v {} --strict --options=runtime --timestamp \;
 
           # Verify signature
-          codesign --verify --deep --strict --verbose=2 "${{ env.LV2_PATH }}"
+          find "${{ env.LV2_PATH }}" -name "*.so" -exec codesign --verify --strict --verbose=2 {} \;
 
       - name: Add Custom Icons
         if: ${{ matrix.name == 'macOS' }}
