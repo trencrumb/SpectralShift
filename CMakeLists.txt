@@ -34,11 +34,117 @@ CPMAddPackage(
     GIT_TAG origin/master
 )
 
+# Performance optimization options
+option(USE_IPP "Use Intel Performance Primitives for optimized DSP" OFF)
+option(USE_PFFFT "Use PFFFT (Pretty Fast FFT) - lightweight alternative to IPP" OFF)
+option(USE_NATIVE_ARCH "Use -march=native for CPU-specific optimizations" ON)
+
+# IPP support (Windows/Linux)
+if(USE_IPP)
+    if(WIN32)
+        message(STATUS "IPP support enabled for Windows")
+        # Try to find IPP from nuget package location
+        if(NOT DEFINED IPP_ROOT)
+            file(GLOB IPP_NUGET_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/intelipp.static.win-x64.*")
+            if(IPP_NUGET_DIRS)
+                list(GET IPP_NUGET_DIRS 0 IPP_ROOT)
+                message(STATUS "Found IPP nuget package at: ${IPP_ROOT}")
+            endif()
+        endif()
+
+        # Set IPP paths for find_package
+        if(DEFINED IPP_ROOT)
+            set(CMAKE_PREFIX_PATH "${IPP_ROOT}/lib/native/win-x64;${CMAKE_PREFIX_PATH}")
+            set(IPP_INCLUDE_DIR "${IPP_ROOT}/lib/native/include")
+        endif()
+    elseif(UNIX AND NOT APPLE)
+        message(STATUS "IPP support enabled for Linux")
+        # On Linux, IPP is typically installed system-wide via oneAPI
+        # e.g., /opt/intel/oneapi/ipp/latest
+        if(NOT DEFINED IPP_ROOT AND DEFINED ENV{IPPROOT})
+            set(IPP_ROOT $ENV{IPPROOT})
+            message(STATUS "Using IPP from IPPROOT: ${IPP_ROOT}")
+        endif()
+    endif()
+    set(SIGNALSMITH_USE_IPP ON CACHE BOOL "Use IPP in signalsmith-linear" FORCE)
+else()
+    set(SIGNALSMITH_USE_IPP OFF CACHE BOOL "Use IPP in signalsmith-linear" FORCE)
+endif()
+
+# PFFFT support (cross-platform, lightweight alternative)
+if(USE_PFFFT)
+    message(STATUS "PFFFT support enabled - fetching library")
+
+    # Fetch PFFFT
+    CPMAddPackage(
+        NAME pffft
+        GIT_REPOSITORY https://bitbucket.org/jpommier/pffft.git
+        GIT_TAG master
+        DOWNLOAD_ONLY YES
+    )
+
+    # Create PFFFT library target
+    if(pffft_ADDED)
+        add_library(pffft STATIC ${pffft_SOURCE_DIR}/pffft.c)
+        target_include_directories(pffft PUBLIC ${pffft_SOURCE_DIR})
+        # PFFFT works best with these flags
+        if(NOT MSVC)
+            target_compile_options(pffft PRIVATE -O3 -ffast-math)
+        endif()
+        message(STATUS "PFFFT library created from ${pffft_SOURCE_DIR}")
+    endif()
+
+    set(SIGNALSMITH_USE_PFFFT ON CACHE BOOL "Use PFFFT in signalsmith-linear" FORCE)
+else()
+    set(SIGNALSMITH_USE_PFFFT OFF CACHE BOOL "Use PFFFT in signalsmith-linear" FORCE)
+endif()
+
+# CPU-specific optimizations for Linux/macOS
+if(USE_NATIVE_ARCH AND NOT WIN32 AND NOT CMAKE_CROSSCOMPILING)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        add_compile_options(-march=native)
+        message(STATUS "Enabling -march=native for CPU-specific optimizations")
+    endif()
+endif()
+
+# Enable fast math for performance (except Apple Clang 16.0.0 which has broken SIMD)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(APPLE AND CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "16.0.0")
+        message(WARNING "Apple Clang 16.0.0 detected - NOT enabling -ffast-math due to broken SIMD code generation")
+    else()
+        add_compile_options(-ffast-math)
+        message(STATUS "Enabling -ffast-math for performance")
+    endif()
+elseif(MSVC)
+    add_compile_options(/fp:fast)
+    message(STATUS "Enabling /fp:fast for performance")
+endif()
+
 CPMAddPackage(
         NAME stretch
         GIT_REPOSITORY https://github.com/Signalsmith-Audio/signalsmith-stretch.git
         GIT_TAG origin/main
+        OPTIONS
+            "SIGNALSMITH_USE_IPP ${SIGNALSMITH_USE_IPP}"
+            "SIGNALSMITH_USE_PFFFT ${SIGNALSMITH_USE_PFFFT}"
 )
+
+# Optimize signalsmith-stretch even in Debug builds (it's very slow otherwise)
+if(TARGET signalsmith-stretch)
+    if(MSVC)
+        target_compile_options(signalsmith-stretch INTERFACE /O2)
+        message(STATUS "Enabling optimizations for signalsmith-stretch (MSVC)")
+    else()
+        target_compile_options(signalsmith-stretch INTERFACE -O2)
+        message(STATUS "Enabling optimizations for signalsmith-stretch")
+    endif()
+endif()
+
+# Link PFFFT to signalsmith-linear if enabled
+if(USE_PFFFT AND TARGET pffft AND TARGET signalsmith-linear)
+    target_link_libraries(signalsmith-linear INTERFACE pffft)
+    message(STATUS "Linked PFFFT to signalsmith-linear")
+endif()
 
 CPMAddPackage(
         NAME clap_juce_extensions
@@ -121,6 +227,7 @@ target_compile_definitions(${PROJECT_NAME}
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0
+        $<$<BOOL:${USE_IPP}>:JUCE_USE_IPP=1>
 )
 
 # JUCE libraries to bring into our project
@@ -141,6 +248,14 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
 )
+
+# Link IPP libraries if enabled
+if(WIN32 AND USE_IPP AND DEFINED IPP_ROOT)
+    target_include_directories(${PROJECT_NAME} PRIVATE "${IPP_INCLUDE_DIR}")
+    target_link_directories(${PROJECT_NAME} PRIVATE "${IPP_ROOT}/lib/native/win-x64")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ippcore.lib ipps.lib ippi.lib ippvm.lib)
+    message(STATUS "Linking IPP libraries for JUCE")
+endif()
 
 clap_juce_extensions_plugin(TARGET ${PROJECT_NAME}
         CLAP_ID "com.${COMPANY_NAME}.${PROJECT_NAME}"

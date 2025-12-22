@@ -34,7 +34,7 @@ jobs:
           - name: Linux
             os: ubuntu-22.04
             pluginval-binary: ./pluginval
-            extra-flags: -G Ninja
+            extra-flags: -G Ninja -DUSE_PFFFT=ON
           - name: macOS
             os: macos-14
             pluginval-binary: pluginval.app/Contents/MacOS/pluginval
@@ -42,7 +42,7 @@ jobs:
           - name: Windows
             os: windows-latest
             pluginval-binary: ./pluginval.exe
-            extra-flags: ""
+            extra-flags: -G Ninja -DUSE_IPP=ON
 
     steps:
       - name: Setup MSVC toolchain (Windows)
