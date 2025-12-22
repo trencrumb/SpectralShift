@@ -2,8 +2,6 @@
 
 # Spectral Shift
 
----
-
 Pitch shifter plugin implementation using Signalsmith's [Stretch](https://github.com/Signalsmith-Audio/signalsmith-stretch) and [JUCE](https://juce.com/).
 Created as part of the [MyWorld](https://www.myworld-creates.com/) Fellowship in Residence with [Wounded Buffalo Studios](https://woundedbuffalo.co.uk/)\
 Virtual Convolution & Sound Morphing:\
@@ -13,8 +11,6 @@ Inspired by [Minimal Audio's Formant Shift](https://www.minimal.audio/products/f
 but with formant and pitch shifting controls in 2D space.
 
 <img src="resources/gui.png" width="400">
-
----
 
 ## Installation
 
@@ -35,8 +31,6 @@ Tested on 25H2 (x86_64)
 1. Download the latest release from the [Releases](https://github.com/trencrumb/SpectralShift/releases).
 2. Open the downloaded `.exe` file and follow the installer instructions.
 3. It's not code signed so you may get a warning that it't from an unknown source or developer.  Don't worry I'm the unknown source and developer.
-
----
 
 ## License
 
