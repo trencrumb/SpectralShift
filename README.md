@@ -25,12 +25,16 @@ Currently tested on macOS 15.6.1 (M2).
 3. It's a universal binary supporting both Intel and Apple Silicon Macs.
 
 ### Linux
-Tested on Ubuntu 24.04.
+Tested on Ubuntu 24.04 (x86_64)
 1. Download the latest release from the [Releases](https://github.com/trencrumb/SpectralShift/releases).
 2. Extract the downloaded archive and check out the README (but for quick install just run the bash script ```./install.sh```).
 3. Can uninstall with ```./uninstall.sh```.
 
-### Windows (*Coming Soon*)
+### Windows
+Tested on 25H2 (x86_64)
+1. Download the latest release from the [Releases](https://github.com/trencrumb/SpectralShift/releases).
+2. Open the downloaded `.exe` file and follow the installer instructions.
+3. It's not code signed so you may get a warning that it't from an unknown source or developer.  Don't worry I'm the unknown source and developer.
 
 ---
 
