@@ -224,9 +224,18 @@ jobs:
             --install-location "/Library/Audio/Plug-Ins/LV2" \
             "packaging/${{ env.PRODUCT_NAME }}.lv2.pkg"
 
-          # Create the final signed PKG with productbuild
+          # Process distribution.xml to replace variables
           cd packaging
-          productbuild --distribution macos/distribution.xml \
+          PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
+          VERSION="${{ env.VERSION }}"
+          BUNDLE_ID="${{ env.BUNDLE_ID }}"
+          sed -e "s|\\\${{ env.PRODUCT_NAME }}|${PRODUCT_NAME}|g" \
+              -e "s|\\\${{ env.VERSION }}|${VERSION}|g" \
+              -e "s|\\\${{ env.BUNDLE_ID }}|${BUNDLE_ID}|g" \
+              macos/distribution.xml > distribution.xml
+
+          # Create the final signed PKG with productbuild
+          productbuild --distribution distribution.xml \
             --resources ./resources \
             --sign "${{ secrets.DEVELOPER_ID_INSTALLER }}" \
             --timestamp \
