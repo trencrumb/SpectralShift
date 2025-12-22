@@ -87,6 +87,7 @@ jobs:
           echo "AU_PATH=$ARTIFACTS_PATH/AU/${{ env.PRODUCT_NAME }}.component" >> $GITHUB_ENV
           echo "CLAP_PATH=$ARTIFACTS_PATH/CLAP/${{ env.PRODUCT_NAME }}.clap" >> $GITHUB_ENV
           echo "STANDALONE_PATH=$ARTIFACTS_PATH/Standalone/${{ env.PRODUCT_NAME }}.app" >> $GITHUB_ENV
+          echo "LV2_PATH=$ARTIFACTS_PATH/LV2/${{ env.PRODUCT_NAME }}.lv2" >> $GITHUB_ENV
           echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-${{ matrix.name }}" >> $GITHUB_ENV
 
       - name: Pluginval (before signing)
@@ -134,6 +135,14 @@ jobs:
 
           # Verify signature
           codesign --verify --deep --strict --verbose=2 "${{ env.CLAP_PATH }}"
+
+      - name: Code Sign LV2
+        if: ${{ matrix.name == 'macOS' }}
+        run: |
+          codesign --force -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.LV2_PATH }}" --deep --strict --options=runtime --timestamp
+
+          # Verify signature
+          codesign --verify --deep --strict --verbose=2 "${{ env.LV2_PATH }}"
 
       - name: Add Custom Icons
         if: ${{ matrix.name == 'macOS' }}
@@ -187,49 +196,16 @@ jobs:
             --component "${{ env.CLAP_PATH }}" \
             --install-location "/Library/Audio/Plug-Ins/CLAP" \
             "packaging/${{ env.PRODUCT_NAME }}.clap.pkg"
-
-          # Create distribution.xml for productbuild
-          cat > packaging/distribution.xml << EOF
-          <?xml version="1.0" encoding="utf-8"?>
-          <installer-gui-script minSpecVersion="1">
-              <title>${{ env.PRODUCT_NAME }} ${{ env.VERSION }}</title>
-              <organization>${{ env.BUNDLE_ID }}</organization>
-              <domains enable_localSystem="true"/>
-              <options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/>
-              <welcome file="welcome.html" mime-type="text/html"/>
-              <license file="license.html" mime-type="text/html"/>
-              <conclusion file="conclusion.html" mime-type="text/html"/>
-
-              <pkg-ref id="${{ env.BUNDLE_ID }}.au.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.au.pkg</pkg-ref>
-              <pkg-ref id="${{ env.BUNDLE_ID }}.vst3.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.vst3.pkg</pkg-ref>
-              <pkg-ref id="${{ env.BUNDLE_ID }}.app.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.app.pkg</pkg-ref>
-              <pkg-ref id="${{ env.BUNDLE_ID }}.clap.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.clap.pkg</pkg-ref>
-
-              <choices-outline>
-                  <line choice="${{ env.BUNDLE_ID }}.au.pkg"/>
-                  <line choice="${{ env.BUNDLE_ID }}.vst3.pkg"/>
-                  <line choice="${{ env.BUNDLE_ID }}.app.pkg"/>
-                  <line choice="${{ env.BUNDLE_ID }}.clap.pkg"/>
-              </choices-outline>
-
-              <choice id="${{ env.BUNDLE_ID }}.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
-                  <pkg-ref id="${{ env.BUNDLE_ID }}.au.pkg"/>
-              </choice>
-              <choice id="${{ env.BUNDLE_ID }}.vst3.pkg" visible="true" title="VST3" description="Install the VST3 plugin">
-                  <pkg-ref id="${{ env.BUNDLE_ID }}.vst3.pkg"/>
-              </choice>
-              <choice id="${{ env.BUNDLE_ID }}.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
-                  <pkg-ref id="${{ env.BUNDLE_ID }}.app.pkg"/>
-              </choice>
-              <choice id="${{ env.BUNDLE_ID }}.clap.pkg" visible="true" title="CLAP" description="Install the CLAP plugin">
-                  <pkg-ref id="${{ env.BUNDLE_ID }}.clap.pkg"/>
-              </choice>
-          </installer-gui-script>
-          EOF
+          
+          pkgbuild --identifier "${{ env.BUNDLE_ID }}.lv2.pkg" \
+            --version ${{ env.VERSION }} \
+            --root "${{ env.LV2_PATH }}" \
+            --install-location "/Library/Audio/Plug-Ins/LV2" \
+            "packaging/${{ env.PRODUCT_NAME }}.lv2.pkg"
 
           # Create the final signed PKG with productbuild
           cd packaging
-          productbuild --distribution distribution.xml \
+          productbuild --distribution macos/distribution.xml \
             --resources ./resources \
             --sign "${{ secrets.DEVELOPER_ID_INSTALLER }}" \
             --timestamp \
@@ -253,7 +229,8 @@ jobs:
         run: |
           # Copy packaging/linux contents to artifacts directory
           cp -r packaging/linux/* ${{ env.ARTIFACTS_PATH }}/
-          cp packaging/icon.png ${{ env.ARTIFACTS_PATH }}/
+          cp packaging/resources/icon.png ${{ env.ARTIFACTS_PATH }}/
+          cp LICENSE.txt ${{ env.ARTIFACTS_PATH }}/
 
           # Create zip with build artifacts and packaging files, excluding the SharedCode library
           cd ${{ env.ARTIFACTS_PATH }}

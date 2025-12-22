@@ -78,22 +78,23 @@ set(SourceFiles
 
 if(DEFINED JUCE_AAX_SDK_PATH)
     juce_set_aax_sdk_path("${JUCE_AAX_SDK_PATH}")
-    set(PLUGIN_FORMATS VST3 AU AUv3 AAX Standalone)
+    set(PLUGIN_FORMATS VST3 AU AUv3 LV2 AAX Standalone)
     message(STATUS "AAX SDK path provided: ${JUCE_AAX_SDK_PATH}.")
     message("Building ${PLUGIN_FORMATS}.")
 else()
-    set(PLUGIN_FORMATS VST3 AU AUv3 Standalone)
+    set(PLUGIN_FORMATS VST3 AU AUv3 LV2 Standalone)
     message(STATUS "AAX SDK path not provided. To build AAX, pass -DJUCE_AAX_SDK_PATH=path/to/sdk")
     message("Building ${PLUGIN_FORMATS}.")
 endif()
 
 juce_add_plugin(${PROJECT_NAME}
         COMPANY_NAME ${COMPANY_NAME}
-        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
+        ICON_BIG "packaging/resources/icon.png"
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
         NEEDS_MIDI_OUTPUT FALSE
         IS_MIDI_EFFECT FALSE
+        LV2URI "http://github.com/trencrumb/SpectralShift"
         EDITOR_WANTS_KEYBOARD_FOCUS FALSE
         JUCE_VST3_CAN_REPLACE_VST2 FALSE
         COPY_PLUGIN_AFTER_BUILD TRUE

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+    <title>${{ env.PRODUCT_NAME }} ${{ env.VERSION }}</title>
+    <allowed-os-versions>
+        <os-version min="10.13" />
+    </allowed-os-versions>
+    <organization>${{ env.BUNDLE_ID }}</organization>
+    <domains enable_localSystem="true"/>
+    <options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/>
+    <license file="../../LICENSE.txt" />
+    <conclusion file="conclusion.html" mime-type="text/html" />
+    <pkg-ref id="${{ env.BUNDLE_ID }}.au.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.au.pkg</pkg-ref>
+    <pkg-ref id="${{ env.BUNDLE_ID }}.vst3.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.vst3.pkg</pkg-ref>
+    <pkg-ref id="${{ env.BUNDLE_ID }}.app.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.app.pkg</pkg-ref>
+    <pkg-ref id="${{ env.BUNDLE_ID }}.clap.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.clap.pkg</pkg-ref>
+    <pkg-ref id="${{ env.BUNDLE_ID }}.lv2.pkg" version="${{ env.VERSION }}" onConclusion="none">${{ env.PRODUCT_NAME }}.lv2.pkg</pkg-ref>
+
+    <choices-outline>
+        <line choice="${{ env.BUNDLE_ID }}.au.pkg"/>
+        <line choice="${{ env.BUNDLE_ID }}.vst3.pkg"/>
+        <line choice="${{ env.BUNDLE_ID }}.app.pkg"/>
+        <line choice="${{ env.BUNDLE_ID }}.clap.pkg"/>
+        <line choice="${{ env.BUNDLE_ID }}.lv2.pkg"/>
+    </choices-outline>
+
+    <choice id="${{ env.BUNDLE_ID }}.au.pkg" visible="true" title="Audio Unit (AU)" description="Install the AU plugin">
+        <pkg-ref id="${{ env.BUNDLE_ID }}.au.pkg"/>
+    </choice>
+    <choice id="${{ env.BUNDLE_ID }}.vst3.pkg" visible="true" title="VST3" description="Install the VST3 plugin">
+        <pkg-ref id="${{ env.BUNDLE_ID }}.vst3.pkg"/>
+    </choice>
+    <choice id="${{ env.BUNDLE_ID }}.app.pkg" visible="true" title="Standalone App" description="Install the standalone application">
+        <pkg-ref id="${{ env.BUNDLE_ID }}.app.pkg"/>
+    </choice>
+    <choice id="${{ env.BUNDLE_ID }}.clap.pkg" visible="true" title="CLAP" description="Install the CLAP plugin">
+        <pkg-ref id="${{ env.BUNDLE_ID }}.clap.pkg"/>
+    </choice>
+    <choice id="${{ env.BUNDLE_ID }}.lv2.pkg" visible="true" title="LV2" description="Install the LV2 plugin">
+        <pkg-ref id="${{ env.BUNDLE_ID }}.lv2.pkg"/>
+    </choice>
+</installer-gui-script>
