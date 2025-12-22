@@ -51,11 +51,12 @@ done
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-VST3_SRC="$SCRIPT_DIR/VST3/SpectralShift.vst3"
-CLAP_SRC="$SCRIPT_DIR/CLAP/SpectralShift.clap"
-APP_SRC="$SCRIPT_DIR/Standalone/SpectralShift"
+VST3_SRC="$SCRIPT_DIR/VST3/Spectral Shift.vst3"
+LV2_SRC="$SCRIPT_DIR/LV2/Spectral Shift.lv2"
+CLAP_SRC="$SCRIPT_DIR/CLAP/Spectral Shift.clap"
+APP_SRC="$SCRIPT_DIR/Standalone/Spectral Shift"
 
-for src in "$VST3_SRC" "$CLAP_SRC" "$APP_SRC"; do
+for src in "$VST3_SRC" "$LV2_SRC" "$CLAP_SRC" "$APP_SRC"; do
   if [[ ! -e "$src" ]]; then
     echo "Missing artifact: $src" >&2
     exit 1
@@ -64,10 +65,12 @@ done
 
 if "$SYSTEM"; then
   VST3_DEST="/usr/lib/vst3"
+  LV2_DEST="/usr/lib/lv2"
   CLAP_DEST="/usr/lib/clap"
   BIN_DEST="${BIN_OVERRIDE:-/usr/local/bin}"
 else
   VST3_DEST="${VST3_DIR:-$HOME/.vst3}"
+  LV2_DEST="${LV2_DIR:-$HOME/.lv2}"
   CLAP_DEST="${CLAP_DIR:-$HOME/.clap}"
   BIN_DEST="${BIN_OVERRIDE:-${BIN_DIR:-$HOME/.local/bin}}"
 fi
@@ -131,12 +134,14 @@ install_file() {
 }
 
 install_bundle "$VST3_SRC" "$VST3_DEST"
+install_bundle "$LV2_SRC" "$LV2_DEST"
 install_file "$CLAP_SRC" "$CLAP_DEST" 755
 install_file "$APP_SRC" "$BIN_DEST" 755
 
 echo "Done."
 if ! "$SYSTEM"; then
   echo "VST3 -> $VST3_DEST"
+  echo "LV2 -> $LV2_DEST"
   echo "CLAP -> $CLAP_DEST"
   echo "Standalone -> $BIN_DEST"
 fi

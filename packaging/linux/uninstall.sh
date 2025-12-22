@@ -51,17 +51,20 @@ done
 
 if "$SYSTEM"; then
   VST3_DEST="/usr/lib/vst3"
+  LV2_DEST="/usr/lib/lv2"
   CLAP_DEST="/usr/lib/clap"
   BIN_DEST="${BIN_OVERRIDE:-/usr/local/bin}"
 else
   VST3_DEST="${VST3_DIR:-$HOME/.vst3}"
+  LV2_DEST="${LV2_DIR:-$HOME/.lv2}"
   CLAP_DEST="${CLAP_DIR:-$HOME/.clap}"
   BIN_DEST="${BIN_OVERRIDE:-${BIN_DIR:-$HOME/.local/bin}}"
 fi
 
-VST3_TARGET="$VST3_DEST/SpectralShift.vst3"
-CLAP_TARGET="$CLAP_DEST/SpectralShift.clap"
-APP_TARGET="$BIN_DEST/SpectralShift"
+VST3_TARGET="$VST3_DEST/Spectral Shift.vst3"
+LV2_TARGET="$LV2_DEST/Spectral Shift.lv2"
+CLAP_TARGET="$CLAP_DEST/Spectral Shift.clap"
+APP_TARGET="$BIN_DEST/Spectral Shift"
 
 SUDO=""
 if "$SYSTEM" && [[ $EUID -ne 0 ]]; then
