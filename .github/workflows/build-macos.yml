@@ -171,29 +171,9 @@ jobs:
             --install-location "/Library/Audio/Plug-Ins/LV2" \
             "packaging/${{ env.PRODUCT_NAME }}.lv2.pkg"
 
-          # Process distribution.xml to replace variables using Python
+          # Process distribution.xml to replace variables
           cd packaging
-          python3 << 'EOF'
-          import os
-
-          # Read variables from environment
-          product_name = os.environ['PRODUCT_NAME']
-          version = os.environ['VERSION']
-          bundle_id = os.environ['BUNDLE_ID']
-
-          # Read template
-          with open('macos/distribution.xml', 'r') as f:
-              content = f.read()
-
-          # Replace template variables
-          content = content.replace('${{ env.PRODUCT_NAME }}', product_name)
-          content = content.replace('${{ env.VERSION }}', version)
-          content = content.replace('${{ env.BUNDLE_ID }}', bundle_id)
-
-          # Write processed file
-          with open('distribution.xml', 'w') as f:
-              f.write(content)
-          EOF
+          envsubst < macos/distribution.xml > distribution.xml
 
           # Create the final signed PKG with productbuild
           productbuild --distribution distribution.xml \
