@@ -30,9 +30,6 @@ DisableDirPage=yes
 LicenseFile="..\..\LICENSE.txt"
 UninstallFilesDir="{commonappdata}\{#ProductName}\uninstall"
 
-[UninstallDelete]
-Type: filesandordirs; Name: "{commoncf64}\VST3\{#ProductName}Data"
-
 ; MSVC adds a .ilk when building the plugin. Let's not include that.
 [Files]
 Source: "..\..\Builds\{#ProjectName}_artefacts\Release\VST3\{#ProductName}.vst3\*"; DestDir: "{commoncf64}\VST3\{#ProductName}.vst3\"; Excludes: *.ilk; Flags: ignoreversion recursesubdirs; Components: vst3
@@ -43,10 +40,3 @@ Source: "..\..\Builds\{#ProjectName}_artefacts\Release\Standalone\{#ProductName}
 [Icons]
 Name: "{autoprograms}\{#ProductName}"; Filename: "{commonpf64}\{#Publisher}\{#ProductName}\{#ProductName}.exe"; Components: standalone
 Name: "{autoprograms}\Uninstall {#ProductName}"; Filename: "{uninstallexe}"
-
-; This is optional, for preset or other plugin data
-[Run]
-Filename: "{cmd}"; \
-    WorkingDir: "{commoncf64}\VST3"; \
-    Parameters: "/C mklink /D ""{commoncf64}\VST3\{#ProductName}Data"" ""{commonappdata}\{#ProductName}"""; \
-    Flags: runascurrentuser; Components: vst3
