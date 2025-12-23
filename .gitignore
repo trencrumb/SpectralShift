@@ -61,6 +61,7 @@ packaging/SpectralShift*.pkg
 # CI/CD artifacts
 artifacts/
 Builds/
+build/
 
 # macOS system files
 .DS_Store
