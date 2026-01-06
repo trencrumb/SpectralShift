@@ -121,9 +121,9 @@ To download build outputs:
 3. Scroll to the **Artifacts** section.
 4. Download the installer for your platform:
 
-    * macOS: `Spectral Shift-1.0.0-macOS.pkg`
-    * Linux: `Spectral Shift-1.0.0-Linux.zip`
-    * Windows: `Spectral Shift-1.0.0-Windows.exe`
+    * macOS: `Spectral Shift-*version*-macOS.pkg`
+    * Linux: `Spectral Shift-*version*-Linux.zip`
+    * Windows: `Spectral Shift-*version*-Windows.exe`
 
 ## Customizing Builds
 
@@ -132,7 +132,7 @@ To download build outputs:
 Edit `CMakeLists.txt`:
 
 ```cmake
-project(SpectralShift VERSION 1.0.0)
+project(SpectralShift VERSION 0.0.0)
 ```
 
 ### Modify plugin formats

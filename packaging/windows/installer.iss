@@ -32,11 +32,30 @@ UninstallFilesDir="{commonappdata}\{#ProductName}\uninstall"
 
 ; MSVC adds a .ilk when building the plugin. Let's not include that.
 [Files]
-Source: "..\..\Builds\{#ProjectName}_artefacts\Release\VST3\{#ProductName}.vst3\*"; DestDir: "{commoncf64}\VST3\{#ProductName}.vst3\"; Excludes: *.ilk; Flags: ignoreversion recursesubdirs; Components: vst3
-Source: "..\..\Builds\{#ProjectName}_artefacts\Release\CLAP\{#ProductName}.clap"; DestDir: "{commoncf64}\CLAP\"; Flags: ignoreversion; Components: clap
-Source: "..\..\Builds\{#ProjectName}_artefacts\Release\LV2\{#ProductName}.lv2\*"; DestDir: "{commoncf64}\LV2\{#ProductName}.lv2\"; Excludes: *.ilk; Flags: ignoreversion recursesubdirs; Components: lv2
+Source: "..\..\Builds\{#ProjectName}_artefacts\Release\VST3\{#ProductName}.vst3\*"; DestDir: "{commoncf64}\VST3\{#ProductName}.vst3\"; Excludes: *.ilk; Flags: ignoreversion recursesubdirs restartreplace; Components: vst3
+Source: "..\..\Builds\{#ProjectName}_artefacts\Release\CLAP\{#ProductName}.clap"; DestDir: "{commoncf64}\CLAP\"; Flags: ignoreversion restartreplace; Components: clap
+Source: "..\..\Builds\{#ProjectName}_artefacts\Release\LV2\{#ProductName}.lv2\*"; DestDir: "{commoncf64}\LV2\{#ProductName}.lv2\"; Excludes: *.ilk; Flags: ignoreversion recursesubdirs restartreplace; Components: lv2
 Source: "..\..\Builds\{#ProjectName}_artefacts\Release\Standalone\{#ProductName}.exe"; DestDir: "{commonpf64}\{#Publisher}\{#ProductName}"; Flags: ignoreversion; Components: standalone
 
 [Icons]
 Name: "{autoprograms}\{#ProductName}"; Filename: "{commonpf64}\{#Publisher}\{#ProductName}\{#ProductName}.exe"; Components: standalone
 Name: "{autoprograms}\Uninstall {#ProductName}"; Filename: "{uninstallexe}"
+
+[Code]
+function InitializeSetup(): Boolean;
+var
+  ResultCode: Integer;
+begin
+  Result := True;
+
+  if MsgBox('IMPORTANT: Please close all DAWs and audio applications before continuing.' + #13#10#13#10 +
+            'This includes:' + #13#10 +
+            '  • Reaper, Ableton Live, FL Studio, etc.' + #13#10 +
+            '  • Plugin scanners and host applications' + #13#10 +
+            '  • Any audio software using {#ProductName}' + #13#10#13#10 +
+            'Click OK to continue with installation, or Cancel to exit.',
+            mbInformation, MB_OKCANCEL) = IDCANCEL then
+  begin
+    Result := False;
+  end;
+end;
