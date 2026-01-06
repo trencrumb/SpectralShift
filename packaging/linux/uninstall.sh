@@ -111,6 +111,7 @@ echo ""
 
 remove_if_exists "$VST3_TARGET"
 remove_if_exists "$CLAP_TARGET"
+remove_if_exists "$LV2_TARGET"
 remove_if_exists "$APP_TARGET"
 
 echo ""
@@ -119,5 +120,6 @@ if ! "$SYSTEM"; then
   echo "Checked locations:"
   echo "  VST3 -> $VST3_DEST"
   echo "  CLAP -> $CLAP_DEST"
+  echo "  LV2   -> $LV2_DEST"
   echo "  Standalone -> $BIN_DEST"
 fi

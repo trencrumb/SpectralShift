@@ -14,7 +14,7 @@ Options:
   -y, --yes          Replace existing files without prompting.
   -h, --help         Show this message.
 Environment overrides:
-  VST3_DIR, CLAP_DIR, BIN_DIR can override user-mode destinations.
+  VST3_DIR, CLAP_DIR, LV2_DIR, BIN_DIR can override user-mode destinations.
 EOF
 }
 

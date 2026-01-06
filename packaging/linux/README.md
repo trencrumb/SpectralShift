@@ -11,7 +11,7 @@ Quick install (user)
 chmod +x install.sh 
 ./install.sh -y
 ```
-- Installs VST3 to `~/.vst3`, CLAP to `~/.clap`, standalone to `~/.local/bin`.
+- Installs VST3 to `~/.vst3`, CLAP to `~/.clap`, LV2 to `~/.lv2`, standalone to `~/.local/bin`.
 - Use `--dry-run` to see actions without copying.
 
 System-wide install
@@ -19,14 +19,14 @@ System-wide install
 ```bash
 sudo ./install.sh --system -y
 ```
-- Installs to `/usr/lib/vst3`, `/usr/lib/clap`, `/usr/local/bin`.
+- Installs to `/usr/lib/vst3`, `/usr/lib/clap`, `/usr/lib/lv2, `/usr/local/bin`.
 - Prompts for `sudo` if not run as root.
 
 Options
 -------
 - `--user` (default) or `--system`
 - `--bin-dir DIR` override standalone destination (respects `BIN_DIR` env)
-- `VST3_DIR`, `CLAP_DIR` env vars override user-mode plugin destinations
+- `VST3_DIR`, `CLAP_DIR`, `LV2_DIR` env vars override user-mode plugin destinations
 - `-y` replace existing files without prompting
 - `--dry-run` print actions only
 
