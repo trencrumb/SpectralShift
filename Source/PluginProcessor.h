@@ -88,6 +88,7 @@ public:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
 
     bool isSpectralReady { false };
+    static constexpr float semitonesRangeSt = 24.0f;
     // void setCurrentEnvelope(const std::vector<float>& envelope);
 
 

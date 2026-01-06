@@ -19,9 +19,11 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     );
     xyPad.setBackgroundColour(CustomLookAndFeel::Colors::backgroundDark);
 
+    float semitonesRange = SpectralShiftAudioProcessor::semitonesRangeSt;
+
     // Pitch semitones (X-axis) - hidden slider for XY pad
     pitchSemitonesSlider = std::make_unique<juce::Slider>(juce::Slider::RotaryVerticalDrag, juce::Slider::NoTextBox);
-    pitchSemitonesSlider->setRange(-12.0, 12.0, 0.01);
+    pitchSemitonesSlider->setRange(-semitonesRange, semitonesRange, 0.01);
     addAndMakeVisible(*pitchSemitonesSlider);
     pitchSemitonesAttachment = std::make_unique<Attachment>(audioProcessor.apvts, "PITCH_SEMITONES", *pitchSemitonesSlider);
 
@@ -40,9 +42,9 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     pitchSemitonesLabel->setColour(juce::Label::outlineColourId, CustomLookAndFeel::Colors::transparent);
     pitchSemitonesLabel->setFont(juce::FontOptions(14.0f, juce::Font::bold));
     pitchSemitonesLabel->setEditable(true);
-    pitchSemitonesLabel->onTextChange = [this]() {
+    pitchSemitonesLabel->onTextChange = [this, semitonesRange]() {
         float value = pitchSemitonesLabel->getText().retainCharacters("-0123456789.").getFloatValue();
-        value = juce::jlimit(-12.0f, 12.0f, value);
+        value = juce::jlimit(-semitonesRange, semitonesRange, value);
         if (auto* param = audioProcessor.apvts.getParameter("PITCH_SEMITONES"))
             param->setValueNotifyingHost(param->getNormalisableRange().convertTo0to1(value));
     };
@@ -54,7 +56,7 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
 
     // Formant semitones (Y-axis) - hidden slider for XY pad
     formantSemitonesSlider = std::make_unique<juce::Slider>(juce::Slider::RotaryVerticalDrag, juce::Slider::NoTextBox);
-    formantSemitonesSlider->setRange(-12.0, 12.0, 0.01);
+    formantSemitonesSlider->setRange(-semitonesRange, semitonesRange, 0.01);
     addAndMakeVisible(*formantSemitonesSlider);
     formantSemitonesAttachment = std::make_unique<Attachment>(audioProcessor.apvts, "FORMANT_SEMITONES", *formantSemitonesSlider);
 
@@ -73,9 +75,9 @@ SpectralShiftAudioProcessorEditor::SpectralShiftAudioProcessorEditor (SpectralSh
     formantSemitonesLabel->setColour(juce::Label::outlineColourId, CustomLookAndFeel::Colors::transparent);
     formantSemitonesLabel->setFont(juce::FontOptions(14.0f, juce::Font::bold));
     formantSemitonesLabel->setEditable(true);
-    formantSemitonesLabel->onTextChange = [this]() {
+    formantSemitonesLabel->onTextChange = [this, semitonesRange]() {
         float value = formantSemitonesLabel->getText().retainCharacters("-0123456789.").getFloatValue();
-        value = juce::jlimit(-12.0f, 12.0f, value);
+        value = juce::jlimit(-semitonesRange, semitonesRange, value);
         if (auto* param = audioProcessor.apvts.getParameter("FORMANT_SEMITONES"))
             param->setValueNotifyingHost(param->getNormalisableRange().convertTo0to1(value));
     };

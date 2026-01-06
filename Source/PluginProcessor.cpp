@@ -335,7 +335,8 @@ void SpectralShiftAudioProcessor::processSpectralShift(juce::AudioBuffer<float>&
 
     stretch.setTransposeSemitones(pitchSemitones, tonalityLimitNorm);
     stretch.setFormantSemitones(formantSemitones, formantCompensation);
-    stretch.setFormantBase(safeFormantBaseHz);
+    //stretch.setFormantBase(safeFormantBaseHz);
+    stretch.setFormantBase(0.0f);
 
     // Prepare input/output pointer arrays
     for (int ch = 0; ch < numChannels; ++ch)
@@ -441,7 +442,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor:
     // Pitch in semitones
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
         "PITCH_SEMITONES", "Pitch (semitones)",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "st",
+        juce::NormalisableRange<float>(-semitonesRangeSt, semitonesRangeSt, 0.01f), 0.0f, "st",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Pitch in cents
@@ -453,7 +454,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout SpectralShiftAudioProcessor:
     // Formant in semitones
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
         "FORMANT_SEMITONES", "Formant (semitones)",
-        juce::NormalisableRange<float>(-12.0f, 12.0f, 0.01f), 0.0f, "st",
+        juce::NormalisableRange<float>(-semitonesRangeSt, semitonesRangeSt, 0.01f), 0.0f, "st",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Formant in cents
