@@ -206,6 +206,8 @@ endif()
 
 juce_add_plugin(${PROJECT_NAME}
         COMPANY_NAME ${COMPANY_NAME}
+        VERSION ${PROJECT_VERSION}
+        BUNDLE_VERSION ${PROJECT_VERSION}
         ICON_BIG "packaging/resources/icon.png"
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
