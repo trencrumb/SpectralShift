@@ -137,21 +137,32 @@ jobs:
           mkdir -p packaging
 
           # Create individual PKG files for each plugin format
+          # AU - analyze and set BundleIsRelocatable to NO for proper replacement
+          pkgbuild --analyze --root "$(dirname "${{ env.AU_PATH }}")" au.plist
+          plutil -replace BundleIsRelocatable -bool NO au.plist
+          plutil -replace BundleIsVersionChecked -bool NO au.plist
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.au.pkg" \
             --version ${{ env.VERSION }} \
-            --component "${{ env.AU_PATH }}" \
+            --root "$(dirname "${{ env.AU_PATH }}")" \
+            --component-plist au.plist \
             --install-location "/Library/Audio/Plug-Ins/Components" \
             "packaging/${{ env.PRODUCT_NAME }}.au.pkg"
 
+          # VST3 - analyze and set BundleIsRelocatable to NO for proper replacement
+          pkgbuild --analyze --root "$(dirname "${{ env.VST3_PATH }}")" vst3.plist
+          plutil -replace BundleIsRelocatable -bool NO vst3.plist
+          plutil -replace BundleIsVersionChecked -bool NO vst3.plist
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.vst3.pkg" \
             --version ${{ env.VERSION }} \
-            --component "${{ env.VST3_PATH }}" \
+            --root "$(dirname "${{ env.VST3_PATH }}")" \
+            --component-plist vst3.plist \
             --install-location "/Library/Audio/Plug-Ins/VST3" \
             "packaging/${{ env.PRODUCT_NAME }}.vst3.pkg"
 
           # Standalone needs special handling to install in /Applications
           pkgbuild --analyze --root "$(dirname "${{ env.STANDALONE_PATH }}")" standalone.plist
           plutil -replace BundleIsRelocatable -bool NO standalone.plist
+          plutil -replace BundleIsVersionChecked -bool NO standalone.plist
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.app.pkg" \
             --version ${{ env.VERSION }} \
             --root "$(dirname "${{ env.STANDALONE_PATH }}")" \
@@ -159,15 +170,25 @@ jobs:
             --install-location "/Applications" \
             "packaging/${{ env.PRODUCT_NAME }}.app.pkg"
 
+          # CLAP - analyze and set BundleIsRelocatable to NO for proper replacement
+          pkgbuild --analyze --root "$(dirname "${{ env.CLAP_PATH }}")" clap.plist
+          plutil -replace BundleIsRelocatable -bool NO clap.plist
+          plutil -replace BundleIsVersionChecked -bool NO clap.plist
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.clap.pkg" \
             --version ${{ env.VERSION }} \
-            --component "${{ env.CLAP_PATH }}" \
+            --root "$(dirname "${{ env.CLAP_PATH }}")" \
+            --component-plist clap.plist \
             --install-location "/Library/Audio/Plug-Ins/CLAP" \
             "packaging/${{ env.PRODUCT_NAME }}.clap.pkg"
 
+          # LV2 - analyze and set BundleIsRelocatable to NO for proper replacement
+          pkgbuild --analyze --root "$(dirname "${{ env.LV2_PATH }}")" lv2.plist
+          plutil -replace BundleIsRelocatable -bool NO lv2.plist
+          plutil -replace BundleIsVersionChecked -bool NO lv2.plist
           pkgbuild --identifier "${{ env.BUNDLE_ID }}.lv2.pkg" \
             --version ${{ env.VERSION }} \
-            --root "${{ env.LV2_PATH }}" \
+            --root "$(dirname "${{ env.LV2_PATH }}")" \
+            --component-plist lv2.plist \
             --install-location "/Library/Audio/Plug-Ins/LV2" \
             "packaging/${{ env.PRODUCT_NAME }}.lv2.pkg"
 
