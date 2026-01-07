@@ -16,6 +16,9 @@ It’s loosely inspired by [Minimal Audio’s Formant Shift](https://www.minimal
 
 ## Installation
 
+Installation using the pre-built binaries by using the installers place the plugins in your system-wide plugin directories.
+*e.g.* `/Library/Audio/Plug-Ins/*pluginformat*` on macOS.
+
 ### macOS
 
 Tested on macOS 15.6.1 (Apple Silicon).
@@ -110,7 +113,8 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
 cmake --build build --config Release
 ```
 
-If `COPY_PLUGIN_AFTER_BUILD` is enabled, plugins are copied to 
+If `COPY_PLUGIN_AFTER_BUILD` is enabled, plugins are copied to user plugins directory after build.
+*e.g.* `~/Library/Audio/Plug-Ins/*pluginformat*/`
 
 #### Windows
 
@@ -148,6 +152,13 @@ Dependencies are fetched automatically via CPM:
 * Perfetto (optional for debugging)
 
 ## Troubleshooting
+
+**Issues of updating Plugins**
+This occurs if you have the same plugins installed in the system-wide plugin directory and the user plugins directory.
+(If you've built the plugins from source, but also installed the pre-built binaries, this may happen).
+To fix this, choose one location and keep the plugins there and remove the other.
+*e.g.* keep the plugins from the system-wide plugin directory and remove the plugins from the user plugins directory.
+this occurs due to plugins having the same UID.
 
 **macOS: “Apple Clang 16.0.x detected” warning**
 Dont worry. `-ffast-math` is disabled for this compiler due to a known SIMD issue mentioned in signalsmith's repo listed below.
