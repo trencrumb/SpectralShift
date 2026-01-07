@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 # Change to your project name
-project(SpectralShift VERSION 1.0.1)
+project(SpectralShift VERSION 0.1.0)
 set(COMPANY_NAME "trencrumb")
 set(PRODUCT_NAME "Spectral Shift")
 
