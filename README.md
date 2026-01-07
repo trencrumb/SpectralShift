@@ -33,7 +33,7 @@ Tested on Ubuntu 24.04 (x86_64).
 3. For a quick install, run:
 
    ```bash
-   ./install.sh
+   ./install.sh -y
    ```
 4. To uninstall:
 
@@ -49,114 +49,20 @@ Tested on Windows 25H2 (x86_64).
 2. Run the `.exe` installer and follow the instructions.
 3. The installer is not code signed, so Windows may show a warning about an unknown publisher. This is expected.
 
-## GitHub Actions (CI/CD)
-
-GitHub Actions are used to build and package the plugin on all supported platforms.
-
-### Workflows
-
-There are three separate workflows:
-
-* **Build macOS** (`.github/workflows/build-macos.yml`)
-  Builds, code signs, and notarizes the macOS installer.
-* **Build Linux** (`.github/workflows/build-linux.yml`)
-  Builds and packages the Linux binaries.
-* **Build Windows** (`.github/workflows/build-windows.yml`)
-  Builds the plugin and creates a Windows installer.
-
-### Triggers
-
-Workflows are currently set up for **manual runs only**.
-To enable automatic builds, uncomment the relevant lines in each workflow file:
-
-```yaml
-on:
-  workflow_dispatch:    # Manual trigger
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-```
-
-### Running a Workflow Manually
-
-1. Go to the repository on GitHub.
-2. Open the **Actions** tab.
-3. Select the workflow you want to run.
-4. Click **Run workflow**, choose a branch, and start the build.
-
-### Required Secrets (macOS only)
-
-macOS builds require signing and notarization credentials. Add the following secrets under:
-
-**Settings → Secrets and variables → Actions**
-
-| Secret Name              | Description                                                  |
-|--------------------------|--------------------------------------------------------------|
-| DEV_ID_CERT              | Base64-encoded Developer ID Application certificate (`.p12`) |
-| DEV_ID_CERT_PASSWORD     | Password for the `.p12` file                                 |
-| DEVELOPER_ID_APPLICATION | Developer ID Application identity name                       |
-| DEVELOPER_ID_INSTALLER   | Developer ID Installer identity name                         |
-| NOTARIZATION_USERNAME    | Apple ID email                                               |
-| NOTARIZATION_PASSWORD    | App-specific password                                        |
-| APPLE_TEAM_ID            | Apple Developer Team ID                                      |
-
-#### Exporting certificates as Base64
-
-1. Export both the **Developer ID Application** and **Developer ID Installer** certificates from Keychain Access or Xcode as a single `.p12` file.
-2. Convert to Base64:
-
-   ```bash
-   base64 -i Certificates.p12 | pbcopy
-   ```
-3. Paste the result into the `DEV_ID_CERT` secret.
-
-Linux and Windows builds do not require any secrets.
-
-### Build Artifacts
-
-To download build outputs:
-
-1. Open the **Actions** tab.
-2. Select a completed workflow run.
-3. Scroll to the **Artifacts** section.
-4. Download the installer for your platform:
-
-    * macOS: `Spectral Shift-*version*-macOS.pkg`
-    * Linux: `Spectral Shift-*version*-Linux.zip`
-    * Windows: `Spectral Shift-*version*-Windows.exe`
-
-## Customizing Builds
-
-### Change the version number
-
-Edit `CMakeLists.txt`:
-
-```cmake
-project(SpectralShift VERSION 0.0.0)
-```
-
-### Modify plugin formats
-
-Edit the `PLUGIN_FORMATS` variable in `CMakeLists.txt`:
-
-```cmake
-set(PLUGIN_FORMATS VST3 AU AUv3 LV2 Standalone)
-```
-
-## Building from Source (local)
+## Building from Source
 
 ### Prerequisites
 
 #### All platforms
 
 * CMake 3.24 or newer
-* Git (with submodules)
+* Git
 * C++20-compatible compiler
 
 #### macOS
 
 * Xcode (latest stable recommended)
-* Ninja (optional):
+* Ninja (optional but much faster build times):
 
   ```bash
   brew install ninja
@@ -204,26 +110,14 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
 cmake --build build --config Release
 ```
 
-If `COPY_PLUGIN_AFTER_BUILD` is enabled, plugins are copied to:
-
-* macOS: `~/Library/Audio/Plug-Ins/`
-* Linux: `~/.vst3/`, `~/.clap/`, `~/.lv2/`, `~/.local/bin/`
+If `COPY_PLUGIN_AFTER_BUILD` is enabled, plugins are copied to 
 
 #### Windows
-
-Using Ninja:
 
 ```bash
 git clone https://github.com/trencrumb/SpectralShift.git
 cd SpectralShift
 cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
-cmake --build build --config Release
-```
-
-Using Visual Studio:
-
-```bash
-cmake -B build -G "Visual Studio 17 2022"
 cmake --build build --config Release
 ```
 
@@ -235,11 +129,6 @@ build/SpectralShift_artefacts/Release/
 
 ### Build Options
 
-* Enable Perfetto profiling:
-
-  ```bash
-  cmake -B build -DPERFETTO=ON
-  ```
 * Enable PFFFT on Linux:
 
   ```bash
@@ -255,19 +144,19 @@ Dependencies are fetched automatically via CPM:
 * JUCE
 * signalsmith-stretch
 * clap-juce-extensions
-* PFFFT (optional)
-* Perfetto (optional)
+* PFFFT (optional on Linux mainly)
+* Perfetto (optional for debugging)
 
 ## Troubleshooting
 
 **macOS: “Apple Clang 16.0.x detected” warning**
-Dont worry. `-ffast-math` is disabled for this compiler due to a known SIMD issue.
+Dont worry. `-ffast-math` is disabled for this compiler due to a known SIMD issue mentioned in signalsmith's repo listed below.
 
 **Linux: missing JUCE dependencies**
 Ensure all prerequisite packages are installed, or install the equivalent packages for your distribution, I've only tested with Ubuntu and Debian.
 
 **Windows: Visual Studio build failures**
-Make sure the *Desktop development with C++* workload is installed from Visual Studio Installer. If issues persist, try building with Ninja.
+Make sure the *Desktop development with C++* workload is installed from Visual Studio Installer.
 
 ## References
 * [JUCE](https://juce.com/)
