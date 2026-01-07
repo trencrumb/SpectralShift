@@ -40,7 +40,7 @@ Copy these from the release folder:
 After installing
 ----------------
 - Re-scan plugins in your host (e.g. REAPER: Preferences → Plug-ins → VST → Re-scan).
-- CLAP users: ensure the host points to `~/.clap` (REAPER defaults to this).
+- CLAP users: ensure the host points to `~/.clap` (REAPER does this already).
 - Run the standalone from a terminal with `SpectralShift` to verify it launches.
 
 Uninstall 
