@@ -32,22 +32,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
       - name: Download macOS artifact
         uses: actions/download-artifact@v4
         with:
-          name: Spectral Shift-${{ github.ref_name }}-macOS
+          name: Spectral Shift-${{ steps.version.outputs.VERSION }}-macOS
           path: ./artifacts/macos
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v4
         with:
-          name: Spectral Shift-${{ github.ref_name }}-Windows
+          name: Spectral Shift-${{ steps.version.outputs.VERSION }}-Windows
           path: ./artifacts/windows
 
       - name: Download Linux artifact
         uses: actions/download-artifact@v4
         with:
-          name: Spectral Shift-${{ github.ref_name }}-Linux
+          name: Spectral Shift-${{ steps.version.outputs.VERSION }}-Linux
           path: ./artifacts/linux
 
       - name: Display artifact structure
