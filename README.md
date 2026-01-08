@@ -12,7 +12,7 @@ _More info about the fellowship can be found [here](https://github.com/trencrumb
 
 It’s loosely inspired by [Minimal Audio’s Formant Shift](https://www.minimal.audio/products/formant?srsltid=AfmBOoohvoIIFyv9GE80mIuqKwkI86pF-FlCWWH56WRS87ijlaBsKbu1), but takes a different approach by combining pitch and formant shifting into a 2D control space.
 
-<img src="resources/gui.png" width="400">
+<img src="resources/gui.jpg" width="400">
 
 ## Installation
 
