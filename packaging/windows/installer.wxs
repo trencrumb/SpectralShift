@@ -118,12 +118,14 @@
                     <Directory Id="LV2PluginFolder" Name="$(var.ProductName).lv2">
                         <Component Id="LV2Plugin" Guid="a7b8c9d0-e1f2-3456-0123-789012345678" Win64="$(var.Win64)">
                             <File Id="LV2Dll"
-                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\$(var.ProjectName).dll"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\$(var.ProductName).dll"
                                   KeyPath="yes"/>
                             <File Id="LV2Manifest"
                                   Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\manifest.ttl"/>
-                            <File Id="LV2Ttl"
-                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\$(var.ProjectName).ttl"/>
+                            <File Id="LV2Dsp"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\dsp.ttl"/>
+                            <File Id="LV2Ui"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\ui.ttl"/>
                         </Component>
                     </Directory>
                 </Directory>
