@@ -68,17 +68,6 @@ jobs:
           ./pluginval.exe --strictness-level 10 --verbose \
             --validate "${{ env.VST3_PATH }}"
 
-      - name: Debug - List build artifacts
-        run: |
-          echo "=== VST3 ==="
-          find ${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/Release/VST3 -type f 2>/dev/null || echo "VST3 not found"
-          echo "=== CLAP ==="
-          find ${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/Release/CLAP -type f 2>/dev/null || echo "CLAP not found"
-          echo "=== LV2 ==="
-          find ${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/Release/LV2 -type f 2>/dev/null || echo "LV2 not found"
-          echo "=== Standalone ==="
-          find ${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/Release/Standalone -type f 2>/dev/null || echo "Standalone not found"
-
       - name: Generate Installer (WiX)
         run: |
           WIX_PATH="/c/Program Files (x86)/WiX Toolset v3.14/bin"
