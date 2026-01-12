@@ -66,7 +66,7 @@ jobs:
           generate_release_notes: true
           files: |
             ./artifacts/macos/*.pkg
-            ./artifacts/windows/*.exe
+            ./artifacts/windows/*.msi
             ./artifacts/linux/*.zip
           body: |
             # Spectral Shift ${{ github.ref_name }}
@@ -74,16 +74,16 @@ jobs:
             ## Downloads
 
             - **macOS**: Universal binary (Apple Silicon + Intel)
-            - **Windows**: 64-bit installer
+            - **Windows**: 64-bit MSI installer
             - **Linux**: Portable archive (tested on Ubuntu 24.04)
 
             ## Installation
 
-            1. Download the `.pkg`, `.exe`, `.zip` file
+            1. Download the `.pkg`, `.msi`, or `.zip` file
             2. Close all DAWs before installing
             3. Install:
               * macOS: Double-click the `.pkg` file.
-              * Windows: Run the installer.
+              * Windows: Run the `.msi` installer.
               * Linux: Extract the archive and run `./install.sh -y`.
             4. Rescan plugins in your DAW
 

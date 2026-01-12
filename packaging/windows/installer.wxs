@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <?define ProductVersion = "$(var.VERSION)" ?>
+    <?define ProductName = "$(var.PRODUCT_NAME)" ?>
+    <?define ProjectName = "$(var.PROJECT_NAME)" ?>
+    <?define Publisher = "$(var.COMPANY_NAME)" ?>
+    <?define ProductUpgradeCode = "f8e2a3b1-7c4d-4e5f-9a6b-1c2d3e4f5a6b" ?>
+
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?define PlatformCommonFilesFolder = "CommonFiles64Folder" ?>
+
+    <Product Id="*"
+             UpgradeCode="$(var.ProductUpgradeCode)"
+             Name="$(var.ProductName)"
+             Version="$(var.ProductVersion)"
+             Manufacturer="$(var.Publisher)"
+             Language="1033">
+
+        <Package InstallerVersion="200"
+                 Compressed="yes"
+                 InstallScope="perMachine"
+                 Comments="$(var.ProductName) Windows Installer"
+                 Platform="x64"/>
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed."/>
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" CompressionLevel="high"/>
+
+        <Icon Id="ProductIcon" SourceFile="$(var.ProjectName)_artefacts\Release\Standalone\$(var.ProductName).exe"/>
+        <Property Id="ARPPRODUCTICON" Value="ProductIcon"/>
+        <Property Id="ARPHELPLINK" Value="https://github.com/trencrumb/SpectralShift"/>
+        <Property Id="ARPURLINFOABOUT" Value="https://github.com/trencrumb/SpectralShift"/>
+        <Property Id="ARPNOREPAIR" Value="1"/>
+
+        <WixVariable Id="WixUILicenseRtf" Value="..\packaging\windows\LICENSE.rtf"/>
+
+        <!-- Directory Structure -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+
+            <!-- Standalone: Program Files\Publisher\ProductName -->
+            <Directory Id="$(var.PlatformProgramFilesFolder)">
+                <Directory Id="PublisherFolder" Name="$(var.Publisher)">
+                    <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
+                        <Component Id="StandaloneApp" Guid="a1b2c3d4-e5f6-7890-abcd-ef1234567890" Win64="$(var.Win64)">
+                            <File Id="StandaloneExe"
+                                  Source="$(var.ProjectName)_artefacts\Release\Standalone\$(var.ProductName).exe"
+                                  KeyPath="yes"/>
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+
+            <!-- Start Menu Shortcuts -->
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ProgramMenuSubfolder" Name="$(var.ProductName)">
+                    <Component Id="StartMenuShortcuts" Guid="b2c3d4e5-f6a7-8901-bcde-f23456789012" Win64="$(var.Win64)">
+                        <Shortcut Id="ApplicationShortcut"
+                                  Name="$(var.ProductName)"
+                                  Description="$(var.ProductName) Audio Plugin"
+                                  Target="[INSTALLDIR]$(var.ProductName).exe"
+                                  WorkingDirectory="INSTALLDIR"/>
+                        <RemoveFolder Id="RemoveProgramMenuSubfolder" On="uninstall"/>
+                        <RegistryValue Root="HKCU"
+                                       Key="Software\$(var.Publisher)\$(var.ProductName)"
+                                       Name="installed"
+                                       Type="integer"
+                                       Value="1"
+                                       KeyPath="yes"/>
+                    </Component>
+                </Directory>
+            </Directory>
+
+            <!-- Common Files for plugins -->
+            <Directory Id="$(var.PlatformCommonFilesFolder)">
+
+                <!-- VST3: CommonFiles64\VST3\ProductName.vst3 -->
+                <Directory Id="VST3Folder" Name="VST3">
+                    <Directory Id="VST3PluginFolder" Name="$(var.ProductName).vst3">
+                        <Component Id="VST3RootFiles" Guid="e5f6a7b8-c9d0-1234-ef01-567890123456" Win64="$(var.Win64)">
+                            <File Id="VST3DesktopIni"
+                                  Source="$(var.ProjectName)_artefacts\Release\VST3\$(var.ProductName).vst3\desktop.ini"
+                                  KeyPath="yes"/>
+                            <File Id="VST3PluginIco"
+                                  Source="$(var.ProjectName)_artefacts\Release\VST3\$(var.ProductName).vst3\Plugin.ico"/>
+                        </Component>
+                        <Directory Id="VST3Contents" Name="Contents">
+                            <Directory Id="VST3Arch" Name="x86_64-win">
+                                <Component Id="VST3Binary" Guid="c3d4e5f6-a7b8-9012-cdef-345678901234" Win64="$(var.Win64)">
+                                    <File Id="VST3Dll"
+                                          Source="$(var.ProjectName)_artefacts\Release\VST3\$(var.ProductName).vst3\Contents\x86_64-win\$(var.ProductName).vst3"
+                                          KeyPath="yes"/>
+                                </Component>
+                            </Directory>
+                            <Directory Id="VST3Resources" Name="Resources">
+                                <Component Id="VST3ModuleInfo" Guid="d4e5f6a7-b8c9-0123-def0-456789012345" Win64="$(var.Win64)">
+                                    <File Id="VST3ModuleInfoJson"
+                                          Source="$(var.ProjectName)_artefacts\Release\VST3\$(var.ProductName).vst3\Contents\Resources\moduleinfo.json"
+                                          KeyPath="yes"/>
+                                </Component>
+                            </Directory>
+                        </Directory>
+                    </Directory>
+                </Directory>
+
+                <!-- CLAP: CommonFiles64\CLAP\ProductName.clap -->
+                <Directory Id="CLAPFolder" Name="CLAP">
+                    <Component Id="CLAPPlugin" Guid="f6a7b8c9-d0e1-2345-f012-678901234567" Win64="$(var.Win64)">
+                        <File Id="CLAPFile"
+                              Source="$(var.ProjectName)_artefacts\Release\CLAP\$(var.ProductName).clap"
+                              KeyPath="yes"/>
+                    </Component>
+                </Directory>
+
+                <!-- LV2: CommonFiles64\LV2\ProductName.lv2 -->
+                <Directory Id="LV2Folder" Name="LV2">
+                    <Directory Id="LV2PluginFolder" Name="$(var.ProductName).lv2">
+                        <Component Id="LV2Plugin" Guid="a7b8c9d0-e1f2-3456-0123-789012345678" Win64="$(var.Win64)">
+                            <File Id="LV2Dll"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\$(var.ProductName).dll"
+                                  KeyPath="yes"/>
+                            <File Id="LV2Manifest"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\manifest.ttl"/>
+                            <File Id="LV2Ttl"
+                                  Source="$(var.ProjectName)_artefacts\Release\LV2\$(var.ProductName).lv2\$(var.ProductName).ttl"/>
+                        </Component>
+                    </Directory>
+                </Directory>
+
+            </Directory>
+        </Directory>
+
+        <!-- Features (user-selectable) -->
+        <Feature Id="Standalone" Level="1" Title="Standalone Application" Description="Install the standalone application">
+            <ComponentRef Id="StandaloneApp"/>
+            <ComponentRef Id="StartMenuShortcuts"/>
+        </Feature>
+
+        <Feature Id="VST3" Level="1" Title="VST3 Plugin" Description="Install the VST3 plugin">
+            <ComponentRef Id="VST3RootFiles"/>
+            <ComponentRef Id="VST3Binary"/>
+            <ComponentRef Id="VST3ModuleInfo"/>
+        </Feature>
+
+        <Feature Id="CLAP" Level="1" Title="CLAP Plugin" Description="Install the CLAP plugin">
+            <ComponentRef Id="CLAPPlugin"/>
+        </Feature>
+
+        <Feature Id="LV2" Level="1" Title="LV2 Plugin" Description="Install the LV2 plugin">
+            <ComponentRef Id="LV2Plugin"/>
+        </Feature>
+
+        <!-- UI -->
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+        <UI>
+            <UIRef Id="WixUI_FeatureTree"/>
+        </UI>
+
+    </Product>
+</Wix>

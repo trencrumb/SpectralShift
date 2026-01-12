@@ -68,13 +68,27 @@ jobs:
           ./pluginval.exe --strictness-level 10 --verbose \
             --validate "${{ env.VST3_PATH }}"
 
-      - name: Generate Installer
+      - name: Generate Installer (WiX)
         run: |
-          iscc "packaging/windows/installer.iss"
-          mv "packaging/windows/Output/${{ env.ARTIFACT_NAME }}.exe" "${{ env.ARTIFACTS_PATH }}/"
+          WIX_PATH="/c/Program Files (x86)/WiX Toolset v3.14/bin"
+
+          cd ${{ env.BUILD_DIR }}
+
+          "$WIX_PATH/candle.exe" -arch x64 \
+            -dVERSION="${{ env.VERSION }}" \
+            -dPRODUCT_NAME="${{ env.PRODUCT_NAME }}" \
+            -dPROJECT_NAME="${{ env.PROJECT_NAME }}" \
+            -dCOMPANY_NAME="${{ env.COMPANY_NAME }}" \
+            -out installer.wixobj \
+            ../packaging/windows/installer.wxs
+
+          "$WIX_PATH/light.exe" \
+            -ext WixUIExtension \
+            -out "${{ env.ARTIFACT_NAME }}.msi" \
+            installer.wixobj
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.exe
+          path: ${{ env.BUILD_DIR }}/${{ env.ARTIFACT_NAME }}.msi
