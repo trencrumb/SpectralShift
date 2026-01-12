@@ -156,6 +156,5 @@
         <UI>
             <UIRef Id="WixUI_FeatureTree"/>
         </UI>
-
     </Product>
 </Wix>
